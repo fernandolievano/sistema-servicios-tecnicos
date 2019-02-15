@@ -15,6 +15,7 @@ class CreateCajasTable extends Migration
     {
         Schema::create('cajas', function (Blueprint $table) {
             $table->increments('id');
+            $table->float('total');
             $table->timestamps();
         });
     }

@@ -15,6 +15,13 @@ class CreateEquiposTable extends Migration
     {
         Schema::create('equipos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('equipo');
+            $table->string('modelo');
+            $table->string('descripcion');
+            $table->string('diagnostico');
+            $table->string('estado');
+            $table->integer('cliente_id')->unsigned();
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->timestamps();
         });
     }

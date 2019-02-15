@@ -15,6 +15,11 @@ class CreateInicialTicketsTable extends Migration
     {
         Schema::create('inicial_tickets', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('resumen');
+            $table->integer('cliente_id')->unsigned();
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->integer('equipo_id')->unsigned();
+            $table->foreign('equipo_id')->references('id')->on('equipos');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFinalTicketsTable extends Migration
+class CreateEquipoServicioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateFinalTicketsTable extends Migration
      */
     public function up()
     {
-        Schema::create('final_tickets', function (Blueprint $table) {
+        Schema::create('equipo_servicio', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('resumen');
-            $table->float('total');
-            $table->integer('cliente_id')->unsigned();
-            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->integer('equipo_id')->unsigned();
-            $table->foreign('equipo_id')->references('id')->on('equipos');
+            $table->integer('servicio_id')->unsigned();
+            $table->foreign('equipo_id')->references('id')->on('equipos')->onDelete('cascade');
+            $table->foreign('servicio_id')->references('id')->on('servicios')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,7 +30,6 @@ class CreateFinalTicketsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('final_tickets');
+        Schema::dropIfExists('equipo_servicio');
     }
 }
-;

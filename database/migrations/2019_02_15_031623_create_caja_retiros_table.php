@@ -15,6 +15,10 @@ class CreateCajaRetirosTable extends Migration
     {
         Schema::create('caja_retiros', function (Blueprint $table) {
             $table->increments('id');
+            $table->float('retiro');
+            $table->string('descripcion');
+            $table->integer('caja_id')->unsigned();
+            $table->foreign('caja_id')->references('id')->on('cajas');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class CreateRepuestosTable extends Migration
         Schema::create('repuestos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('repuesto');
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable();
             $table->integer('cantidad');
             $table->float('precio_unitario');
             $table->timestamps();

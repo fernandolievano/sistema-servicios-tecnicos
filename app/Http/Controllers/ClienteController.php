@@ -12,7 +12,7 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::with('equipos')->get();
 
-        return response()->json($clientes);
+        return response(Response::HTTP_OK)->json($clientes);
     }
 
     public function cliente()
@@ -41,6 +41,6 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         $cliente->delete();
 
-        return response();
+        return response(Response::HTTP_OK);
     }
 }

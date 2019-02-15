@@ -11,15 +11,26 @@
     },
     "devDependencies": {
         "axios": "^0.18",
-        "bootstrap": "^4.0.0",
+        "babel-eslint": "^10.0.1",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "eslint": "^5.13.0",
+        "eslint-config-prettier": "^4.0.0",
+        "eslint-plugin-prettier": "^3.0.1",
+        "eslint-plugin-vue": "^5.2.1",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.5",
-        "popper.js": "^1.12",
+        "prettier": "1.16.4",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
-        "vue": "^2.5.17"
+        "vue": "^2.5.17",
+        "vue-template-compiler": "^2.6.6"
+    },
+    "dependencies": {
+        "@babel/preset-env": "^7.3.1",
+        "babel-polyfill": "^6.26.0",
+        "vue-router": "^3.0.2",
+        "vuetify": "^1.5.1",
+        "vuex": "^3.1.0"
     }
 }

@@ -12,21 +12,22 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::with('equipos')->get();
 
-        return response(Response::HTTP_OK)->json($clientes);
+        return response()->json($clientes);
     }
 
     public function cliente()
     {
         $cliente = Cliente::where('id', $id)->with('equipos')->get();
 
-        return response(Response::HTTP_OK)->json($cliente);
+        return response()->json($cliente);
     }
 
     public function store(Request $request)
     {
-        Cliente::create($request->all());
+        $cliente = Cliente::create($request->all());
+        $id = $cliente->id;
 
-        return response(Response::HTTP_CREATED);
+        return response($id->jsonSerialize(), Response::HTTP_CREATED);
     }
 
     public function update(Request $request, $id)

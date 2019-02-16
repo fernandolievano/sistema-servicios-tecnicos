@@ -1,18 +1,20 @@
+/* eslint-disable no-unused-vars */
 import './bootstrap'
 import 'babel-polyfill'
 import 'vuetify/dist/vuetify.min.css'
 
-//vue
+// vue
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-Vue.use(Vuetify)
 
-//vue-router and vuex
+// vue-router and vuex
 import router from './router'
 import store from './store'
 
-//components
-import App from './components/App'
+// components
+import App from './components/App.vue'
+
+Vue.use(Vuetify)
 
 const app = new Vue({
     el: '#app',

@@ -2,10 +2,28 @@
     "root": true,
     "extends": [
         "plugin:vue/recommended",
-        "prettier/vue"
+        "prettier/vue",
+        "airbnb",
+        "prettier"
     ],
     "parserOptions": {
         "parser": "babel-eslint",
         "sourceType": "module"
+    },
+    "plugins": [
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "error"
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "vars": "all",
+                "args": "after-used",
+                "ignoreRestSiblings": false
+            }
+        ]
     }
 }

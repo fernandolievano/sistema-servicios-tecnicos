@@ -36,60 +36,60 @@
                         </v-card-title>
                     </v-responsive>
                     <v-card-actions>
-                        <v-layout row wrap>
-                            <v-flex>
-                                <v-tooltip top>
-                                    <template #activator="data">
-                                        <v-btn color="primary" fab small v-on="data.on">
-                                            <v-icon>
-                                                add
-                                            </v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Nuevo Equipo</span>
-                                </v-tooltip>
-                            </v-flex>
-                            <v-flex>
-                                <v-tooltip top>
-                                    <template #activator="data">
-                                        <v-btn color="info" fab small v-on="data.on">
-                                            <v-icon>
-                                                devices_other
-                                            </v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Equipos</span>
-                                </v-tooltip>
-                            </v-flex>
-                            <v-flex>
-                                <v-tooltip top>
-                                    <template #activator="data">
-                                        <v-btn color="warning" fab small v-on="data.on">
-                                            <v-icon>
-                                                edit
-                                            </v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Editar Información</span>
-                                </v-tooltip>
-                            </v-flex>
-                            <v-flex>
-                                <v-tooltip top>
-                                    <template #activator="data">
-                                        <v-btn
-                                            color="error"
-                                            fab
-                                            small
-                                            v-on="data.on"
-                                            @click.prevent="eliminar(cliente)"
-                                        >
-                                            <v-icon>clear</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Eliminar cliente</span>
-                                </v-tooltip>
-                            </v-flex>
-                        </v-layout>
+                        <v-container grid-list-xs class="text-xs-center">
+                            <v-layout row wrap>
+                                <v-flex>
+                                    <v-tooltip top>
+                                        <template #activator="data">
+                                            <v-btn
+                                                color="success"
+                                                fab
+                                                small
+                                                depressed
+                                                v-on="data.on"
+                                            >
+                                                <v-icon>
+                                                    add
+                                                </v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Nuevo Equipo</span>
+                                    </v-tooltip>
+                                </v-flex>
+                                <v-flex>
+                                    <v-tooltip top>
+                                        <template #activator="data">
+                                            <v-btn color="info" fab small depressed v-on="data.on">
+                                                <v-icon>
+                                                    devices_other
+                                                </v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Equipos</span>
+                                    </v-tooltip>
+                                </v-flex>
+                                <v-flex>
+                                    <editar-cliente :id="cliente.id"></editar-cliente>
+                                </v-flex>
+                                <v-flex>
+                                    <v-tooltip top>
+                                        <template #activator="data">
+                                            <v-btn
+                                                color="error"
+                                                fab
+                                                depressed
+                                                small
+                                                v-on="data.on"
+                                                @click.prevent="eliminar(cliente)"
+                                            >
+                                                <v-icon>clear</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Eliminar cliente</span>
+                                    </v-tooltip>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -103,6 +103,9 @@ import swal from 'sweetalert'
 import { mapState } from 'vuex'
 
 export default {
+    components: {
+        EditarCliente: () => import('./ClienteEditar.vue')
+    },
     computed: {
         ...mapState(['clientes'])
     },

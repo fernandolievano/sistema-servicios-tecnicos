@@ -9,7 +9,9 @@ Vue.use(Vuex, axios)
 export default new Vuex.Store({
     state: {
         clientes: [],
-        clienteID: ''
+        cliente: {},
+        clienteID: '',
+        equipos: []
     },
     actions: {
         indexClientes({ commit }) {
@@ -23,6 +25,19 @@ export default new Vuex.Store({
                 .catch(error => {
                     console.error(error)
                 })
+        },
+        indexEquipos({ commit }) {
+            const url = '/api/v1/equipos/get'
+
+            axios
+                .get(url)
+                .then(response => {
+                    const equipos = response.data
+                    commit('SET_EQUIPOS', equipos)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
         }
     },
     mutations: {
@@ -32,11 +47,16 @@ export default new Vuex.Store({
         SET_CLIENTE_ID(state, id) {
             state.clienteID = id
         },
+        SET_EQUIPOS(state, equipos) {
+            state.equipos = equipos
+        },
         CLEAR_ID(state) {
             state.clienteID = ''
         }
     },
     getters: {
-        //
+        clienteByID: state => id => {
+            return state.clientes.find(cliente => cliente.id === id)
+        }
     }
 })

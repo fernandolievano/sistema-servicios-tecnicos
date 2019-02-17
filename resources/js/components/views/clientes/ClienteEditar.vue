@@ -6,7 +6,7 @@
             </v-icon>
         </v-btn>
         <v-card>
-            <v-toolbar dark color="amber darken-1">
+            <v-toolbar dark color="warning">
                 <v-btn icon dark @click="closeThis">
                     <v-icon>close</v-icon>
                 </v-btn>

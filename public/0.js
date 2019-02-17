@@ -111,12 +111,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -124,6 +118,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     EditarCliente: function EditarCliente() {
       return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./ClienteEditar.vue */ "./resources/js/components/views/clientes/ClienteEditar.vue"));
+    },
+    EquiposCliente: function EquiposCliente() {
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./ClienteEquipos.vue */ "./resources/js/components/views/clientes/ClienteEquipos.vue"));
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])(['clientes'])),
@@ -166,7 +163,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* html {\n    border-top: 15px solid black;\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* html {\n    border-top: 15px solid black;\n} */\n", ""]);
 
 // exports
 
@@ -402,47 +399,12 @@ var render = function() {
                               _c(
                                 "v-flex",
                                 [
-                                  _c(
-                                    "v-tooltip",
-                                    {
-                                      attrs: { top: "" },
-                                      scopedSlots: _vm._u([
-                                        {
-                                          key: "activator",
-                                          fn: function(data) {
-                                            return [
-                                              _c(
-                                                "v-btn",
-                                                _vm._g(
-                                                  {
-                                                    attrs: {
-                                                      color: "info",
-                                                      fab: "",
-                                                      small: "",
-                                                      depressed: ""
-                                                    }
-                                                  },
-                                                  data.on
-                                                ),
-                                                [
-                                                  _c("v-icon", [
-                                                    _vm._v(
-                                                      "\n                                                devices_other\n                                            "
-                                                    )
-                                                  ])
-                                                ],
-                                                1
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ])
-                                    },
-                                    [
-                                      _vm._v(" "),
-                                      _c("span", [_vm._v("Equipos")])
-                                    ]
-                                  )
+                                  _c("equipos-cliente", {
+                                    attrs: {
+                                      cliente: cliente.nombre,
+                                      equipos: cliente.equipos
+                                    }
+                                  })
                                 ],
                                 1
                               ),

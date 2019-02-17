@@ -57,16 +57,10 @@
                                     </v-tooltip>
                                 </v-flex>
                                 <v-flex>
-                                    <v-tooltip top>
-                                        <template #activator="data">
-                                            <v-btn color="info" fab small depressed v-on="data.on">
-                                                <v-icon>
-                                                    devices_other
-                                                </v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <span>Equipos</span>
-                                    </v-tooltip>
+                                    <equipos-cliente
+                                        :cliente="cliente.nombre"
+                                        :equipos="cliente.equipos"
+                                    ></equipos-cliente>
                                 </v-flex>
                                 <v-flex>
                                     <editar-cliente :id="cliente.id"></editar-cliente>
@@ -104,7 +98,8 @@ import { mapState } from 'vuex'
 
 export default {
     components: {
-        EditarCliente: () => import('./ClienteEditar.vue')
+        EditarCliente: () => import('./ClienteEditar.vue'),
+        EquiposCliente: () => import('./ClienteEquipos.vue')
     },
     computed: {
         ...mapState(['clientes'])

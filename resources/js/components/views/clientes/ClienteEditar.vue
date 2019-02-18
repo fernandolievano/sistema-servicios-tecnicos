@@ -10,7 +10,7 @@
                 <v-btn icon dark @click="closeThis">
                     <v-icon>close</v-icon>
                 </v-btn>
-                <v-toolbar-title>Editar información personal</v-toolbar-title>
+                <v-toolbar-title>Editar información personal </v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
                     <v-btn dark flat @click.prevent="actualizar(id)">Guardar cambios</v-btn>

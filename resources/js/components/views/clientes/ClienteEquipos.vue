@@ -15,6 +15,11 @@
             </v-toolbar>
             <v-container grid-list-xs>
                 <v-layout row wrap>
+                    <v-flex v-if="numeroDeEquipos < 1" xs12>
+                        <v-alert type="warning" :value="true">
+                            No hay equipos para mostrar
+                        </v-alert>
+                    </v-flex>
                     <v-flex v-for="item in equipos" :key="item.id" md8 xs12>
                         <v-card>
                             <v-card-title primary-title>
@@ -73,11 +78,20 @@ export default {
         cliente: {
             type: String,
             default: 'Cliente'
+        },
+        idCliente: {
+            type: Number,
+            default: 0
         }
     },
     data: () => ({
         dialog: false
-    })
+    }),
+    computed: {
+        numeroDeEquipos() {
+            return this.equipos.length
+        }
+    }
 }
 </script>
 

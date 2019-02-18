@@ -60,6 +60,7 @@
                                     <equipos-cliente
                                         :cliente="cliente.nombre"
                                         :equipos="cliente.equipos"
+                                        :id-cliente="cliente.id"
                                     ></equipos-cliente>
                                 </v-flex>
                                 <v-flex>

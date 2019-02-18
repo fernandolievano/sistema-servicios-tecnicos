@@ -2,7 +2,7 @@
     <v-form ref="formcliente" v-model="valid" lazy-validation @submit.prevent="store">
         <v-container>
             <v-layout row wrap>
-                <v-flex xs12>
+                <v-flex sm10 offset-sm1 offset-md2 md8 xs12>
                     <v-card>
                         <v-card-title primary-title>
                             <h2 class="display-3">Registrar nuevo cliente</h2>
@@ -19,7 +19,7 @@
                         <v-responsive>
                             <v-container>
                                 <v-layout row wrap>
-                                    <v-flex xs12 sm8>
+                                    <v-flex xs12>
                                         <v-text-field
                                             v-model="formulario.nombre"
                                             label="Nombre"
@@ -27,7 +27,7 @@
                                             :rules="generales"
                                         ></v-text-field>
                                     </v-flex>
-                                    <v-flex xs12 sm8>
+                                    <v-flex xs12>
                                         <v-text-field
                                             v-model="formulario.apellido"
                                             label="Apellido"
@@ -35,7 +35,7 @@
                                             :rules="generales"
                                         ></v-text-field>
                                     </v-flex>
-                                    <v-flex xs12 sm8>
+                                    <v-flex xs12>
                                         <v-text-field
                                             v-model="formulario.direccion"
                                             label="Dirección"
@@ -43,7 +43,7 @@
                                             :rules="generales"
                                         ></v-text-field>
                                     </v-flex>
-                                    <v-flex xs12 sm8>
+                                    <v-flex xs12>
                                         <v-text-field
                                             v-model="formulario.telefono"
                                             label="Teléfono"
@@ -51,14 +51,16 @@
                                             :rules="generales"
                                         ></v-text-field>
                                     </v-flex>
-                                    <v-flex xs12 sm8>
+                                    <v-flex xs12>
                                         <v-text-field
                                             v-model="formulario.email"
                                             label="E-mail"
                                         ></v-text-field>
                                     </v-flex>
-                                    <v-flex xs12 sm8>
-                                        <v-btn type="submit" large color="success">Registar</v-btn>
+                                    <v-flex xs12>
+                                        <v-btn type="submit" block large color="success"
+                                            >Registar</v-btn
+                                        >
                                     </v-flex>
                                 </v-layout>
                             </v-container>
@@ -93,14 +95,13 @@ export default {
 
             axios
                 .post(url, params)
-                .then(response => {
+                .then(() => {
                     this.$store.dispatch('indexClientes')
                     this.$refs.formcliente.reset()
                     this.success = true
-                    console.log(response.data)
                 })
                 .catch(error => {
-                    console.log(error)
+                    this.errors = error
                 })
         }
     }

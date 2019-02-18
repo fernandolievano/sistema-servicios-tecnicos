@@ -8,7 +8,6 @@ $factory->define(App\Equipo::class, function (Faker $faker) {
         'modelo' => $faker->word,
         'descripcion' => $faker->sentence,
         'diagnostico' => $faker->sentence,
-        'estado' => $faker->word,
-        'cliente_id' => $faker->randomDigit
+        'estado' => 'En Reparación',
     ];
 });

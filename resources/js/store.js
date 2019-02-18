@@ -11,7 +11,8 @@ export default new Vuex.Store({
         clientes: [],
         cliente: {},
         clienteID: '',
-        equipos: []
+        equipos: [],
+        servicios: []
     },
     actions: {
         indexClientes({ commit }) {
@@ -19,8 +20,7 @@ export default new Vuex.Store({
             axios
                 .get(url)
                 .then(response => {
-                    const clientes = response.data
-                    commit('SET_CLIENTES', clientes)
+                    commit('SET_CLIENTES', response.data)
                 })
                 .catch(error => {
                     console.error(error)
@@ -32,8 +32,19 @@ export default new Vuex.Store({
             axios
                 .get(url)
                 .then(response => {
-                    const equipos = response.data
-                    commit('SET_EQUIPOS', equipos)
+                    commit('SET_EQUIPOS', response.data)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        },
+        indexServicios({ commit }) {
+            const url = '/api/v1/servicios/get'
+
+            axios
+                .get(url)
+                .then(response => {
+                    commit('SET_SERVICIOS', response.data)
                 })
                 .catch(error => {
                     console.error(error)
@@ -50,6 +61,9 @@ export default new Vuex.Store({
         SET_EQUIPOS(state, equipos) {
             state.equipos = equipos
         },
+        SET_SERVICIOS(state, servicios) {
+            state.servicios = servicios
+        },
         CLEAR_ID(state) {
             state.clienteID = ''
         }
@@ -57,6 +71,9 @@ export default new Vuex.Store({
     getters: {
         clienteByID: state => id => {
             return state.clientes.find(cliente => cliente.id === id)
+        },
+        equiposDeCliente: (state, getters, id) => {
+            return getters.clienteByID(id).equipos
         }
     }
 })

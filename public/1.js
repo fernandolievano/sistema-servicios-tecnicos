@@ -196,7 +196,7 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c("v-toolbar-title", [_vm._v("Editar información personal")]),
+              _c("v-toolbar-title", [_vm._v("Editar información personal ")]),
               _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),

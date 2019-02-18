@@ -73178,19 +73178,19 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/clientes',
     name: 'clientes',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./components/views/clientes/Clientes.vue */ "./resources/js/components/views/clientes/Clientes.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/views/clientes/Clientes.vue */ "./resources/js/components/views/clientes/Clientes.vue"));
     }
   }, {
     path: '/servicios',
     name: 'servicios',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
     }
   }, {
     path: '/repuestos',
     name: 'repuestos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
     }
   }]
 });
@@ -73237,15 +73237,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     clientes: [],
     cliente: {},
     clienteID: '',
-    equipos: []
+    equipos: [],
+    servicios: []
   },
   actions: {
     indexClientes: function indexClientes(_ref) {
       var commit = _ref.commit;
       var url = '/api/v1/clientes/get';
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
-        var clientes = response.data;
-        commit('SET_CLIENTES', clientes);
+        commit('SET_CLIENTES', response.data);
       }).catch(function (error) {
         console.error(error);
       });
@@ -73254,8 +73254,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var commit = _ref2.commit;
       var url = '/api/v1/equipos/get';
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
-        var equipos = response.data;
-        commit('SET_EQUIPOS', equipos);
+        commit('SET_EQUIPOS', response.data);
+      }).catch(function (error) {
+        console.error(error);
+      });
+    },
+    indexServicios: function indexServicios(_ref3) {
+      var commit = _ref3.commit;
+      var url = '/api/v1/servicios/get';
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
+        commit('SET_SERVICIOS', response.data);
       }).catch(function (error) {
         console.error(error);
       });
@@ -73271,6 +73279,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     SET_EQUIPOS: function SET_EQUIPOS(state, equipos) {
       state.equipos = equipos;
     },
+    SET_SERVICIOS: function SET_SERVICIOS(state, servicios) {
+      state.servicios = servicios;
+    },
     CLEAR_ID: function CLEAR_ID(state) {
       state.clienteID = '';
     }
@@ -73282,6 +73293,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           return cliente.id === id;
         });
       };
+    },
+    equiposDeCliente: function equiposDeCliente(state, getters, id) {
+      return getters.clienteByID(id).equipos;
     }
   }
 }));

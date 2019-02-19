@@ -12,7 +12,8 @@ export default new Vuex.Store({
         cliente: {},
         clienteID: '',
         equipos: [],
-        servicios: []
+        servicios: [],
+        repuestos: []
     },
     actions: {
         indexClientes({ commit }) {
@@ -49,6 +50,18 @@ export default new Vuex.Store({
                 .catch(error => {
                     console.error(error)
                 })
+        },
+        indexRepuestos({ commit }) {
+            const url = '/api/v1/repuestos/get'
+
+            axios
+                .get(url)
+                .then(response => {
+                    commit('SET_REPUESTOS', response.data)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
         }
     },
     mutations: {
@@ -63,6 +76,9 @@ export default new Vuex.Store({
         },
         SET_SERVICIOS(state, servicios) {
             state.servicios = servicios
+        },
+        SET_REPUESTOS(state, repuestos) {
+            state.repuestos = repuestos
         },
         CLEAR_ID(state) {
             state.clienteID = ''

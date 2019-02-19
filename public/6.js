@@ -13,7 +13,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Repuestos',
+  components: {
+    NuevoRepuesto: function NuevoRepuesto() {
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./RepuestoNuevo */ "./resources/js/components/views/repuestos/RepuestoNuevo.vue"));
+    }
+  },
+  data: function data() {
+    return {
+      active: 0
+    };
+  }
+});
 
 /***/ }),
 
@@ -32,7 +61,60 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("REPUESTOS")])
+  return _c(
+    "div",
+    [
+      _c(
+        "v-tabs",
+        {
+          attrs: {
+            color: "transparent",
+            centered: "",
+            "icons-and-text": "",
+            light: "",
+            "slider-color": "green darken-2"
+          },
+          model: {
+            value: _vm.active,
+            callback: function($$v) {
+              _vm.active = $$v
+            },
+            expression: "active"
+          }
+        },
+        [
+          _c(
+            "v-tab",
+            [_vm._v("Lista de Repuestos "), _c("v-icon", [_vm._v("memory")])],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-tab",
+            [_vm._v("Nuevo Repuesto "), _c("v-icon", [_vm._v("add")])],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-tabs-items",
+        {
+          model: {
+            value: _vm.active,
+            callback: function($$v) {
+              _vm.active = $$v
+            },
+            expression: "active"
+          }
+        },
+        [_c("v-tab-item", [_c("nuevo-repuesto")], 1)],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

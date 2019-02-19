@@ -73238,7 +73238,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     cliente: {},
     clienteID: '',
     equipos: [],
-    servicios: []
+    servicios: [],
+    repuestos: []
   },
   actions: {
     indexClientes: function indexClientes(_ref) {
@@ -73267,6 +73268,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       }).catch(function (error) {
         console.error(error);
       });
+    },
+    indexRepuestos: function indexRepuestos(_ref4) {
+      var commit = _ref4.commit;
+      var url = '/api/v1/repuestos/get';
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
+        commit('SET_REPUESTOS', response.data);
+      }).catch(function (error) {
+        console.error(error);
+      });
     }
   },
   mutations: {
@@ -73281,6 +73291,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     SET_SERVICIOS: function SET_SERVICIOS(state, servicios) {
       state.servicios = servicios;
+    },
+    SET_REPUESTOS: function SET_REPUESTOS(state, repuestos) {
+      state.repuestos = repuestos;
     },
     CLEAR_ID: function CLEAR_ID(state) {
       state.clienteID = '';

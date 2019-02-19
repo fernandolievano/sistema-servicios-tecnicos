@@ -1,13 +1,13 @@
 <template>
-    <v-form ref="formservicio" v-model="valid" lazy-validation @submit.prevent="store">
+    <v-form ref="formrepuesto" v-model="valid" lazy-validation @submit.prevent="store">
         <v-container grid-list-xs>
             <v-layout row wrap>
                 <v-flex sm10 offset-sm1 offset-md2 md8>
                     <v-card>
-                        <v-card-title primary-title>
+                        <v-card-title>
                             <v-layout row wrap>
                                 <v-flex xs12>
-                                    <h2 class="display-3">Nuevo Servicio</h2>
+                                    <h2 class="display-3">Nuevo Repuesto</h2>
                                 </v-flex>
                                 <v-flex xs12>
                                     <v-alert
@@ -16,7 +16,7 @@
                                         dismissable
                                         transition="scale-transition"
                                     >
-                                        Nuevo servicio añadido exitosamente
+                                        Nuevo repuesto añadido exitosamente
                                     </v-alert>
                                 </v-flex>
                             </v-layout>
@@ -26,25 +26,33 @@
                                 <v-layout row wrap>
                                     <v-flex xs12>
                                         <v-text-field
-                                            v-model="formulario.titulo"
-                                            label="Título del servicio"
-                                            required
+                                            v-model="formulario.repuesto"
+                                            name="repuesto"
+                                            label="Repuesto"
                                             :rules="generales"
                                         ></v-text-field>
                                     </v-flex>
                                     <v-flex xs12>
                                         <v-text-field
                                             v-model="formulario.descripcion"
-                                            label="Descripción del servicio"
-                                            required
+                                            name="descripcion"
+                                            label="Descripción"
                                             :rules="generales"
                                         ></v-text-field>
                                     </v-flex>
                                     <v-flex xs12>
                                         <v-text-field
-                                            v-model.number="formulario.valor"
-                                            label="Valor que tendrá el servicio"
-                                            required
+                                            v-model.number="formulario.cantidad"
+                                            name="cantidad"
+                                            label="Cantidad o Stock"
+                                            :rules="generales"
+                                        ></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12>
+                                        <v-text-field
+                                            v-model.number="formulario.precio_unitario"
+                                            name="precio_unitario"
+                                            label="Precio unitario"
                                             :rules="generales"
                                         ></v-text-field>
                                     </v-flex>
@@ -78,31 +86,31 @@
 import axios from 'axios'
 
 export default {
+    name: 'NuevoRepuesto',
     data: () => ({
         valid: false,
         success: false,
         formulario: {
-            titulo: '',
-            descripcion: '',
-            valor: ''
+            repuesto: null,
+            descripcion: null,
+            cantidad: null,
+            precio_unitario: null
         },
         generales: [v => !!v || 'Este campo es requerido']
     }),
     methods: {
         store() {
-            const url = '/api/v1/servicios/store'
-
-            this.formulario.valor = this.formulario.valor.toFixed(2)
+            const url = `/api/v1/repuestos/store`
 
             const params = Object.assign({}, this.formulario)
 
             axios.post(url, params).then(() => {
                 this.success = true
-                this.$store.dispatch('indexServicios')
+                this.$store.dispatch('indexRepuestos')
             })
         },
         another() {
-            this.$refs.formservicio.reset()
+            this.$refs.formrepuesto.reset()
             this.success = false
         }
     }

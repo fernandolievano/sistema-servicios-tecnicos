@@ -12,7 +12,7 @@ class RepuestoController extends Controller
     {
         $repuestos = Repuesto::all();
 
-        return response(Response::HTTP_OK)->json($repuestos);
+        return response()->json($repuestos);
     }
 
     public function repuesto($id)

@@ -265,7 +265,7 @@ var render = function() {
                                   _c(
                                     "v-list",
                                     {
-                                      attrs: { "two-line": "", subheader: "" }
+                                      attrs: { "three-line": "", subheader: "" }
                                     },
                                     [
                                       _c("v-subheader", [

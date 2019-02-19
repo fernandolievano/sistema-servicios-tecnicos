@@ -11,7 +11,7 @@
                                     <h3 v-text="cliente.apellido"></h3>
                                 </v-flex>
                                 <v-flex xs12>
-                                    <v-list two-line subheader>
+                                    <v-list three-line subheader>
                                         <v-subheader>Información de contacto</v-subheader>
 
                                         <v-list-tile>

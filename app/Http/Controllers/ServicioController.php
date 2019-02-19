@@ -12,14 +12,14 @@ class ServicioController extends Controller
     {
         $servicios = Servicio::all();
 
-        return response(Response::HTTP_OK)->json($servicios);
+        return response()->json($servicios);
     }
 
     public function servicio($id)
     {
         $servicio = Servicio::findOrFail($id);
 
-        return response(Response::HTTP_OK)->json($servicio);
+        return response()->json($servicio);
     }
 
     public function store(Request $request)

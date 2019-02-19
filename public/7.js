@@ -30,8 +30,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
+    IndexServicios: function IndexServicios() {
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./ServiciosIndex.vue */ "./resources/js/components/views/servicios/ServiciosIndex.vue"));
+    },
     NuevoServicio: function NuevoServicio() {
       return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./ServicioNuevo.vue */ "./resources/js/components/views/servicios/ServicioNuevo.vue"));
     }
@@ -97,7 +103,24 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-tabs-items", [_c("v-tab-item", [_c("nuevo-servicio")], 1)], 1)
+      _c(
+        "v-tabs-items",
+        {
+          model: {
+            value: _vm.active,
+            callback: function($$v) {
+              _vm.active = $$v
+            },
+            expression: "active"
+          }
+        },
+        [
+          _c("v-tab-item", [_c("index-servicios")], 1),
+          _vm._v(" "),
+          _c("v-tab-item", [_c("nuevo-servicio")], 1)
+        ],
+        1
+      )
     ],
     1
   )

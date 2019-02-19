@@ -39,7 +39,7 @@ __webpack_require__.r(__webpack_exports__);
       return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./ClienteNuevo.vue */ "./resources/js/components/views/clientes/ClienteNuevo.vue"));
     },
     indexClientes: function indexClientes() {
-      return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ./ClientesIndex.vue */ "./resources/js/components/views/clientes/ClientesIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(9), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ./ClientesIndex.vue */ "./resources/js/components/views/clientes/ClientesIndex.vue"));
     }
   },
   data: function data() {

@@ -36,7 +36,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     IndexServicios: function IndexServicios() {
-      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./ServiciosIndex.vue */ "./resources/js/components/views/servicios/ServiciosIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! ./ServiciosIndex.vue */ "./resources/js/components/views/servicios/ServiciosIndex.vue"));
     },
     NuevoServicio: function NuevoServicio() {
       return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./ServicioNuevo.vue */ "./resources/js/components/views/servicios/ServicioNuevo.vue"));

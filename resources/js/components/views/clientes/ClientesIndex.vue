@@ -94,8 +94,8 @@
 
 <script>
 import axios from 'axios'
-import swal from 'sweetalert'
 import { mapState } from 'vuex'
+import Swal from 'sweetalert2'
 
 export default {
     components: {
@@ -110,18 +110,22 @@ export default {
     },
     methods: {
         eliminar(cliente) {
-            swal({
-                title: `¿Estás de eliminar a ${cliente.nombre} ${
+            Swal.fire({
+                title: `¿Estás seguro de eliminar a ${cliente.nombre} ${
                     cliente.apellido
                 } de la lista de clientes?`,
-                icon: 'warning',
-                buttons: ['No', 'Sí, estoy seguro']
-            }).then(value => {
-                if (value) {
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, estoy seguro',
+                cancelButtonText: 'Cancelar'
+            }).then(result => {
+                if (result.value) {
                     const url = `/api/v1/clientes/${cliente.id}`
 
                     axios.delete(url).then(() => {
-                        swal('Usuario eliminado', '...', 'success')
+                        Swal.fire('Usuario eliminado', '...', 'success')
                         this.$store.dispatch('indexClientes')
                     })
                 }

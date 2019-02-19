@@ -38,10 +38,20 @@
                         <v-container grid-list-xs class="text-xs-center">
                             <v-layout row wrap>
                                 <v-flex>
-                                    <v-btn flat fab color="warning">Editar</v-btn>
+                                    <v-btn small depressed fab color="warning">
+                                        <v-icon>edit</v-icon>
+                                    </v-btn>
                                 </v-flex>
                                 <v-flex>
-                                    <v-btn color="error">Eliminar</v-btn>
+                                    <v-btn
+                                        fab
+                                        small
+                                        depressed
+                                        color="error"
+                                        @click.prevent="eliminar(item)"
+                                    >
+                                        <v-icon>clear</v-icon>
+                                    </v-btn>
                                 </v-flex>
                             </v-layout>
                         </v-container>
@@ -53,6 +63,8 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import Swal from 'sweetalert2'
+import axios from 'axios'
 
 export default {
     name: 'IndexServicios',
@@ -69,6 +81,31 @@ export default {
             formato = `$${formato}`
 
             return formato
+        },
+        eliminar(servicio) {
+            const message = `¿Estás seguro de dar de baja al servicio ${servicio.titulo}?`
+
+            Swal.fire({
+                title: message,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, estoy seguro',
+                cancelButtonText: 'Cancelar'
+            }).then(result => {
+                if (result.value) {
+                    const url = `/api/v1/servicios/${servicio.id}`
+
+                    axios.delete(url).then(() => {
+                        Swal.fire({
+                            title: 'Servicio eliminado exitosamente',
+                            type: 'success'
+                        })
+                        this.$store.dispatch('indexServicios')
+                    })
+                }
+            })
         }
     }
 }

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************!*\
@@ -10,6 +10,10 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -71,6 +75,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'IndexServicios',
@@ -86,6 +98,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formato = valor.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
       formato = "$".concat(formato);
       return formato;
+    },
+    eliminar: function eliminar(servicio) {
+      var _this = this;
+
+      var message = "\xBFEst\xE1s seguro de dar de baja al servicio ".concat(servicio.titulo, "?");
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+        title: message,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, estoy seguro',
+        cancelButtonText: 'Cancelar'
+      }).then(function (result) {
+        if (result.value) {
+          var url = "/api/v1/servicios/".concat(servicio.id);
+          axios__WEBPACK_IMPORTED_MODULE_2___default.a.delete(url).then(function () {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+              title: 'Servicio eliminado exitosamente',
+              type: 'success'
+            });
+
+            _this.$store.dispatch('indexServicios');
+          });
+        }
+      });
     }
   }
 });
@@ -267,6 +305,12 @@ var render = function() {
                                         small: "",
                                         depressed: "",
                                         color: "error"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.eliminar(item)
+                                        }
                                       }
                                     },
                                     [_c("v-icon", [_vm._v("clear")])],

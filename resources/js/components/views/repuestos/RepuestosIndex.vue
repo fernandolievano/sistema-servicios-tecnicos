@@ -35,9 +35,7 @@
                         <v-container grid-list-xs class="text-xs-center">
                             <v-layout row wrap>
                                 <v-flex>
-                                    <v-btn fab small depressed color="warning">
-                                        <v-icon>edit</v-icon>
-                                    </v-btn>
+                                    <editar-repuesto :id="item.id"></editar-repuesto>
                                 </v-flex>
                                 <v-flex>
                                     <v-btn
@@ -65,6 +63,9 @@ import { mapState } from 'vuex'
 
 export default {
     name: 'IndexRepuestos',
+    components: {
+        EditarRepuesto: () => import('./RepuestoEditar.vue')
+    },
     computed: {
         ...mapState(['repuestos'])
     },

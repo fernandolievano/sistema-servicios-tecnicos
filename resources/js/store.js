@@ -93,6 +93,9 @@ export default new Vuex.Store({
         },
         servicioByID: state => id => {
             return state.servicios.find(servicio => servicio.id === id)
+        },
+        repuestoByID: state => id => {
+            return state.repuestos.find(repuesto => repuesto.id === id)
         }
     }
 })

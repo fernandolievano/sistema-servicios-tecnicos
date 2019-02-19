@@ -5,15 +5,21 @@
                 <v-flex sm10 offset-sm1 offset-md2 md8>
                     <v-card>
                         <v-card-title primary-title>
-                            <h2 class="display-3">Nuevo Servicio</h2>
-                            <v-alert
-                                v-model="success"
-                                type="success"
-                                dismissable
-                                transition="scale-transition"
-                            >
-                                Nuevo servicio añadido exitosamente
-                            </v-alert>
+                            <v-layout row wrap>
+                                <v-flex xs12>
+                                    <h2 class="display-3">Nuevo Servicio</h2>
+                                </v-flex>
+                                <v-flex xs12>
+                                    <v-alert
+                                        v-model="success"
+                                        type="success"
+                                        dismissable
+                                        transition="scale-transition"
+                                    >
+                                        Nuevo servicio añadido exitosamente
+                                    </v-alert>
+                                </v-flex>
+                            </v-layout>
                         </v-card-title>
                         <v-responsive grid-list-xs>
                             <v-container>
@@ -92,6 +98,7 @@ export default {
 
             axios.post(url, params).then(() => {
                 this.success = true
+                this.$store.dispatch('indexServicios')
             })
         },
         another() {

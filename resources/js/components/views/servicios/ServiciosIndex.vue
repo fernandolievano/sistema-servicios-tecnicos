@@ -38,9 +38,7 @@
                         <v-container grid-list-xs class="text-xs-center">
                             <v-layout row wrap>
                                 <v-flex>
-                                    <v-btn small depressed fab color="warning">
-                                        <v-icon>edit</v-icon>
-                                    </v-btn>
+                                    <editar-servicio :id="item.id"></editar-servicio>
                                 </v-flex>
                                 <v-flex>
                                     <v-btn
@@ -68,6 +66,9 @@ import axios from 'axios'
 
 export default {
     name: 'IndexServicios',
+    components: {
+        EditarServicio: () => import('./ServiciosEditar.vue')
+    },
     data: () => ({}),
     computed: {
         ...mapState(['servicios'])

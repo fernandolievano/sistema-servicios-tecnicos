@@ -74,6 +74,9 @@ export default new Vuex.Store({
         },
         equiposDeCliente: (state, getters, id) => {
             return getters.clienteByID(id).equipos
+        },
+        servicioByID: state => id => {
+            return state.servicios.find(servicio => servicio.id === id)
         }
     }
 })

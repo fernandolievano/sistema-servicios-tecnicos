@@ -73178,19 +73178,19 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/clientes',
     name: 'clientes',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/views/clientes/Clientes.vue */ "./resources/js/components/views/clientes/Clientes.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/views/clientes/Clientes.vue */ "./resources/js/components/views/clientes/Clientes.vue"));
     }
   }, {
     path: '/servicios',
     name: 'servicios',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
     }
   }, {
     path: '/repuestos',
     name: 'repuestos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
     }
   }]
 });
@@ -73296,6 +73296,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     equiposDeCliente: function equiposDeCliente(state, getters, id) {
       return getters.clienteByID(id).equipos;
+    },
+    servicioByID: function servicioByID(state) {
+      return function (id) {
+        return state.servicios.find(function (servicio) {
+          return servicio.id === id;
+        });
+      };
     }
   }
 }));

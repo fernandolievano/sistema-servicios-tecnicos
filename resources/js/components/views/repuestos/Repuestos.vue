@@ -13,6 +13,9 @@
         </v-tabs>
         <v-tabs-items v-model="active">
             <v-tab-item>
+                <index-repuestos></index-repuestos>
+            </v-tab-item>
+            <v-tab-item>
                 <nuevo-repuesto></nuevo-repuesto>
             </v-tab-item>
         </v-tabs-items>
@@ -23,7 +26,8 @@
 export default {
     name: 'Repuestos',
     components: {
-        NuevoRepuesto: () => import('./RepuestoNuevo')
+        IndexRepuestos: () => import('./RepuestosIndex.vue'),
+        NuevoRepuesto: () => import('./RepuestoNuevo.vue')
     },
     data: () => ({
         active: 0

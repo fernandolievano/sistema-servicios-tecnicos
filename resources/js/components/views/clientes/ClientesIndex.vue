@@ -39,22 +39,10 @@
                         <v-container grid-list-xs class="text-xs-center">
                             <v-layout row wrap>
                                 <v-flex>
-                                    <v-tooltip top>
-                                        <template #activator="data">
-                                            <v-btn
-                                                color="success"
-                                                fab
-                                                small
-                                                depressed
-                                                v-on="data.on"
-                                            >
-                                                <v-icon>
-                                                    add
-                                                </v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <span>Nuevo Equipo</span>
-                                    </v-tooltip>
+                                    <nuevo-equipo-cliente
+                                        :id="cliente.id"
+                                        :cliente="cliente.nombre"
+                                    ></nuevo-equipo-cliente>
                                 </v-flex>
                                 <v-flex>
                                     <equipos-cliente
@@ -100,7 +88,8 @@ import Swal from 'sweetalert2'
 export default {
     components: {
         EditarCliente: () => import('./ClienteEditar.vue'),
-        EquiposCliente: () => import('./ClienteEquipos.vue')
+        EquiposCliente: () => import('./ClienteEquipos.vue'),
+        NuevoEquipoCliente: () => import('./ClienteEquipoNuevo.vue')
     },
     computed: {
         ...mapState(['clientes'])

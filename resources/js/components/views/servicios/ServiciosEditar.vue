@@ -82,7 +82,7 @@ export default {
             this.dialog = false
         },
         actualizar(id) {
-            const url = `/api/v1/servicios/${id}`
+            const url = `/servicios/${id}`
 
             const params = Object.assign({}, this.formulario)
 

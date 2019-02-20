@@ -96,7 +96,7 @@ export default {
             this.dialog = false
         },
         actualizar(id) {
-            const url = `/api/v1/repuestos/${id}`
+            const url = `/repuestos/${id}`
 
             const params = Object.assign({}, this.formulario)
 

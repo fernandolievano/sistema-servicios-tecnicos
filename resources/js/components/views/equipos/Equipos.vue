@@ -6,17 +6,23 @@
             centered
             icons-and-text
             light
-            slider-color="green darken-2"
+            slider-color="orange"
         >
-            <v-tab>Lista de Repuestos <v-icon>memory</v-icon></v-tab>
-            <v-tab>Nuevo <v-icon>add</v-icon></v-tab>
+            <v-tab>
+                Lista de equipos
+                <v-icon>devices_other</v-icon>
+            </v-tab>
+            <v-tab>
+                Nuevo
+                <v-icon>add</v-icon>
+            </v-tab>
         </v-tabs>
         <v-tabs-items v-model="active">
             <v-tab-item>
-                <index-repuestos></index-repuestos>
+                <index-equipos></index-equipos>
             </v-tab-item>
             <v-tab-item>
-                <nuevo-repuesto></nuevo-repuesto>
+                <nuevo-equipo></nuevo-equipo>
             </v-tab-item>
         </v-tabs-items>
     </div>
@@ -24,10 +30,10 @@
 
 <script>
 export default {
-    name: 'Repuestos',
+    name: 'Equipos',
     components: {
-        IndexRepuestos: () => import('./RepuestosIndex.vue'),
-        NuevoRepuesto: () => import('./RepuestoNuevo.vue')
+        IndexEquipos: () => import('./EquiposIndex.vue'),
+        NuevoEquipo: () => import('./EquipoNuevo.vue')
     },
     data: () => ({
         active: 0

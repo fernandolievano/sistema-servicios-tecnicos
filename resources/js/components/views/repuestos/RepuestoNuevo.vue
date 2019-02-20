@@ -100,7 +100,7 @@ export default {
     }),
     methods: {
         store() {
-            const url = `/api/v1/repuestos/store`
+            const url = `/repuestos/store`
 
             const params = Object.assign({}, this.formulario)
 

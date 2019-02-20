@@ -1,19 +1,19 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -76,36 +76,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'IndexServicios',
+  name: 'IndexRepuestos',
   components: {
-    EditarServicio: function EditarServicio() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./ServiciosEditar.vue */ "./resources/js/components/views/servicios/ServiciosEditar.vue"));
+    EditarRepuesto: function EditarRepuesto() {
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./RepuestoEditar.vue */ "./resources/js/components/views/repuestos/RepuestoEditar.vue"));
     }
   },
-  data: function data() {
-    return {};
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['servicios'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])(['repuestos'])),
   mounted: function mounted() {
-    this.$store.dispatch('indexServicios');
+    this.$store.dispatch('indexRepuestos');
   },
   methods: {
-    formatoValor: function formatoValor(valor) {
-      var formato = valor.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    precioUnitario: function precioUnitario(precio) {
+      var formato = precio.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
       formato = "$".concat(formato);
       return formato;
     },
-    eliminar: function eliminar(servicio) {
+    eliminar: function eliminar(repuesto) {
       var _this = this;
 
-      var message = "\xBFEst\xE1s seguro de dar de baja al servicio ".concat(servicio.titulo, "?");
+      var message = "\xBFEst\xE1s seguro de quitar el repuesto ".concat(repuesto.repuesto, " de la lista?");
       sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
         title: message,
         type: 'warning',
@@ -116,14 +110,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cancelButtonText: 'Cancelar'
       }).then(function (result) {
         if (result.value) {
-          var url = "/api/v1/servicios/".concat(servicio.id);
-          axios__WEBPACK_IMPORTED_MODULE_2___default.a.delete(url).then(function () {
+          var url = "/api/v1/repuestos/".concat(repuesto.id);
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(url).then(function () {
             sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
-              title: 'Servicio eliminado exitosamente',
+              title: 'Repuesto eliminado exitosamente',
               type: 'success'
             });
 
-            _this.$store.dispatch('indexServicios');
+            _this.$store.dispatch('indexRepuestos');
           });
         }
       });
@@ -133,9 +127,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=template&id=30d737da&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=template&id=30d737da& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e& ***!
   \*********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -155,7 +149,7 @@ var render = function() {
       _c(
         "v-layout",
         { attrs: { row: "", wrap: "" } },
-        _vm._l(_vm.servicios, function(item) {
+        _vm._l(_vm.repuestos, function(item) {
           return _c(
             "v-flex",
             { key: item.id, attrs: { xs12: "", sm6: "", md4: "" } },
@@ -172,78 +166,69 @@ var render = function() {
                         "v-card-title",
                         { attrs: { "primary-title": "" } },
                         [
+                          _c("v-flex", { attrs: { xs12: "" } }, [
+                            _c("h3", {
+                              domProps: { textContent: _vm._s(item.repuesto) }
+                            })
+                          ]),
+                          _vm._v(" "),
                           _c(
-                            "v-layout",
-                            { attrs: { row: "", wrap: "" } },
+                            "v-flex",
+                            { attrs: { xs12: "" } },
                             [
-                              _c("v-flex", { attrs: { xs12: "" } }, [
-                                _c("h3", {
-                                  domProps: { textContent: _vm._s(item.titulo) }
-                                })
-                              ]),
-                              _vm._v(" "),
                               _c(
-                                "v-flex",
-                                { attrs: { xs12: "" } },
+                                "v-list",
+                                { attrs: { "three-line": "", subheader: "" } },
                                 [
+                                  _c("v-subheader", {
+                                    domProps: {
+                                      textContent: _vm._s(item.descripcion)
+                                    }
+                                  }),
+                                  _vm._v(" "),
                                   _c(
-                                    "v-list",
-                                    {
-                                      attrs: { "three-line": "", subheader: "" }
-                                    },
+                                    "v-list-tile",
                                     [
-                                      _c("v-subheader", [
-                                        _vm._v("Acerca del servicio")
-                                      ]),
-                                      _vm._v(" "),
                                       _c(
-                                        "v-list-tile",
+                                        "v-list-tile-content",
                                         [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v("Descripción")
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("v-list-tile-sub-title", [
-                                                _vm._v(
-                                                  "\n                                                " +
-                                                    _vm._s(item.descripcion) +
-                                                    "\n                                            "
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          )
+                                          _c("v-list-tile-title", [
+                                            _vm._v("Stock")
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("v-list-tile-sub-title", {
+                                            domProps: {
+                                              textContent: _vm._s(item.cantidad)
+                                            }
+                                          })
                                         ],
                                         1
-                                      ),
-                                      _vm._v(" "),
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-tile",
+                                    [
                                       _c(
-                                        "v-list-tile",
+                                        "v-list-tile-content",
                                         [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v("Valor")
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("v-list-tile-sub-title", [
-                                                _vm._v(
-                                                  "\n                                                " +
-                                                    _vm._s(
-                                                      _vm.formatoValor(
-                                                        item.valor
-                                                      )
-                                                    ) +
-                                                    "\n                                            "
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          )
+                                          _c("v-list-tile-title", [
+                                            _vm._v("Precio unitario")
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("v-list-tile-sub-title", [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(
+                                                  _vm.precioUnitario(
+                                                    item.precio_unitario
+                                                  )
+                                                ) +
+                                                "\n                                        "
+                                            )
+                                          ])
                                         ],
                                         1
                                       )
@@ -280,7 +265,7 @@ var render = function() {
                               _c(
                                 "v-flex",
                                 [
-                                  _c("editar-servicio", {
+                                  _c("editar-repuesto", {
                                     attrs: { id: item.id }
                                   })
                                 ],
@@ -341,17 +326,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/views/servicios/ServiciosIndex.vue":
+/***/ "./resources/js/components/views/repuestos/RepuestosIndex.vue":
 /*!********************************************************************!*\
-  !*** ./resources/js/components/views/servicios/ServiciosIndex.vue ***!
+  !*** ./resources/js/components/views/repuestos/RepuestosIndex.vue ***!
   \********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ServiciosIndex_vue_vue_type_template_id_30d737da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ServiciosIndex.vue?vue&type=template&id=30d737da& */ "./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=template&id=30d737da&");
-/* harmony import */ var _ServiciosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ServiciosIndex.vue?vue&type=script&lang=js& */ "./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=script&lang=js&");
+/* harmony import */ var _RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RepuestosIndex.vue?vue&type=template&id=8505c92e& */ "./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e&");
+/* harmony import */ var _RepuestosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RepuestosIndex.vue?vue&type=script&lang=js& */ "./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -361,9 +346,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ServiciosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ServiciosIndex_vue_vue_type_template_id_30d737da___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ServiciosIndex_vue_vue_type_template_id_30d737da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _RepuestosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -373,38 +358,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/views/servicios/ServiciosIndex.vue"
+component.options.__file = "resources/js/components/views/repuestos/RepuestosIndex.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************!*\
-  !*** ./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiciosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ServiciosIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiciosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepuestosIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=template&id=30d737da&":
+/***/ "./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e&":
 /*!***************************************************************************************************!*\
-  !*** ./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=template&id=30d737da& ***!
+  !*** ./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e& ***!
   \***************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiciosIndex_vue_vue_type_template_id_30d737da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ServiciosIndex.vue?vue&type=template&id=30d737da& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServiciosIndex.vue?vue&type=template&id=30d737da&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiciosIndex_vue_vue_type_template_id_30d737da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepuestosIndex.vue?vue&type=template&id=8505c92e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiciosIndex_vue_vue_type_template_id_30d737da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -90,7 +90,7 @@ export default {
     }),
     methods: {
         store() {
-            const url = '/api/v1/servicios/store'
+            const url = '/servicios/store'
 
             this.formulario.valor = this.formulario.valor.toFixed(2)
 

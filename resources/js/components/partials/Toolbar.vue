@@ -7,6 +7,9 @@
             <v-btn :to="{ name: 'repuestos' }" flat>
                 Repuestos
             </v-btn>
+            <v-btn :to="{ name: 'equipos' }" flat>
+                Equipos
+            </v-btn>
             <v-btn :to="{ name: 'clientes' }" flat>
                 Clientes
             </v-btn>

@@ -96,7 +96,7 @@ export default {
     },
     methods: {
         actualizar(id) {
-            const url = `/api/v1/clientes/${id}`
+            const url = `/clientes/${id}`
 
             const params = Object.assign({}, this.formulario)
 

@@ -22,6 +22,11 @@ const router = new Router({
             path: '/repuestos',
             name: 'repuestos',
             component: () => import('./components/views/repuestos/Repuestos.vue')
+        },
+        {
+            path: '/equipos',
+            name: 'equipos',
+            component: () => import('./components/views/equipos/Equipos.vue')
         }
     ]
 })

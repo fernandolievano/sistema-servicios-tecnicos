@@ -17,7 +17,7 @@ export default new Vuex.Store({
     },
     actions: {
         indexClientes({ commit }) {
-            const url = '/clientes/get'
+            const url = '/api/v1/clientes/get'
             axios
                 .get(url)
                 .then(response => {
@@ -28,7 +28,7 @@ export default new Vuex.Store({
                 })
         },
         indexEquipos({ commit }) {
-            const url = '/equipos/get'
+            const url = '/api/v1/equipos/get'
 
             axios
                 .get(url)
@@ -40,7 +40,7 @@ export default new Vuex.Store({
                 })
         },
         indexServicios({ commit }) {
-            const url = '/servicios/get'
+            const url = '/api/v1/servicios/get'
 
             axios
                 .get(url)
@@ -52,7 +52,7 @@ export default new Vuex.Store({
                 })
         },
         indexRepuestos({ commit }) {
-            const url = '/repuestos/get'
+            const url = '/api/v1/repuestos/get'
 
             axios
                 .get(url)

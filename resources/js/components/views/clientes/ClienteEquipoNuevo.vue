@@ -20,7 +20,9 @@
                         <v-container grid-list-xs>
                             <v-layout row wrap>
                                 <v-flex xs12>
-                                    <h2 class="display-3">Nuevo equipo de {{ cliente }}</h2>
+                                    <h2 class="display-3">
+                                        Nuevo equipo de {{ cliente }} {{ formulario.cliente_id }}
+                                    </h2>
                                 </v-flex>
                                 <v-flex xs12>
                                     <v-alert v-model="success" dismissible type="success">
@@ -56,11 +58,23 @@ export default {
     data: () => ({
         dialog: false,
         success: false,
-        valid: false
+        valid: false,
+        formulario: {
+            equipo: '',
+            modelo: '',
+            descripcion: '',
+            diagnostico: '',
+            estado: 'Reparación',
+            cliente_id: this.id
+        },
+        generales: [v => !!v || 'Este campo es requerido']
     }),
     methods: {
         closeThis() {
             this.dialog = false
+        },
+        store() {
+            //
         }
     }
 }

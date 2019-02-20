@@ -9,6 +9,10 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _this = undefined;
+
+//
+//
 //
 //
 //
@@ -67,12 +71,25 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dialog: false,
       success: false,
-      valid: false
+      valid: false,
+      formulario: {
+        equipo: '',
+        modelo: '',
+        descripcion: '',
+        diagnostico: '',
+        estado: 'Reparación',
+        cliente_id: _this.id
+      },
+      generales: [function (v) {
+        return !!v || 'Este campo es requerido';
+      }]
     };
   },
   methods: {
     closeThis: function closeThis() {
       this.dialog = false;
+    },
+    store: function store() {//
     }
   }
 });
@@ -189,7 +206,11 @@ var render = function() {
                               _c("v-flex", { attrs: { xs12: "" } }, [
                                 _c("h2", { staticClass: "display-3" }, [
                                   _vm._v(
-                                    "Nuevo equipo de " + _vm._s(_vm.cliente)
+                                    "\n                                    Nuevo equipo de " +
+                                      _vm._s(_vm.cliente) +
+                                      " " +
+                                      _vm._s(_vm.formulario.cliente_id) +
+                                      "\n                                "
                                   )
                                 ])
                               ]),

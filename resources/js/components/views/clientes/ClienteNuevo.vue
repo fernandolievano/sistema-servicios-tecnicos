@@ -90,7 +90,7 @@ export default {
     }),
     methods: {
         store() {
-            const url = '/clientes/store'
+            const url = '/api/v1/clientes/store'
             const params = Object.assign({}, this.formulario)
 
             axios

@@ -78,6 +78,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'EquiposCliente',
   props: {
@@ -148,13 +149,16 @@ var render = function() {
           attrs: {
             slot: "activator",
             color: "info",
-            fab: "",
+            block: "",
             small: "",
             depressed: ""
           },
           slot: "activator"
         },
-        [_c("v-icon", [_vm._v("\n            devices_other\n        ")])],
+        [
+          _vm._v("\n        Equipos\n        "),
+          _c("v-icon", [_vm._v("\n            devices_other\n        ")])
+        ],
         1
       ),
       _vm._v(" "),

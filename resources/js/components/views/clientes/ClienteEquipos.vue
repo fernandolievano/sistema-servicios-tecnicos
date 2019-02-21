@@ -1,6 +1,7 @@
 <template>
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-        <v-btn slot="activator" color="info" fab small depressed>
+        <v-btn slot="activator" color="info" block small depressed>
+            Equipos
             <v-icon>
                 devices_other
             </v-icon>

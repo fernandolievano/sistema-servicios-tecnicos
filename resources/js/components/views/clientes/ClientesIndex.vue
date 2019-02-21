@@ -6,9 +6,20 @@
                     <v-responsive min-height="220">
                         <v-card-title primary-title>
                             <v-layout row wrap>
-                                <v-flex xs12>
+                                <v-flex xs10>
                                     <h3 v-text="cliente.nombre"></h3>
                                     <h3 v-text="cliente.apellido"></h3>
+                                </v-flex>
+                                <v-flex xs2>
+                                    <v-btn
+                                        color="error"
+                                        flat
+                                        fab
+                                        small
+                                        @click.prevent="eliminar(cliente)"
+                                    >
+                                        <v-icon>clear</v-icon>
+                                    </v-btn>
                                 </v-flex>
                                 <v-flex xs12>
                                     <v-list three-line subheader>
@@ -40,7 +51,7 @@
                             <v-layout row wrap>
                                 <v-flex>
                                     <nuevo-equipo-cliente
-                                        :id="cliente.id"
+                                        :id-cliente="cliente.id"
                                         :cliente="cliente.nombre"
                                     ></nuevo-equipo-cliente>
                                 </v-flex>
@@ -53,23 +64,6 @@
                                 </v-flex>
                                 <v-flex>
                                     <editar-cliente :id="cliente.id"></editar-cliente>
-                                </v-flex>
-                                <v-flex>
-                                    <v-tooltip top>
-                                        <template #activator="data">
-                                            <v-btn
-                                                color="error"
-                                                fab
-                                                depressed
-                                                small
-                                                v-on="data.on"
-                                                @click.prevent="eliminar(cliente)"
-                                            >
-                                                <v-icon>clear</v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <span>Eliminar cliente</span>
-                                    </v-tooltip>
                                 </v-flex>
                             </v-layout>
                         </v-container>

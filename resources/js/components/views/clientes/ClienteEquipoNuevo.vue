@@ -1,17 +1,17 @@
 <template>
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-        <v-btn slot="activator" fab small depressed color="success">
-            <v-icon>add</v-icon>
+        <v-btn slot="activator" block small depressed color="success">
+            Nuevo equipo <v-icon>add</v-icon>
         </v-btn>
         <v-card>
             <v-toolbar dark color="success" dense>
                 <v-btn icon dark @click="closeThis">
                     <v-icon>close</v-icon>
                 </v-btn>
-                <v-toolbar-title>Nuevo equipo </v-toolbar-title>
+                <v-toolbar-title>Nuevo equipo</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
-                    <v-btn dark flat>Registrar</v-btn>
+                    <v-btn dark flat @click.prevent="store">Registrar</v-btn>
                 </v-toolbar-items>
             </v-toolbar>
             <v-form v-model="valid" lazy-validation>
@@ -24,16 +24,53 @@
                                         Nuevo equipo de {{ cliente }} {{ formulario.cliente_id }}
                                     </h2>
                                 </v-flex>
-                                <v-flex xs12>
-                                    <v-alert v-model="success" dismissible type="success">
-                                        Nuevo equipo registrado exitosamente
-                                    </v-alert>
+                                <v-flex v-if="success" xs12>
+                                    <h3 class="success--text display-5">
+                                        Equipo registrado con éxito
+                                    </h3>
                                 </v-flex>
                             </v-layout>
                         </v-container>
                     </v-card-title>
                     <v-container grid-list-xs>
-                        <v-layout row wrap> </v-layout>
+                        <v-layout row wrap>
+                            <v-flex xs12>
+                                <v-text-field
+                                    v-model="formulario.equipo"
+                                    name="equipo"
+                                    label="Equipo"
+                                    required
+                                    :rules="generales"
+                                ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-text-field
+                                    v-model="formulario.modelo"
+                                    name="modelo"
+                                    label="Modelo del equipo"
+                                    required
+                                    :rules="generales"
+                                ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-text-field
+                                    v-model="formulario.descripcion"
+                                    name="descripcion"
+                                    label="Breve descripción del equipo"
+                                    required
+                                    :rules="generales"
+                                ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-textarea
+                                    v-model="formulario.diagnostico"
+                                    name="diagnostico"
+                                    label="Diagnóstico del equipo"
+                                    required
+                                    :rules="generales"
+                                ></v-textarea>
+                            </v-flex>
+                        </v-layout>
                     </v-container>
                 </v-responsive>
             </v-form>
@@ -42,10 +79,12 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'NuevoEquipoCliente',
     props: {
-        id: {
+        idCliente: {
             type: Number,
             required: true,
             default: 0
@@ -64,8 +103,8 @@ export default {
             modelo: '',
             descripcion: '',
             diagnostico: '',
-            estado: 'Reparación',
-            cliente_id: this.id
+            estado: 'En Reparación',
+            cliente_id: ''
         },
         generales: [v => !!v || 'Este campo es requerido']
     }),
@@ -74,7 +113,15 @@ export default {
             this.dialog = false
         },
         store() {
-            //
+            const url = '/api/v1/equipos/store'
+
+            this.formulario.cliente_id = this.idCliente
+            const params = Object.assign({}, this.formulario)
+
+            axios.post(url, params).then(() => {
+                this.success = true
+                this.$store.dispatch('indexClientes')
+            })
         }
     }
 }

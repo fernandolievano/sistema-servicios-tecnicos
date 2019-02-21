@@ -1,6 +1,7 @@
 <template>
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-        <v-btn slot="activator" color="warning" small depressed fab dark>
+        <v-btn slot="activator" color="warning" small block depressed dark>
+            Editar
             <v-icon>
                 edit
             </v-icon>
@@ -92,7 +93,7 @@ export default {
         }
     },
     mounted() {
-        this.$store.commit('SET_CLIENTE_ID', this.id)
+        this.$store.commit('SET_ID', this.id)
     },
     methods: {
         actualizar(id) {

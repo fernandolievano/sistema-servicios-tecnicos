@@ -73249,7 +73249,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   state: {
     clientes: [],
     cliente: {},
-    clienteID: '',
+    id: '',
     equipos: [],
     servicios: [],
     repuestos: []
@@ -73290,14 +73290,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       }).catch(function (error) {
         console.error(error);
       });
+    },
+    setID: function setID(_ref5, id) {
+      var commit = _ref5.commit;
+      commit('SET_ID', id);
     }
   },
   mutations: {
     SET_CLIENTES: function SET_CLIENTES(state, clientes) {
       state.clientes = clientes;
     },
-    SET_CLIENTE_ID: function SET_CLIENTE_ID(state, id) {
-      state.clienteID = id;
+    SET_ID: function SET_ID(state, id) {
+      state.id = id;
     },
     SET_EQUIPOS: function SET_EQUIPOS(state, equipos) {
       state.equipos = equipos;
@@ -73309,7 +73313,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.repuestos = repuestos;
     },
     CLEAR_ID: function CLEAR_ID(state) {
-      state.clienteID = '';
+      state.id = '';
     }
   },
   getters: {
@@ -73360,8 +73364,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/servicios/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/servicios/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/html/sistema-servicios-tecnicos/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/sistema-servicios-tecnicos/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

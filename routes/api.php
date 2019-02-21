@@ -39,4 +39,11 @@ Route::prefix('/v1')->group(function () {
         Route::post('/store', 'RepuestoController@store')->name('store');
         Route::delete('/{id}', 'RepuestoController@delete')->name('delete');
     });
+
+    Route::prefix('/equipos')->name('equipos.')->group(function () {
+        Route::get('/get', 'EquipoController@equipos')->name('get');
+        Route::put('/{id}', 'EquipoController@update')->name('update');
+        Route::post('/store', 'EquipoController@store')->name('store');
+        Route::delete('/{id}', 'EquipoController@delete')->name('delete');
+    });
 });

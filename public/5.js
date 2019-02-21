@@ -11,6 +11,21 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -86,7 +101,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    NuevoEquipoCliente: function NuevoEquipoCliente() {
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./ClienteEquipoNuevo.vue */ "./resources/js/components/views/clientes/ClienteEquipoNuevo.vue"));
+    }
+  },
   data: function data() {
     return {
       valid: false,
@@ -103,16 +124,19 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['id'])),
   methods: {
     store: function store() {
       var _this = this;
 
       var url = '/api/v1/clientes/store';
       var params = Object.assign({}, this.formulario);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, params).then(function () {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, params).then(function (response) {
         _this.$store.dispatch('indexClientes');
 
         _this.$refs.formcliente.reset();
+
+        _this.$store.dispatch('setID', response.data);
 
         _this.success = true;
       }).catch(function (error) {
@@ -185,32 +209,57 @@ var render = function() {
                         "v-card-title",
                         { attrs: { "primary-title": "" } },
                         [
-                          _c("h2", { staticClass: "display-3" }, [
-                            _vm._v("Registrar nuevo cliente")
-                          ]),
-                          _vm._v(" "),
                           _c(
-                            "v-alert",
-                            {
-                              attrs: {
-                                type: "success",
-                                dismissable: "",
-                                transition: "scale-transition"
-                              },
-                              model: {
-                                value: _vm.success,
-                                callback: function($$v) {
-                                  _vm.success = $$v
-                                },
-                                expression: "success"
-                              }
-                            },
+                            "v-layout",
+                            { attrs: { row: "", wrap: "" } },
                             [
-                              _vm._v(
-                                "\n                            Cliente registrado exitosamente, ahora continúe con el registro del\n                            equipo\n                        "
+                              _c("v-flex", [
+                                _c("h2", { staticClass: "display-3" }, [
+                                  _vm._v("Registrar nuevo cliente")
+                                ])
+                              ])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm.success
+                            ? _c(
+                                "v-layout",
+                                { attrs: { row: "", wrap: "" } },
+                                [
+                                  _c("v-divider"),
+                                  _vm._v(" "),
+                                  _c("v-flex", { attrs: { xs12: "" } }, [
+                                    _c(
+                                      "h3",
+                                      {
+                                        staticClass: "success--text display-5"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                    Cliente registrado exitosamente, ahora continúe con el\n                                    registro del equipo\n                                "
+                                        )
+                                      ]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("nuevo-equipo-cliente", {
+                                        attrs: {
+                                          "id-cliente": _vm.id,
+                                          nuevo: true
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
                               )
-                            ]
-                          )
+                            : _vm._e()
                         ],
                         1
                       ),

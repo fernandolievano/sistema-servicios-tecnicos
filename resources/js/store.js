@@ -10,7 +10,7 @@ export default new Vuex.Store({
     state: {
         clientes: [],
         cliente: {},
-        clienteID: '',
+        id: '',
         equipos: [],
         servicios: [],
         repuestos: []
@@ -62,14 +62,17 @@ export default new Vuex.Store({
                 .catch(error => {
                     console.error(error)
                 })
+        },
+        setID({ commit }, id) {
+            commit('SET_ID', id)
         }
     },
     mutations: {
         SET_CLIENTES(state, clientes) {
             state.clientes = clientes
         },
-        SET_CLIENTE_ID(state, id) {
-            state.clienteID = id
+        SET_ID(state, id) {
+            state.id = id
         },
         SET_EQUIPOS(state, equipos) {
             state.equipos = equipos
@@ -81,7 +84,7 @@ export default new Vuex.Store({
             state.repuestos = repuestos
         },
         CLEAR_ID(state) {
-            state.clienteID = ''
+            state.id = ''
         }
     },
     getters: {

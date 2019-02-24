@@ -91,9 +91,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'NuevoEquipoCliente',
+  components: {
+    TicketInicial: function TicketInicial() {
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
+    }
+  },
   props: {
     idCliente: {
       type: Number,
@@ -109,6 +126,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dialog: false,
       success: false,
+      showTicket: false,
       valid: false,
       formulario: {
         equipo: '',
@@ -120,7 +138,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       generales: [function (v) {
         return !!v || 'Este campo es requerido';
-      }]
+      }],
+      ticket: null
     };
   },
   methods: {
@@ -133,10 +152,14 @@ __webpack_require__.r(__webpack_exports__);
       var url = '/api/v1/equipos/store';
       this.formulario.cliente_id = this.idCliente;
       var params = Object.assign({}, this.formulario);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, params).then(function () {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, params).then(function (response) {
         _this.success = true;
 
+        _this.$refs.nuevoequipo.reset();
+
         _this.$store.dispatch('indexClientes');
+
+        _this.ticket = response.data;
       });
     }
   }
@@ -179,16 +202,10 @@ var render = function() {
       _c(
         "v-btn",
         {
-          attrs: {
-            slot: "activator",
-            block: "",
-            small: "",
-            depressed: "",
-            color: "success"
-          },
+          attrs: { slot: "activator", small: "", flat: "", color: "success" },
           slot: "activator"
         },
-        [_vm._v("\n        Nuevo equipo "), _c("v-icon", [_vm._v("add")])],
+        [_vm._v("\n    Añadir nuevo equipo "), _c("v-icon", [_vm._v("add")])],
         1
       ),
       _vm._v(" "),
@@ -236,6 +253,7 @@ var render = function() {
           _c(
             "v-form",
             {
+              ref: "nuevoequipo",
               attrs: { "lazy-validation": "" },
               model: {
                 value: _vm.valid,
@@ -264,29 +282,98 @@ var render = function() {
                               _c("v-flex", { attrs: { xs12: "" } }, [
                                 _c("h2", { staticClass: "display-3" }, [
                                   _vm._v(
-                                    "\n                                    Nuevo equipo de " +
+                                    "\n                  Nuevo equipo de " +
                                       _vm._s(_vm.cliente) +
                                       " " +
                                       _vm._s(_vm.formulario.cliente_id) +
-                                      "\n                                "
+                                      "\n                "
                                   )
                                 ])
                               ]),
                               _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c(
+                                    "v-alert",
+                                    {
+                                      attrs: { type: "success" },
+                                      model: {
+                                        value: _vm.success,
+                                        callback: function($$v) {
+                                          _vm.success = $$v
+                                        },
+                                        expression: "success"
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  Equipo registrado con éxito\n                "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
                               _vm.success
-                                ? _c("v-flex", { attrs: { xs12: "" } }, [
-                                    _c(
-                                      "h3",
-                                      {
-                                        staticClass: "success--text display-5"
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                    Equipo registrado con éxito\n                                "
-                                        )
-                                      ]
-                                    )
-                                  ])
+                                ? _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c(
+                                        "v-layout",
+                                        { attrs: { row: "", wrap: "" } },
+                                        [
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "" } },
+                                            [
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  attrs: {
+                                                    color: "primary",
+                                                    flat: "",
+                                                    block: ""
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      _vm.showTicket = !_vm.showTicket
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                      Ver ticket\n                    "
+                                                  )
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _vm.showTicket
+                                            ? _c(
+                                                "v-flex",
+                                                { attrs: { xs12: "" } },
+                                                [
+                                                  _c("ticket-inicial", {
+                                                    attrs: {
+                                                      ticket: _vm.ticket
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            : _vm._e()
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
                                 : _vm._e()
                             ],
                             1
@@ -298,111 +385,121 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "v-container",
-                    { attrs: { "grid-list-xs": "" } },
-                    [
-                      _c(
-                        "v-layout",
-                        { attrs: { row: "", wrap: "" } },
+                  _vm.success === false
+                    ? _c(
+                        "v-container",
+                        { attrs: { "grid-list-xs": "" } },
                         [
                           _c(
-                            "v-flex",
-                            { attrs: { xs12: "" } },
+                            "v-layout",
+                            { attrs: { row: "", wrap: "" } },
                             [
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "equipo",
-                                  label: "Equipo",
-                                  required: "",
-                                  rules: _vm.generales
-                                },
-                                model: {
-                                  value: _vm.formulario.equipo,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formulario, "equipo", $$v)
-                                  },
-                                  expression: "formulario.equipo"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs12: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "modelo",
-                                  label: "Modelo del equipo",
-                                  required: "",
-                                  rules: _vm.generales
-                                },
-                                model: {
-                                  value: _vm.formulario.modelo,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formulario, "modelo", $$v)
-                                  },
-                                  expression: "formulario.modelo"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs12: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "descripcion",
-                                  label: "Breve descripción del equipo",
-                                  required: "",
-                                  rules: _vm.generales
-                                },
-                                model: {
-                                  value: _vm.formulario.descripcion,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formulario, "descripcion", $$v)
-                                  },
-                                  expression: "formulario.descripcion"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs12: "" } },
-                            [
-                              _c("v-textarea", {
-                                attrs: {
-                                  name: "diagnostico",
-                                  label: "Diagnóstico del equipo",
-                                  required: "",
-                                  rules: _vm.generales
-                                },
-                                model: {
-                                  value: _vm.formulario.diagnostico,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formulario, "diagnostico", $$v)
-                                  },
-                                  expression: "formulario.diagnostico"
-                                }
-                              })
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      name: "equipo",
+                                      label: "Equipo",
+                                      required: "",
+                                      rules: _vm.generales
+                                    },
+                                    model: {
+                                      value: _vm.formulario.equipo,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formulario, "equipo", $$v)
+                                      },
+                                      expression: "formulario.equipo"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      name: "modelo",
+                                      label: "Modelo del equipo",
+                                      required: "",
+                                      rules: _vm.generales
+                                    },
+                                    model: {
+                                      value: _vm.formulario.modelo,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formulario, "modelo", $$v)
+                                      },
+                                      expression: "formulario.modelo"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      name: "descripcion",
+                                      label: "Breve descripción del equipo",
+                                      required: "",
+                                      rules: _vm.generales
+                                    },
+                                    model: {
+                                      value: _vm.formulario.descripcion,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.formulario,
+                                          "descripcion",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "formulario.descripcion"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("v-textarea", {
+                                    attrs: {
+                                      name: "diagnostico",
+                                      label: "Diagnóstico del equipo",
+                                      required: "",
+                                      rules: _vm.generales
+                                    },
+                                    model: {
+                                      value: _vm.formulario.diagnostico,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.formulario,
+                                          "diagnostico",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "formulario.diagnostico"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
                             ],
                             1
                           )
                         ],
                         1
                       )
-                    ],
-                    1
-                  )
+                    : _vm._e()
                 ],
                 1
               )

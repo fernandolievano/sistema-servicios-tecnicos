@@ -13,6 +13,6 @@ class InicialTicket extends Model
 
     public function equipo()
     {
-        return $this->belongsTo(Cliente::Class);
+        return $this->belongsTo(Equipo::Class);
     }
 }

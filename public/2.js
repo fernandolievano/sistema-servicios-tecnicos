@@ -84,16 +84,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -153,7 +143,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* html {\n    border-top: 15px solid black;\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* html {\n    border-top: 15px solid black;\n} */\n", ""]);
 
 // exports
 
@@ -222,6 +212,49 @@ var render = function() {
                 { staticClass: "ma-2 pa-2 elevation-24" },
                 [
                   _c(
+                    "v-toolbar",
+                    { attrs: { color: "transparent", dense: "", flat: "" } },
+                    [
+                      _c("v-toolbar-title", {
+                        domProps: {
+                          textContent: _vm._s(
+                            cliente.nombre + "" + cliente.apellido
+                          )
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-toolbar-items",
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                color: "error",
+                                flat: "",
+                                fab: "",
+                                small: ""
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.eliminar(cliente)
+                                }
+                              }
+                            },
+                            [_c("v-icon", [_vm._v("clear")])],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
                     "v-responsive",
                     { attrs: { "min-height": "220" } },
                     [
@@ -233,47 +266,6 @@ var render = function() {
                             "v-layout",
                             { attrs: { row: "", wrap: "" } },
                             [
-                              _c("v-flex", { attrs: { xs10: "" } }, [
-                                _c("h3", {
-                                  domProps: {
-                                    textContent: _vm._s(cliente.nombre)
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("h3", {
-                                  domProps: {
-                                    textContent: _vm._s(cliente.apellido)
-                                  }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs2: "" } },
-                                [
-                                  _c(
-                                    "v-btn",
-                                    {
-                                      attrs: {
-                                        color: "error",
-                                        flat: "",
-                                        fab: "",
-                                        small: ""
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.eliminar(cliente)
-                                        }
-                                      }
-                                    },
-                                    [_c("v-icon", [_vm._v("clear")])],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
                               _c(
                                 "v-flex",
                                 { attrs: { xs12: "" } },
@@ -356,10 +348,7 @@ var render = function() {
                     [
                       _c(
                         "v-container",
-                        {
-                          staticClass: "text-xs-center",
-                          attrs: { "grid-list-xs": "" }
-                        },
+                        { attrs: { "grid-list-xs": "" } },
                         [
                           _c(
                             "v-layout",
@@ -367,6 +356,18 @@ var render = function() {
                             [
                               _c(
                                 "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("editar-cliente", {
+                                    attrs: { id: cliente.id }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
                                 [
                                   _c("nuevo-equipo-cliente", {
                                     attrs: {
@@ -380,6 +381,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-flex",
+                                { attrs: { xs12: "" } },
                                 [
                                   _c("equipos-cliente", {
                                     attrs: {
@@ -387,16 +389,6 @@ var render = function() {
                                       equipos: cliente.equipos,
                                       "id-cliente": cliente.id
                                     }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                [
-                                  _c("editar-cliente", {
-                                    attrs: { id: cliente.id }
                                   })
                                 ],
                                 1

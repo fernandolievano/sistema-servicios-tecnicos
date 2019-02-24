@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Equipo;
+use App\InicialTicket;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -10,16 +11,31 @@ class EquipoController extends Controller
 {
     public function equipos()
     {
-        $equipos = Equipo::all();
+        $equipos = Equipo::with(['ticket_inicial', 'cliente'])->get();
 
         return response()->json($equipos);
     }
 
     public function store(Request $request)
     {
-        Equipo::create($request->all());
+        $equipo = Equipo::create($request->all());
 
-        return response(Response::HTTP_CREATED);
+        $equipo_id  = $equipo->id;
+        $cliente_id = $equipo->cliente_id;
+
+        $ticket = new InicialTicket;
+        $ticket->equipo_id  = $equipo_id;
+        $ticket->cliente_id = $cliente_id;
+
+        $equipo->ticket_inicial()->save($ticket);
+
+        $id = $ticket->id;
+
+        $inicial = InicialTicket::where('id', $id)
+                    ->with(['cliente', 'equipo'])
+                    ->first();
+
+        return response()->json($inicial);
     }
 
     public function update(Request $request, $id)
@@ -27,7 +43,7 @@ class EquipoController extends Controller
         $equipo = Equipo::find($id);
         $equipo->update($request->all());
 
-        return reponse($equipo->jsonSerialize(), Response::HTTP_OK);
+        return reponse(Response::HTTP_OK);
     }
 
     public function delete($id)

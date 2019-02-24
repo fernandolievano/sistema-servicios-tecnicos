@@ -169,18 +169,11 @@ var render = function() {
       _c(
         "v-btn",
         {
-          attrs: {
-            slot: "activator",
-            color: "warning",
-            small: "",
-            block: "",
-            depressed: "",
-            dark: ""
-          },
+          attrs: { slot: "activator", color: "warning", small: "", flat: "" },
           slot: "activator"
         },
         [
-          _vm._v("\n        Editar\n        "),
+          _vm._v("\n        Editar información\n        "),
           _c("v-icon", [_vm._v("\n            edit\n        ")])
         ],
         1

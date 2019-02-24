@@ -16,14 +16,14 @@ class Equipo extends Model
         return $this->belongsTo(Cliente::Class);
     }
 
-    public function tickets_iniciales()
+    public function ticket_inicial()
     {
-        return $this->hasMany(InicialTicket::Class);
+        return $this->hasOne(InicialTicket::Class);
     }
 
-    public function tickets_finales()
+    public function ticket_final()
     {
-        return $this->hasMany(FinalTicket::Class);
+        return $this->hasOne(FinalTicket::Class);
     }
 
     public function servicios()

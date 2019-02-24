@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-        <v-btn slot="activator" color="info" block small depressed>
-            Equipos
+        <v-btn slot="activator" color="info"  small depressed block>
+            Equipos de {{ cliente }}
             <v-icon>
                 devices_other
             </v-icon>

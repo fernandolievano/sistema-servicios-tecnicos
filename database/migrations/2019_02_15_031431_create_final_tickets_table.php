@@ -15,7 +15,6 @@ class CreateFinalTicketsTable extends Migration
     {
         Schema::create('final_tickets', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('resumen');
             $table->float('total');
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');

@@ -9,7 +9,7 @@ import Vuetify from 'vuetify'
 
 // vue-router and vuex
 import router from './router'
-import store from './store'
+import store from './store/store'
 
 // components
 import App from './components/App.vue'
@@ -17,8 +17,8 @@ import App from './components/App.vue'
 Vue.use(Vuetify)
 
 const app = new Vue({
-    el: '#app',
-    router,
-    store,
-    components: { App }
+  el: '#app',
+  router,
+  store,
+  components: { App }
 })

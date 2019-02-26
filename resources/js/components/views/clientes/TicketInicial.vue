@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row wrap align-center justify-center>
-      <v-flex xs6>
+      <v-flex :id="'ticketInicial' + ticket.id" xs6>
         <v-card>
           <v-toolbar flat dense>
             <v-toolbar-title>
@@ -51,10 +51,21 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <v-divider></v-divider>
+    <v-layout row wrap align-center justify-center>
+      <v-flex xs6>
+        <v-btn color="primary" block @click="imprimir">
+          Imprimir ticket
+        </v-btn>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
 <script>
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
+
 export default {
   name: 'TicketInicial',
   props: {
@@ -70,6 +81,18 @@ export default {
     },
     equipo() {
       return this.ticket.equipo
+    }
+  },
+  methods: {
+    imprimir() {
+      const filename = `ticket_inicial${this.ticket.id}`
+
+      html2canvas(document.querySelector(`#ticketInicial${this.ticket.id}`)).then(canvas => {
+        // eslint-disable-next-line new-cap
+        const pdf = new jsPDF('p', 'mm', 'a4')
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298)
+        pdf.save(filename)
+      })
     }
   }
 }

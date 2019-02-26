@@ -25,10 +25,8 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $cliente = Cliente::create($request->all());
-        
-        $id = $cliente->id;
 
-        return response()->json($id);
+        return response()->json($cliente);
     }
 
     public function update(Request $request, $id)

@@ -108,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'NuevoEquipoCliente',
   components: {
     TicketInicial: function TicketInicial() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
     }
   },
   props: {

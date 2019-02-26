@@ -10,7 +10,7 @@ class ClienteController extends Controller
 {
     public function clientes()
     {
-        $clientes = Cliente::with('equipos')->get();
+        $clientes = Cliente::all();
 
         return response()->json($clientes);
     }

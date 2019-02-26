@@ -12,6 +12,9 @@ export default {
   show(id) {
     return apiEquipos.get(`/get/${id}`)
   },
+  byCliente(id) {
+    return apiEquipos.get(`/cliente/${id}`)
+  },
   store(equipo) {
     return apiEquipos.post('/store', equipo)
   },

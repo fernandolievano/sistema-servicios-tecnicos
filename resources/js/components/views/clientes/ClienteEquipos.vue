@@ -49,7 +49,7 @@
                 </v-list>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="info" flat>Info</v-btn>
+                <v-btn color="info" flat>Tickets</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -60,13 +60,11 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'EquiposCliente',
   props: {
-    equipos: {
-      type: Array,
-      default: () => ({})
-    },
     cliente: {
       type: String,
       default: 'Cliente'
@@ -80,9 +78,17 @@ export default {
     dialog: false
   }),
   computed: {
-    numeroDeEquipos() {
-      return this.equipos.length
-    }
+    ...mapState({
+      //
+    })
+  },
+  created() {
+    //
+  },
+  methods: {
+    ...mapActions({
+      //
+    })
   }
 }
 </script>

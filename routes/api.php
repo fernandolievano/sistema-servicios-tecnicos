@@ -42,6 +42,7 @@ Route::prefix('/v1')->group(function () {
 
     Route::prefix('/equipos')->name('equipos.')->group(function () {
         Route::get('/get', 'EquipoController@equipos')->name('get');
+        Route::get('/cliente/{id}', 'EquipoController@cliente_equipos')->name('cliente');
         Route::put('/{id}', 'EquipoController@update')->name('update');
         Route::post('/store', 'EquipoController@store')->name('store');
         Route::delete('/{id}', 'EquipoController@delete')->name('delete');

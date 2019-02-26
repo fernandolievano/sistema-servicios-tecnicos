@@ -16,6 +16,13 @@ class EquipoController extends Controller
         return response()->json($equipos);
     }
 
+    public function cliente_equipos($id)
+    {
+        $equipos = Equipo::with('ticket_inicial')->where('cliente_id', $id)->get();
+        
+        return response()->json($equipos);
+    }
+
     public function store(Request $request)
     {
         $equipo = Equipo::create($request->all());

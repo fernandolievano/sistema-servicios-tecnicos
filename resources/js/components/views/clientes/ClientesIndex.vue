@@ -51,7 +51,6 @@
                 <v-flex xs12>
                   <equipos-cliente
                     :cliente="cliente.nombre"
-                    :equipos="cliente.equipos"
                     :id-cliente="cliente.id"
                   ></equipos-cliente>
                 </v-flex>
@@ -66,12 +65,11 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Swal from 'sweetalert2'
 
 export default {
   components: {
     // EditarCliente: () => import('./ClienteEditar.vue'),
-    EquiposCliente: () => import('./ClienteEquipos.vue'),
+    // EquiposCliente: () => import('./ClienteEquipos.vue'),
     NuevoEquipoCliente: () => import('./ClienteEquipoNuevo.vue')
   },
   computed: {
@@ -86,26 +84,28 @@ export default {
       delete: 'cliente/deleteCliente'
     }),
     eliminar(cliente) {
-      Swal.fire({
-        title: `¿Estás seguro de eliminar a ${cliente.nombre} ${
-          cliente.apellido
-        } de la lista de clientes?`,
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, estoy seguro',
-        cancelButtonText: 'Cancelar'
-      }).then(result => {
-        if (result.value) {
-          this.delete(cliente.id).then(() => {
-            Swal.fire({
-              title: 'Cliente eliminado con éxito',
-              type: 'success'
+      this.$swal
+        .fire({
+          title: `¿Estás seguro de eliminar a ${cliente.nombre} ${
+            cliente.apellido
+          } de la lista de clientes?`,
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sí, estoy seguro',
+          cancelButtonText: 'Cancelar'
+        })
+        .then(result => {
+          if (result.value) {
+            this.delete(cliente.id).then(() => {
+              this.$swal.fire({
+                title: 'Cliente eliminado con éxito',
+                type: 'success'
+              })
             })
-          })
-        }
-      })
+          }
+        })
     }
   }
 }

@@ -47,6 +47,7 @@ export const actions = {
     return ClienteService.store(cliente)
       .then(response => {
         commit('ADD_CLIENTE', response.data)
+        return response.data
       })
       .catch(error => console.log(`Hubo un error: ${error.message}`))
   },

@@ -1,8 +1,6 @@
 <template>
   <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <v-btn slot="activator" small flat color="success">
-      Añadir nuevo equipo <v-icon>add</v-icon>
-    </v-btn>
+    <v-btn slot="activator" small color="success"> Añadir nuevo equipo <v-icon>add</v-icon> </v-btn>
     <v-card>
       <v-toolbar dark color="success" dense>
         <v-btn icon dark @click="closeThis">
@@ -20,9 +18,7 @@
             <v-container grid-list-xs>
               <v-layout row wrap>
                 <v-flex xs12>
-                  <h2 class="display-3">
-                    Nuevo equipo de {{ cliente }} {{ formulario.cliente_id }}
-                  </h2>
+                  <h2 class="display-3">Nuevo equipo de {{ cliente.nombre }}</h2>
                 </v-flex>
                 <v-flex xs12>
                   <v-alert v-model="success" type="success">
@@ -30,7 +26,7 @@
                   </v-alert>
                 </v-flex>
                 <v-flex v-if="success" xs12>
-                    <ticket-inicial :ticket="ticket"></ticket-inicial>
+                  <ticket-inicial :ticket="ticket"></ticket-inicial>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -90,11 +86,6 @@ export default {
     TicketInicial: () => import('./TicketInicial.vue')
   },
   props: {
-    idCliente: {
-      type: Number,
-      required: true,
-      default: 0
-    },
     cliente: {
       type: String,
       default: 'Cliente'
@@ -122,7 +113,7 @@ export default {
     store() {
       const url = '/api/v1/equipos/store'
 
-      this.formulario.cliente_id = this.idCliente
+      this.formulario.cliente_id = this.cliente.id
       const params = Object.assign({}, this.formulario)
 
       axios.post(url, params).then(response => {

@@ -19,6 +19,6 @@ export default {
     return apiCliente.put(`/update/${id}`, cliente)
   },
   delete(id) {
-    return apiCliente.delete(`/${id}`)
+    return apiCliente.delete(`/delete/${id}`)
   }
 }

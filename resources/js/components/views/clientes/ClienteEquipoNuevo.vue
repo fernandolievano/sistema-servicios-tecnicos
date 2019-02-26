@@ -30,16 +30,7 @@
                   </v-alert>
                 </v-flex>
                 <v-flex v-if="success" xs12>
-                  <v-layout row wrap>
-                    <v-flex xs12>
-                      <v-btn color="primary" flat block @click="showTicket = !showTicket">
-                        Ver ticket
-                      </v-btn>
-                    </v-flex>
-                    <v-flex v-if="showTicket" xs12>
-                      <ticket-inicial :ticket="ticket"></ticket-inicial>
-                    </v-flex>
-                  </v-layout>
+                    <ticket-inicial :ticket="ticket"></ticket-inicial>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -112,7 +103,6 @@ export default {
   data: () => ({
     dialog: false,
     success: false,
-    showTicket: false,
     valid: false,
     formulario: {
       equipo: '',

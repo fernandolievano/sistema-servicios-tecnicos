@@ -94,15 +94,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'NuevoEquipoCliente',
@@ -126,7 +117,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dialog: false,
       success: false,
-      showTicket: false,
       valid: false,
       formulario: {
         equipo: '',
@@ -322,55 +312,9 @@ var render = function() {
                                     "v-flex",
                                     { attrs: { xs12: "" } },
                                     [
-                                      _c(
-                                        "v-layout",
-                                        { attrs: { row: "", wrap: "" } },
-                                        [
-                                          _c(
-                                            "v-flex",
-                                            { attrs: { xs12: "" } },
-                                            [
-                                              _c(
-                                                "v-btn",
-                                                {
-                                                  attrs: {
-                                                    color: "primary",
-                                                    flat: "",
-                                                    block: ""
-                                                  },
-                                                  on: {
-                                                    click: function($event) {
-                                                      _vm.showTicket = !_vm.showTicket
-                                                    }
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                      Ver ticket\n                    "
-                                                  )
-                                                ]
-                                              )
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _vm.showTicket
-                                            ? _c(
-                                                "v-flex",
-                                                { attrs: { xs12: "" } },
-                                                [
-                                                  _c("ticket-inicial", {
-                                                    attrs: {
-                                                      ticket: _vm.ticket
-                                                    }
-                                                  })
-                                                ],
-                                                1
-                                              )
-                                            : _vm._e()
-                                        ],
-                                        1
-                                      )
+                                      _c("ticket-inicial", {
+                                        attrs: { ticket: _vm.ticket }
+                                      })
                                     ],
                                     1
                                   )

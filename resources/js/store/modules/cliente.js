@@ -3,6 +3,19 @@
 
 import ClienteService from '../../services/ClienteService'
 
+// eslint-disable-next-line func-names
+const removeByAttr = function(arr, attr, value) {
+  let i = arr.length
+  // eslint-disable-next-line no-plusplus
+  while (i--) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (arr[i] && arr[i].hasOwnProperty(attr) && (arguments.length > 2 && arr[i][attr] === value)) {
+      arr.splice(i, 1)
+    }
+  }
+  return arr
+}
+
 export const namespaced = true
 
 export const state = {
@@ -23,6 +36,9 @@ export const mutations = {
   },
   ADD_CLIENTE(state, cliente) {
     state.clientes.push(cliente)
+  },
+  DELETE_CLIENTE(state, id) {
+    removeByAttr(state.clientes, 'id', id)
   }
 }
 
@@ -34,7 +50,7 @@ export const actions = {
       })
       .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
-  fetchClientes({ commit }) {
+  fetchAll({ commit }) {
     return ClienteService.index()
       .then(response => {
         commit('SET_CLIENTES', response.data)
@@ -43,8 +59,8 @@ export const actions = {
         console.log(`Hubo un problema: ${error.message}`)
       })
   },
-  fetchCliente({ commit, getters }, id) {
-    let cliente = getters.getClienteById(id)
+  fetchOne({ commit, getters }, id) {
+    const cliente = getters.getClienteById(id)
 
     if (cliente) {
       commit('SET_CLIENTE', cliente)
@@ -52,9 +68,18 @@ export const actions = {
     }
     return ClienteService.show(id)
       .then(response => {
-        cliente = response.data
+        const cliente = response.data
         commit('SET_CLIENTE', cliente)
         return cliente
+      })
+      .catch(error => {
+        console.log(`Hubo un problema: ${error.message}`)
+      })
+  },
+  deleteCliente({ commit }, id) {
+    return ClienteService.delete(id)
+      .then(() => {
+        commit('DELETE_CLIENTE', id)
       })
       .catch(error => {
         console.log(`Hubo un problema: ${error.message}`)

@@ -104,7 +104,7 @@ __webpack_require__.r(__webpack_exports__);
       html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(document.querySelector("#ticketInicial".concat(this.ticket.id))).then(function (canvas) {
         // eslint-disable-next-line new-cap
         var pdf = new jspdf__WEBPACK_IMPORTED_MODULE_0___default.a('p', 'mm', 'a4');
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
         pdf.save(filename);
       });
     }

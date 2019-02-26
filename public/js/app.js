@@ -73306,6 +73306,154 @@ router.afterEach((to, from) => {
 
 /***/ }),
 
+/***/ "./resources/js/services/ClienteService.js":
+/*!*************************************************!*\
+  !*** ./resources/js/services/ClienteService.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var apiCliente = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: '/api/v1/clientes',
+  timeout: 20000
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  index: function index() {
+    return apiCliente.get('/get');
+  },
+  show: function show(id) {
+    return apiCliente.get("/get/".concat(id));
+  },
+  store: function store(cliente) {
+    return apiCliente.post('/store', cliente);
+  },
+  update: function update(id, cliente) {
+    return apiCliente.put("/update/".concat(id), cliente);
+  },
+  delete: function _delete(id) {
+    return apiCliente.delete("/delete/".concat(id));
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/cliente.js":
+/*!***********************************************!*\
+  !*** ./resources/js/store/modules/cliente.js ***!
+  \***********************************************/
+/*! exports provided: namespaced, state, mutations, actions, getters */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "namespaced", function() { return namespaced; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mutations", function() { return mutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getters", function() { return getters; });
+/* harmony import */ var _services_ClienteService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/ClienteService */ "./resources/js/services/ClienteService.js");
+/* eslint-disable no-param-reassign */
+
+/* eslint-disable no-shadow */
+ // eslint-disable-next-line func-names
+
+var removeByAttr = function removeByAttr(arr, attr, value) {
+  var i = arr.length; // eslint-disable-next-line no-plusplus
+
+  while (i--) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (arr[i] && arr[i].hasOwnProperty(attr) && arguments.length > 2 && arr[i][attr] === value) {
+      arr.splice(i, 1);
+    }
+  }
+
+  return arr;
+};
+
+var namespaced = true;
+var state = {
+  clientes: [],
+  cliente: {},
+  count: 0
+};
+var mutations = {
+  SET_CLIENTES: function SET_CLIENTES(state, clientes) {
+    state.clientes = clientes;
+  },
+  SET_CLIENTE: function SET_CLIENTE(state, cliente) {
+    state.cliente = cliente;
+  },
+  SET_CLIENTES_COUNT: function SET_CLIENTES_COUNT(state, count) {
+    state.count = count;
+  },
+  ADD_CLIENTE: function ADD_CLIENTE(state, cliente) {
+    state.clientes.push(cliente);
+  },
+  DELETE_CLIENTE: function DELETE_CLIENTE(state, id) {
+    removeByAttr(state.clientes, 'id', id);
+  }
+};
+var actions = {
+  createCliente: function createCliente(_ref, cliente) {
+    var commit = _ref.commit;
+    return _services_ClienteService__WEBPACK_IMPORTED_MODULE_0__["default"].store(cliente).then(function (response) {
+      commit('ADD_CLIENTE', response.data);
+    }).catch(function (error) {
+      return console.log("Hubo un error: ".concat(error.message));
+    });
+  },
+  fetchAll: function fetchAll(_ref2) {
+    var commit = _ref2.commit;
+    return _services_ClienteService__WEBPACK_IMPORTED_MODULE_0__["default"].index().then(function (response) {
+      commit('SET_CLIENTES', response.data);
+    }).catch(function (error) {
+      console.log("Hubo un problema: ".concat(error.message));
+    });
+  },
+  fetchOne: function fetchOne(_ref3, id) {
+    var commit = _ref3.commit,
+        getters = _ref3.getters;
+    var cliente = getters.getClienteById(id);
+
+    if (cliente) {
+      commit('SET_CLIENTE', cliente);
+      return cliente;
+    }
+
+    return _services_ClienteService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
+      var cliente = response.data;
+      commit('SET_CLIENTE', cliente);
+      return cliente;
+    }).catch(function (error) {
+      console.log("Hubo un problema: ".concat(error.message));
+    });
+  },
+  deleteCliente: function deleteCliente(_ref4, id) {
+    var commit = _ref4.commit;
+    return _services_ClienteService__WEBPACK_IMPORTED_MODULE_0__["default"].delete(id).then(function () {
+      commit('DELETE_CLIENTE', id);
+    }).catch(function (error) {
+      console.log("Hubo un problema: ".concat(error.message));
+    });
+  }
+};
+var getters = {
+  getClienteById: function getClienteById(state) {
+    return function (id) {
+      return state.clientes.find(function (cliente) {
+        return cliente.id === id;
+      });
+    };
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/store/store.js":
 /*!*************************************!*\
   !*** ./resources/js/store/store.js ***!
@@ -73320,17 +73468,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _modules_cliente__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/cliente */ "./resources/js/store/modules/cliente.js");
 /* eslint-disable no-console */
 
 /* eslint-disable no-param-reassign */
 
 
 
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"], axios__WEBPACK_IMPORTED_MODULE_2___default.a);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  modules: {
+    cliente: _modules_cliente__WEBPACK_IMPORTED_MODULE_3__
+  },
   state: {
     clientes: [],
-    cliente: {},
     id: '',
     equipos: [],
     servicios: [],
@@ -73397,33 +73549,22 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     CLEAR_ID: function CLEAR_ID(state) {
       state.id = '';
     }
-  },
-  getters: {
-    clienteByID: function clienteByID(state) {
-      return function (id) {
-        return state.clientes.find(function (cliente) {
-          return cliente.id === id;
-        });
-      };
-    },
-    equiposDeCliente: function equiposDeCliente(state, getters, id) {
-      return getters.clienteByID(id).equipos;
-    },
-    servicioByID: function servicioByID(state) {
-      return function (id) {
-        return state.servicios.find(function (servicio) {
-          return servicio.id === id;
-        });
-      };
-    },
-    repuestoByID: function repuestoByID(state) {
-      return function (id) {
-        return state.repuestos.find(function (repuesto) {
-          return repuesto.id === id;
-        });
-      };
-    }
   }
+  /*  getters: {
+    clienteByID: state => id => {
+      return state.clientes.find(cliente => cliente.id === id)
+    },
+    equiposDeCliente: (state, getters, id) => {
+      return getters.clienteByID(id).equipos
+    },
+    servicioByID: state => id => {
+      return state.servicios.find(servicio => servicio.id === id)
+    },
+    repuestoByID: state => id => {
+      return state.repuestos.find(repuesto => repuesto.id === id)
+    }
+  } */
+
 }));
 
 /***/ }),

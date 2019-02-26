@@ -23,7 +23,7 @@ Route::prefix('/v1')->group(function () {
         Route::get('/get/{id}', 'ClienteController@cliente')->name('single');
         Route::put('/update/{id}', 'ClienteController@update')->name('update');
         Route::post('/store', 'ClienteController@store')->name('store');
-        Route::delete('/{id}', 'ClienteController@delete')->name('delete');
+        Route::delete('/delete/{id}', 'ClienteController@delete')->name('delete');
     });
     Route::prefix('/servicios')->name('servicios.')->group(function () {
         Route::get('/get', 'ServicioController@servicios')->name('get');

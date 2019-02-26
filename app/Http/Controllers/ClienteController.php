@@ -38,8 +38,7 @@ class ClienteController extends Controller
 
     public function delete($id)
     {
-        $cliente = Cliente::find($id);
-        $cliente->delete();
+        $cliente = Cliente::findOrFail($id)->delete();
 
         return response(Response::HTTP_OK);
     }

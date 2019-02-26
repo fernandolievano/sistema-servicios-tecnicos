@@ -90,7 +90,7 @@ export default {
       html2canvas(document.querySelector(`#ticketInicial${this.ticket.id}`)).then(canvas => {
         // eslint-disable-next-line new-cap
         const pdf = new jsPDF('p', 'mm', 'a4')
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298)
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297)
         pdf.save(filename)
       })
     }

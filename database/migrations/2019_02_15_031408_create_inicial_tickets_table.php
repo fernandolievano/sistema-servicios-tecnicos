@@ -18,7 +18,7 @@ class CreateInicialTicketsTable extends Migration
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->integer('equipo_id')->unsigned();
-            $table->foreign('equipo_id')->references('id')->on('equipos');
+            $table->foreign('equipo_id')->references('id')->on('equipos')->onDelete('cascade');
             $table->timestamps();
         });
     }

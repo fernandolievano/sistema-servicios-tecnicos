@@ -4,12 +4,16 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+import * as cliente from './modules/cliente'
+
 Vue.use(Vuex, axios)
 
 export default new Vuex.Store({
+  modules: {
+    cliente
+  },
   state: {
     clientes: [],
-    cliente: {},
     id: '',
     equipos: [],
     servicios: [],
@@ -86,8 +90,8 @@ export default new Vuex.Store({
     CLEAR_ID(state) {
       state.id = ''
     }
-  },
-  getters: {
+  }
+  /*  getters: {
     clienteByID: state => id => {
       return state.clientes.find(cliente => cliente.id === id)
     },
@@ -100,5 +104,5 @@ export default new Vuex.Store({
     repuestoByID: state => id => {
       return state.repuestos.find(repuesto => repuesto.id === id)
     }
-  }
+  } */
 })

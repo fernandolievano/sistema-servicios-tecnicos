@@ -1,10 +1,10 @@
 <template>
   <v-container align-center>
     <v-layout row wrap>
-      <v-flex v-for="(cliente, index) in clientes" :key="index" xs12 sm6 md4>
+      <v-flex v-for="(cliente, index) in cliente.clientes" :key="index" xs12 sm6 md4>
         <v-card class="ma-2 pa-2 elevation-24">
           <v-toolbar color="transparent" dense flat>
-            <v-toolbar-title v-text="cliente.nombre + '' + cliente.apellido"></v-toolbar-title>
+            <v-toolbar-title> {{ cliente.nombre }} {{ cliente.apellido }} </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
               <v-btn color="error" flat fab small @click.prevent="eliminar(cliente)">
@@ -40,7 +40,7 @@
             <v-container grid-list-xs>
               <v-layout row wrap>
                 <v-flex xs12>
-                  <editar-cliente :id="cliente.id"></editar-cliente>
+                  <!-- <editar-cliente :id="cliente.id"></editar-cliente> -->
                 </v-flex>
                 <v-flex xs12>
                   <nuevo-equipo-cliente
@@ -65,23 +65,26 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Swal from 'sweetalert2'
 
 export default {
   components: {
-    EditarCliente: () => import('./ClienteEditar.vue'),
+    // EditarCliente: () => import('./ClienteEditar.vue'),
     EquiposCliente: () => import('./ClienteEquipos.vue'),
     NuevoEquipoCliente: () => import('./ClienteEquipoNuevo.vue')
   },
   computed: {
-    ...mapState(['clientes'])
+    ...mapState(['cliente'])
   },
   mounted() {
-    this.$store.dispatch('indexClientes')
+    this.index()
   },
   methods: {
+    ...mapActions({
+      index: 'cliente/fetchAll',
+      delete: 'cliente/deleteCliente'
+    }),
     eliminar(cliente) {
       Swal.fire({
         title: `¿Estás seguro de eliminar a ${cliente.nombre} ${
@@ -95,11 +98,11 @@ export default {
         cancelButtonText: 'Cancelar'
       }).then(result => {
         if (result.value) {
-          const url = `/api/v1/clientes/${cliente.id}`
-
-          axios.delete(url).then(() => {
-            Swal.fire('Usuario eliminado', '...', 'success')
-            this.$store.dispatch('indexClientes')
+          this.delete(cliente.id).then(() => {
+            Swal.fire({
+              title: 'Cliente eliminado con éxito',
+              type: 'success'
+            })
           })
         }
       })
@@ -107,9 +110,3 @@ export default {
   }
 }
 </script>
-
-<style>
-/* html {
-    border-top: 15px solid black;
-} */
-</style>

@@ -83,9 +83,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     // EditarCliente: () => import('./ClienteEditar.vue'),
-    // EquiposCliente: () => import('./ClienteEquipos.vue'),
+    EquiposCliente: function EquiposCliente() {
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./ClienteEquipos.vue */ "./resources/js/components/views/clientes/ClienteEquipos.vue"));
+    },
     NuevoEquipoCliente: function NuevoEquipoCliente() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./ClienteEquipoNuevo.vue */ "./resources/js/components/views/clientes/ClienteEquipoNuevo.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./ClienteEquipoNuevo.vue */ "./resources/js/components/views/clientes/ClienteEquipoNuevo.vue"));
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['cliente'])),
@@ -148,7 +150,7 @@ var render = function() {
         _vm._l(_vm.cliente.clientes, function(cliente, index) {
           return _c(
             "v-flex",
-            { key: index, attrs: { xs12: "", sm6: "", md4: "" } },
+            { key: index, attrs: { xs12: "", sm6: "" } },
             [
               _c(
                 "v-card",

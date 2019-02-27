@@ -73389,19 +73389,19 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/servicios',
     name: 'servicios',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
     }
   }, {
     path: '/repuestos',
     name: 'repuestos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
     }
   }, {
     path: '/equipos',
     name: 'equipos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
     }
   }]
 });
@@ -73454,6 +73454,69 @@ var apiCliente = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
   },
   delete: function _delete(id) {
     return apiCliente.delete("/delete/".concat(id));
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/services/EquiposService.js":
+/*!*************************************************!*\
+  !*** ./resources/js/services/EquiposService.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var apiEquipos = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: '/api/v1/equipos',
+  timeout: 20000
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  index: function index() {
+    return apiEquipos.get('/get');
+  },
+  show: function show(id) {
+    return apiEquipos.get("/get/".concat(id));
+  },
+  byCliente: function byCliente(id) {
+    return apiEquipos.get("/cliente/".concat(id));
+  },
+  store: function store(equipo) {
+    return apiEquipos.post('/store', equipo);
+  },
+  update: function update(id, equipo) {
+    return apiEquipos.put("/update/".concat(id), equipo);
+  },
+  delete: function _delete(id) {
+    return apiEquipos.delete("/".concat(id));
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/services/TicketsService.js":
+/*!*************************************************!*\
+  !*** ./resources/js/services/TicketsService.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var apiTickets = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: '/api/v1/tickets',
+  timeout: 20000
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  ticketInicial: function ticketInicial(id) {
+    return apiTickets.get("/get/".concat(id));
   }
 });
 
@@ -73572,6 +73635,188 @@ var getters = {
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/equipo.js":
+/*!**********************************************!*\
+  !*** ./resources/js/store/modules/equipo.js ***!
+  \**********************************************/
+/*! exports provided: namespaced, state, mutations, actions, getters */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "namespaced", function() { return namespaced; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mutations", function() { return mutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getters", function() { return getters; });
+/* harmony import */ var _services_EquiposService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/EquiposService */ "./resources/js/services/EquiposService.js");
+/* eslint-disable no-param-reassign */
+
+/* eslint-disable no-shadow */
+ // eslint-disable-next-line func-names
+
+var removeByAttr = function removeByAttr(arr, attr, value) {
+  var i = arr.length; // eslint-disable-next-line no-plusplus
+
+  while (i--) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (arr[i] && arr[i].hasOwnProperty(attr) && arguments.length > 2 && arr[i][attr] === value) {
+      arr.splice(i, 1);
+    }
+  }
+
+  return arr;
+};
+
+var namespaced = true;
+var state = {
+  equipos: [],
+  equiposDeCliente: [],
+  equipo: {},
+  count: 0
+};
+var mutations = {
+  SET_EQUIPOS: function SET_EQUIPOS(state, equipos) {
+    state.equipos = equipos;
+  },
+  SET_EQUIPOS_DE_CLIENTE: function SET_EQUIPOS_DE_CLIENTE(state, equipos) {
+    state.equiposDeCliente = equipos;
+  },
+  SET_EQUIPOS_COUNT: function SET_EQUIPOS_COUNT(state, count) {
+    state.count = count;
+  },
+  ADD_EQUIPO: function ADD_EQUIPO(state, equipo) {
+    state.equipos.push(equipo);
+  },
+  DELETE_EQUIPO: function DELETE_EQUIPO(state, id) {
+    removeByAttr(state.equipos, 'id', id);
+  },
+  CLEAR_EQUIPOS_DE_CLIENTE: function CLEAR_EQUIPOS_DE_CLIENTE(state) {
+    state.equiposDeCliente = [];
+  }
+};
+var actions = {
+  fetchAll: function fetchAll(_ref) {
+    var commit = _ref.commit;
+    return _services_EquiposService__WEBPACK_IMPORTED_MODULE_0__["default"].index().then(function (response) {
+      commit('SET_EQUIPOS', response.data);
+    }).catch(function (error) {
+      console.log("Hubo un problema: ".concat(error.message));
+    });
+  },
+  fetchOne: function fetchOne(_ref2, id) {
+    var commit = _ref2.commit,
+        getters = _ref2.getters;
+    var equipo = getters.getEquipoById(id);
+
+    if (equipo) {
+      commit('SET_EQUIPO', equipo);
+      return equipo;
+    }
+
+    return _services_EquiposService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
+      commit('SET_EQUIPO', response.data);
+      return response.data;
+    }).catch(function (error) {
+      console.log("Hubo un problema: ".concat(error.message));
+    });
+  },
+  fetchByCliente: function fetchByCliente(_ref3, id) {
+    var commit = _ref3.commit,
+        getters = _ref3.getters;
+    var equipos = getters.getEquiposByCliente(id);
+
+    if (equipos) {
+      commit('SET_EQUIPOS_DE_CLIENTE', equipos);
+      return equipos;
+    }
+
+    return _services_EquiposService__WEBPACK_IMPORTED_MODULE_0__["default"].byCliente(id).then(function (response) {
+      commit('SET_EQUIPOS_DE_CLIENTE', response.data);
+      return response.data;
+    }).catch(function (error) {
+      console.log("Hubo un problema: ".concat(error.message));
+    });
+  },
+  deleteEquipo: function deleteEquipo(_ref4, id) {
+    var commit = _ref4.commit;
+    return _services_EquiposService__WEBPACK_IMPORTED_MODULE_0__["default"].delete(id).then(function () {
+      commit('DELETE_EQUIPO', id);
+    }).catch(function (error) {
+      console.log("Hubo un problema: ".concat(error.message));
+    });
+  },
+  clearEquiposByCliente: function clearEquiposByCliente(_ref5) {
+    var commit = _ref5.commit;
+    commit('CLEAR_EQUIPOS_DE_CLIENTE');
+  }
+};
+var getters = {
+  getEquiposByCliente: function getEquiposByCliente(state) {
+    return function (id) {
+      return state.equipos.find(function (equipo) {
+        return equipo.cliente_id === id;
+      });
+    };
+  },
+  getEquipoById: function getEquipoById(state) {
+    return function (id) {
+      return state.equipos.find(function (equipo) {
+        return equipo.id === id;
+      });
+    };
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/tickets.js":
+/*!***********************************************!*\
+  !*** ./resources/js/store/modules/tickets.js ***!
+  \***********************************************/
+/*! exports provided: namespaced, state, mutations, actions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "namespaced", function() { return namespaced; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mutations", function() { return mutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
+/* harmony import */ var _services_TicketsService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/TicketsService */ "./resources/js/services/TicketsService.js");
+/* eslint-disable no-param-reassign */
+
+/* eslint-disable no-shadow */
+
+var namespaced = true;
+var state = {
+  ticketInicial: {}
+};
+var mutations = {
+  SET_TICKET_INICIAL: function SET_TICKET_INICIAL(state, ticket) {
+    state.ticketInicial = ticket;
+  },
+  CLEAR_TICKET_INICIAL: function CLEAR_TICKET_INICIAL(state) {
+    state.ticketInicial = {};
+  }
+};
+var actions = {
+  fetchInicial: function fetchInicial(_ref, id) {
+    var commit = _ref.commit;
+    return _services_TicketsService__WEBPACK_IMPORTED_MODULE_0__["default"].ticketInicial(id).then(function (response) {
+      commit('SET_TICKET_INICIAL', response.data);
+    }).catch(function (error) {
+      console.log("Hubo un problema: ".concat(error.message));
+    });
+  },
+  clearInicial: function clearInicial(_ref2) {
+    var commit = _ref2.commit;
+    commit('CLEAR_TICKET_INICIAL');
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/store/store.js":
 /*!*************************************!*\
   !*** ./resources/js/store/store.js ***!
@@ -73587,6 +73832,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _modules_cliente__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/cliente */ "./resources/js/store/modules/cliente.js");
+/* harmony import */ var _modules_equipo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/equipo */ "./resources/js/store/modules/equipo.js");
+/* harmony import */ var _modules_tickets__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/tickets */ "./resources/js/store/modules/tickets.js");
 /* eslint-disable no-console */
 
 /* eslint-disable no-param-reassign */
@@ -73594,10 +73841,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"], axios__WEBPACK_IMPORTED_MODULE_2___default.a);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    cliente: _modules_cliente__WEBPACK_IMPORTED_MODULE_3__
+    cliente: _modules_cliente__WEBPACK_IMPORTED_MODULE_3__,
+    equipo: _modules_equipo__WEBPACK_IMPORTED_MODULE_4__,
+    ticket: _modules_tickets__WEBPACK_IMPORTED_MODULE_5__
   },
   state: {
     clientes: [],

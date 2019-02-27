@@ -40,6 +40,9 @@ export const mutations = {
   },
   DELETE_EQUIPO(state, id) {
     removeByAttr(state.equipos, 'id', id)
+  },
+  CLEAR_EQUIPOS_DE_CLIENTE(state) {
+    state.equiposDeCliente = []
   }
 }
 
@@ -54,7 +57,7 @@ export const actions = {
       })
   },
   fetchOne({ commit, getters }, id) {
-    const equipo = getters.getEquiposId(id)
+    const equipo = getters.getEquipoById(id)
 
     if (equipo) {
       commit('SET_EQUIPO', equipo)
@@ -86,11 +89,16 @@ export const actions = {
       })
   },
   deleteEquipo({ commit }, id) {
-    return EquiposService.delete(id).then(() => {
-      commit('DELETE_EQUIPO', id).catch(error => {
+    return EquiposService.delete(id)
+      .then(() => {
+        commit('DELETE_EQUIPO', id)
+      })
+      .catch(error => {
         console.log(`Hubo un problema: ${error.message}`)
       })
-    })
+  },
+  clearEquiposByCliente({ commit }) {
+    commit('CLEAR_EQUIPOS_DE_CLIENTE')
   }
 }
 
@@ -98,7 +106,7 @@ export const getters = {
   getEquiposByCliente: state => id => {
     return state.equipos.find(equipo => equipo.cliente_id === id)
   },
-  getEquiposById: state => id => {
+  getEquipoById: state => id => {
     return state.equipos.find(equipo => equipo.id === id)
   }
 }

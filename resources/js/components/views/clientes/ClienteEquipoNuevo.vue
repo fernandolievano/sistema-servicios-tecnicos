@@ -18,7 +18,7 @@
             <v-container grid-list-xs>
               <v-layout row wrap>
                 <v-flex xs12>
-                  <h2 class="display-3">Nuevo equipo de {{ cliente.nombre }}</h2>
+                  <h2 class="display-3">Nuevo equipo de {{ cliente }}</h2>
                 </v-flex>
                 <v-flex xs12>
                   <v-alert v-model="success" type="success">
@@ -26,7 +26,7 @@
                   </v-alert>
                 </v-flex>
                 <v-flex v-if="success" xs12>
-                  <ticket-inicial :ticket="ticket"></ticket-inicial>
+                  <TicketInicial :ticketId="ticketId"></TicketInicial>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -79,6 +79,7 @@
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'NuevoEquipoCliente',
@@ -89,6 +90,10 @@ export default {
     cliente: {
       type: String,
       default: 'Cliente'
+    },
+    idCliente: {
+      type: Number,
+      default: 0
     }
   },
   data: () => ({
@@ -104,16 +109,20 @@ export default {
       cliente_id: ''
     },
     generales: [v => !!v || 'Este campo es requerido'],
-    ticket: null
+    ticketId: null
   }),
   methods: {
+    ...mapActions({
+      clear: 'ticket/clearInicial'
+    }),
     closeThis() {
       this.dialog = false
+      this.clear
     },
     store() {
       const url = '/api/v1/equipos/store'
 
-      this.formulario.cliente_id = this.cliente.id
+      this.formulario.cliente_id = this.idCliente
       const params = Object.assign({}, this.formulario)
 
       axios.post(url, params).then(response => {
@@ -121,7 +130,7 @@ export default {
         this.$refs.nuevoequipo.reset()
         this.$store.dispatch('indexClientes')
 
-        this.ticket = response.data
+        this.ticketId = response.data
       })
     }
   }

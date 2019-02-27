@@ -9,6 +9,11 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -70,15 +75,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'EquiposCliente',
+  components: {
+    TicketInicial: function TicketInicial() {
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
+    }
+  },
   props: {
-    equipos: {
-      type: Array,
-      default: function _default() {
-        return {};
-      }
-    },
     cliente: {
       type: String,
       default: 'Cliente'
@@ -90,14 +100,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      dialog: false
+      dialog: false,
+      showTicket: false
     };
   },
-  computed: {
-    numeroDeEquipos: function numeroDeEquipos() {
-      return this.equipos.length;
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['equipo']), {
+    equiposCount: function equiposCount() {
+      return this.equipo.equiposDeCliente.length;
     }
-  }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    fetch: 'equipo/fetchByCliente',
+    clear: 'equipo/clearEquiposByCliente'
+  }), {
+    close: function close() {
+      this.dialog = false;
+      this.clear();
+    }
+  })
 });
 
 /***/ }),
@@ -120,6 +140,7 @@ var render = function() {
   return _c(
     "v-dialog",
     {
+      key: _vm.idCliente,
       attrs: {
         fullscreen: "",
         "hide-overlay": "",
@@ -144,6 +165,12 @@ var render = function() {
             depressed: "",
             block: ""
           },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.fetch(_vm.idCliente)
+            }
+          },
           slot: "activator"
         },
         [
@@ -162,14 +189,7 @@ var render = function() {
             [
               _c(
                 "v-btn",
-                {
-                  attrs: { icon: "", dark: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.dialog = false
-                    }
-                  }
-                },
+                { attrs: { icon: "", dark: "" }, on: { click: _vm.close } },
                 [_c("v-icon", [_vm._v("close")])],
                 1
               ),
@@ -187,12 +207,11 @@ var render = function() {
             "v-container",
             { attrs: { "grid-list-xs": "" } },
             [
-              _c(
-                "v-layout",
-                { attrs: { row: "", wrap: "" } },
-                [
-                  _vm.numeroDeEquipos < 1
-                    ? _c(
+              _vm.equiposCount < 1
+                ? _c(
+                    "v-layout",
+                    [
+                      _c(
                         "v-flex",
                         { attrs: { xs12: "" } },
                         [
@@ -208,94 +227,105 @@ var render = function() {
                         ],
                         1
                       )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm._l(_vm.equipos, function(item) {
+                    ],
+                    1
+                  )
+                : _vm._l(_vm.equipo.equiposDeCliente, function(item) {
                     return _c(
-                      "v-flex",
-                      { key: item.id, attrs: { md8: "", xs12: "" } },
+                      "v-layout",
+                      { key: item.id, attrs: { row: "", wrap: "" } },
                       [
                         _c(
-                          "v-card",
+                          "v-flex",
                           [
                             _c(
-                              "v-card-title",
-                              { attrs: { "primary-title": "" } },
-                              [
-                                _c("div", [
-                                  _c("h1", {
-                                    staticClass: "headline",
-                                    domProps: {
-                                      textContent: _vm._s(
-                                        item.equipo + " " + item.modelo
-                                      )
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("div", [
-                                    _c("span", {
-                                      staticClass: "title",
-                                      domProps: {
-                                        textContent: _vm._s(item.estado)
-                                      }
-                                    })
-                                  ])
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("v-divider"),
-                            _vm._v(" "),
-                            _c(
-                              "v-card-text",
+                              "v-card",
                               [
                                 _c(
-                                  "v-list",
-                                  { attrs: { "two-line": "", subheader: "" } },
+                                  "v-card-title",
+                                  { attrs: { "primary-title": "" } },
+                                  [
+                                    _c("div", [
+                                      _c("h1", {
+                                        staticClass: "headline",
+                                        domProps: {
+                                          textContent: _vm._s(
+                                            item.equipo + " " + item.modelo
+                                          )
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("div", [
+                                        _c("span", {
+                                          staticClass: "title",
+                                          domProps: {
+                                            textContent: _vm._s(item.estado)
+                                          }
+                                        })
+                                      ])
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("v-divider"),
+                                _vm._v(" "),
+                                _c(
+                                  "v-card-text",
                                   [
                                     _c(
-                                      "v-list-tile",
-                                      { attrs: { avatar: "" } },
+                                      "v-list",
+                                      {
+                                        attrs: { "two-line": "", subheader: "" }
+                                      },
                                       [
                                         _c(
-                                          "v-list-tile-content",
+                                          "v-list-tile",
+                                          { attrs: { avatar: "" } },
                                           [
-                                            _c("v-list-tile-title", [
-                                              _vm._v("Descripción del equipo")
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("v-list-tile-sub-title", {
-                                              domProps: {
-                                                textContent: _vm._s(
-                                                  item.descripcion
-                                                )
-                                              }
-                                            })
+                                            _c(
+                                              "v-list-tile-content",
+                                              [
+                                                _c("v-list-tile-title", [
+                                                  _vm._v(
+                                                    "Descripción del equipo"
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("v-list-tile-sub-title", {
+                                                  domProps: {
+                                                    textContent: _vm._s(
+                                                      item.descripcion
+                                                    )
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
                                           ],
                                           1
-                                        )
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-list-tile",
-                                      { attrs: { avatar: "" } },
-                                      [
+                                        ),
+                                        _vm._v(" "),
                                         _c(
-                                          "v-list-tile-content",
+                                          "v-list-tile",
+                                          { attrs: { avatar: "" } },
                                           [
-                                            _c("v-list-tile-title", [
-                                              _vm._v("Diagnóstico")
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("v-list-tile-sub-title", {
-                                              domProps: {
-                                                textContent: _vm._s(
-                                                  item.diagnostico
-                                                )
-                                              }
-                                            })
+                                            _c(
+                                              "v-list-tile-content",
+                                              [
+                                                _c("v-list-tile-title", [
+                                                  _vm._v("Diagnóstico")
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("v-list-tile-sub-title", {
+                                                  domProps: {
+                                                    textContent: _vm._s(
+                                                      item.diagnostico
+                                                    )
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
                                           ],
                                           1
                                         )
@@ -307,18 +337,6 @@ var render = function() {
                                 )
                               ],
                               1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-card-actions",
-                              [
-                                _c(
-                                  "v-btn",
-                                  { attrs: { color: "info", flat: "" } },
-                                  [_vm._v("Info")]
-                                )
-                              ],
-                              1
                             )
                           ],
                           1
@@ -327,11 +345,8 @@ var render = function() {
                       1
                     )
                   })
-                ],
-                2
-              )
             ],
-            1
+            2
           )
         ],
         1

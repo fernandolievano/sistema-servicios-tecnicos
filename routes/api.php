@@ -47,4 +47,8 @@ Route::prefix('/v1')->group(function () {
         Route::post('/store', 'EquipoController@store')->name('store');
         Route::delete('/{id}', 'EquipoController@delete')->name('delete');
     });
+
+    Route::prefix('/tickets')->name('tickets.')->group(function () {
+        Route::get('/get/{id}', 'TicketController@ticket_inicial')->name('inicial.show');
+    });
 });

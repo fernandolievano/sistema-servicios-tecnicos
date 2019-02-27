@@ -1,6 +1,12 @@
 <template>
-  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <v-btn slot="activator" color="info" small depressed block>
+  <v-dialog
+    :key="idCliente"
+    v-model="dialog"
+    fullscreen
+    hide-overlay
+    transition="dialog-bottom-transition"
+  >
+    <v-btn slot="activator" color="info" small depressed block @click.prevent="fetch(idCliente)">
       Equipos de {{ cliente }}
       <v-icon>
         devices_other
@@ -8,20 +14,22 @@
     </v-btn>
     <v-card>
       <v-toolbar dark color="info">
-        <v-btn icon dark @click="dialog = false">
+        <v-btn icon dark @click="close">
           <v-icon>close</v-icon>
         </v-btn>
         <v-toolbar-title>Equipos de {{ cliente }} </v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-container grid-list-xs>
-        <v-layout row wrap>
-          <v-flex v-if="numeroDeEquipos < 1" xs12>
+        <v-layout v-if="equiposCount < 1">
+          <v-flex xs12>
             <v-alert type="warning" :value="true">
               No hay equipos para mostrar
             </v-alert>
           </v-flex>
-          <v-flex v-for="item in equipos" :key="item.id" md8 xs12>
+        </v-layout>
+        <v-layout v-for="item in equipo.equiposDeCliente" v-else :key="item.id" row wrap>
+          <v-flex>
             <v-card>
               <v-card-title primary-title>
                 <div>
@@ -48,9 +56,6 @@
                   </v-list-tile>
                 </v-list>
               </v-card-text>
-              <v-card-actions>
-                <v-btn color="info" flat>Tickets</v-btn>
-              </v-card-actions>
             </v-card>
           </v-flex>
         </v-layout>
@@ -64,6 +69,9 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'EquiposCliente',
+  components: {
+    TicketInicial: () => import('./TicketInicial.vue')
+  },
   props: {
     cliente: {
       type: String,
@@ -75,20 +83,24 @@ export default {
     }
   },
   data: () => ({
-    dialog: false
+    dialog: false,
+    showTicket: false
   }),
   computed: {
-    ...mapState({
-      //
-    })
-  },
-  created() {
-    //
+    ...mapState(['equipo']),
+    equiposCount() {
+      return this.equipo.equiposDeCliente.length
+    }
   },
   methods: {
     ...mapActions({
-      //
-    })
+      fetch: 'equipo/fetchByCliente',
+      clear: 'equipo/clearEquiposByCliente'
+    }),
+    close() {
+      this.dialog = false
+      this.clear()
+    }
   }
 }
 </script>

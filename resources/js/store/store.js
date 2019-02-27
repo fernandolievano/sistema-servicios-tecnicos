@@ -5,12 +5,16 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 import * as cliente from './modules/cliente'
+import * as equipo from './modules/equipo'
+import * as ticket from './modules/tickets'
 
 Vue.use(Vuex, axios)
 
 export default new Vuex.Store({
   modules: {
-    cliente
+    cliente,
+    equipo,
+    ticket
   },
   state: {
     clientes: [],

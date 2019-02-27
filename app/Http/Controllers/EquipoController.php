@@ -38,11 +38,7 @@ class EquipoController extends Controller
 
         $id = $ticket->id;
 
-        $inicial = InicialTicket::where('id', $id)
-                    ->with(['cliente', 'equipo'])
-                    ->first();
-
-        return response()->json($inicial);
+        return response($id);
     }
 
     public function update(Request $request, $id)

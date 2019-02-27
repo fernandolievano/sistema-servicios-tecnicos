@@ -1,7 +1,7 @@
 <template>
   <v-container align-center>
     <v-layout row wrap>
-      <v-flex v-for="(cliente, index) in cliente.clientes" :key="index" xs12 sm6 md4>
+      <v-flex v-for="(cliente, index) in cliente.clientes" :key="index" xs12 sm6>
         <v-card class="ma-2 pa-2 elevation-24">
           <v-toolbar color="transparent" dense flat>
             <v-toolbar-title> {{ cliente.nombre }} {{ cliente.apellido }} </v-toolbar-title>
@@ -69,7 +69,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     // EditarCliente: () => import('./ClienteEditar.vue'),
-    // EquiposCliente: () => import('./ClienteEquipos.vue'),
+    EquiposCliente: () => import('./ClienteEquipos.vue'),
     NuevoEquipoCliente: () => import('./ClienteEquipoNuevo.vue')
   },
   computed: {

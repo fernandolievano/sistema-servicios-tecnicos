@@ -62,11 +62,11 @@ export default {
     ...mapState(['repuesto'])
   },
   mounted() {
-    this.index()
+    this.fetch()
   },
   methods: {
     ...mapActions({
-      index: 'repuesto/fetchAll',
+      fetch: 'repuesto/fetchAll',
       eliminarRepuesto: 'repuesto/deleteRepuesto'
     }),
     precioUnitario(precio) {

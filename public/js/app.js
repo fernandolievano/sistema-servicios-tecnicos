@@ -73389,13 +73389,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/servicios',
     name: 'servicios',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
     }
   }, {
     path: '/repuestos',
     name: 'repuestos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
     }
   }, {
     path: '/equipos',
@@ -73526,6 +73526,42 @@ var apiRepuestos = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
   },
   delete: function _delete(id) {
     return apiRepuestos.delete("/".concat(id));
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/services/ServiciosService.js":
+/*!***************************************************!*\
+  !*** ./resources/js/services/ServiciosService.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var apiServicios = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: '/api/v1/servicios',
+  timeout: 20000
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  index: function index() {
+    return apiServicios.get('/get');
+  },
+  show: function show(id) {
+    return apiServicios.get("/get/".concat(id));
+  },
+  store: function store(servicio) {
+    return apiServicios.post('/store', servicio);
+  },
+  update: function update(id, servicio) {
+    return apiServicios.put("/update/".concat(id), servicio);
+  },
+  delete: function _delete(id) {
+    return apiServicios.delete("/".concat(id));
   }
 });
 
@@ -73886,15 +73922,16 @@ var actions = {
     var repuesto = getters.getRepuestoById(id);
 
     if (repuesto) {
-      commit('SET_REPUESTO', repuesto); // return repuesto
+      commit('SET_REPUESTO', repuesto);
+    } else {
+      return _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
+        commit('SET_REPUESTO', response.data);
+      }).catch(function (error) {
+        console.log("Hubo un problema: ".concat(error.message));
+      });
     }
 
-    return _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
-      commit('SET_REPUESTO', response.data);
-      return response.data;
-    }).catch(function (error) {
-      console.log("Hubo un problema: ".concat(error.message));
-    });
+    return 'ok';
   },
   clearRepuesto: function clearRepuesto(_ref4) {
     var commit = _ref4.commit;
@@ -73914,6 +73951,122 @@ var getters = {
     return function (id) {
       return state.repuestos.find(function (repuesto) {
         return repuesto.id === id;
+      });
+    };
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/servicio.js":
+/*!************************************************!*\
+  !*** ./resources/js/store/modules/servicio.js ***!
+  \************************************************/
+/*! exports provided: namespaced, state, mutations, actions, getters */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "namespaced", function() { return namespaced; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mutations", function() { return mutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getters", function() { return getters; });
+/* harmony import */ var _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/ServiciosService */ "./resources/js/services/ServiciosService.js");
+/* eslint-disable no-param-reassign */
+
+/* eslint-disable no-shadow */
+ // eslint-disable-next-line func-names
+
+var removeByAttr = function removeByAttr(arr, attr, value) {
+  var i = arr.length; // eslint-disable-next-line no-plusplus
+
+  while (i--) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (arr[i] && arr[i].hasOwnProperty(attr) && arguments.length > 2 && arr[i][attr] === value) {
+      arr.splice(i, 1);
+    }
+  }
+
+  return arr;
+};
+
+var namespaced = true;
+var state = {
+  servicios: [],
+  servicio: {},
+  count: 0
+};
+var mutations = {
+  SET_SERVICIOS: function SET_SERVICIOS(state, servicios) {
+    state.servicios = servicios;
+  },
+  SER_SERVICIO: function SER_SERVICIO(state, servicio) {
+    state.servicio = servicio;
+  },
+  CLEAR_SERVICIO: function CLEAR_SERVICIO(state) {
+    state.servicio = {};
+  },
+  ADD_SERVICIO: function ADD_SERVICIO(state, servicio) {
+    state.servicios.push(servicio);
+  },
+  DELETE_SERVICIO: function DELETE_SERVICIO(state, id) {
+    removeByAttr(state.servicios, 'id', id);
+  }
+};
+var actions = {
+  createServicio: function createServicio(_ref, servicio) {
+    var commit = _ref.commit;
+    return _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].store(servicio).then(function (response) {
+      commit('ADD_SERVICIO', response.data);
+      return response.data;
+    }).catch(function (error) {
+      return console.log("Hubo un error: ".concat(error.message));
+    });
+  },
+  fetchAll: function fetchAll(_ref2) {
+    var commit = _ref2.commit;
+    return _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].index().then(function (response) {
+      commit('SET_SERVICIOS', response.data);
+    }).catch(function (error) {
+      return console.log("Hubo un error: ".concat(error.message));
+    });
+  },
+  fetchOne: function fetchOne(_ref3, id) {
+    var commit = _ref3.commit,
+        getters = _ref3.getters;
+    var servicio = getters.getServicioById(id);
+
+    if (servicio) {
+      commit('SET_SERVICIO');
+    } else {
+      return _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
+        commit('SET_SERVICIO', response.data);
+      }).catch(function (error) {
+        return console.log("Hubo un error: ".concat(error.message));
+      });
+    }
+
+    return 'ok';
+  },
+  clearServicio: function clearServicio(_ref4) {
+    var commit = _ref4.commit;
+    commit('CLEAR_SERVICIO');
+  },
+  deleteServicio: function deleteServicio(_ref5, id) {
+    var commit = _ref5.commit;
+    return _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].delete(id).then(function () {
+      commit('DELETE_SERVICIO', id);
+    }).catch(function (error) {
+      return console.log("Hubo un error: ".concat(error.message));
+    });
+  }
+};
+var getters = {
+  getServicioById: function getServicioById(state) {
+    return function (id) {
+      return state.servicios.find(function (servicio) {
+        return servicio.id === id;
       });
     };
   }
@@ -73985,10 +74138,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_cliente__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/cliente */ "./resources/js/store/modules/cliente.js");
 /* harmony import */ var _modules_equipo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/equipo */ "./resources/js/store/modules/equipo.js");
 /* harmony import */ var _modules_repuesto__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/repuesto */ "./resources/js/store/modules/repuesto.js");
-/* harmony import */ var _modules_tickets__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/tickets */ "./resources/js/store/modules/tickets.js");
+/* harmony import */ var _modules_servicio__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/servicio */ "./resources/js/store/modules/servicio.js");
+/* harmony import */ var _modules_tickets__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/tickets */ "./resources/js/store/modules/tickets.js");
 /* eslint-disable no-console */
 
 /* eslint-disable no-param-reassign */
+
 
 
 
@@ -74002,92 +74157,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     cliente: _modules_cliente__WEBPACK_IMPORTED_MODULE_3__,
     equipo: _modules_equipo__WEBPACK_IMPORTED_MODULE_4__,
     repuesto: _modules_repuesto__WEBPACK_IMPORTED_MODULE_5__,
-    ticket: _modules_tickets__WEBPACK_IMPORTED_MODULE_6__
-  },
-  state: {
-    clientes: [],
-    id: '',
-    equipos: [],
-    servicios: [],
-    repuestos: []
-  },
-  actions: {
-    indexClientes: function indexClientes(_ref) {
-      var commit = _ref.commit;
-      var url = '/api/v1/clientes/get';
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
-        commit('SET_CLIENTES', response.data);
-      }).catch(function (error) {
-        console.error(error);
-      });
-    },
-    indexEquipos: function indexEquipos(_ref2) {
-      var commit = _ref2.commit;
-      var url = '/api/v1/equipos/get';
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
-        commit('SET_EQUIPOS', response.data);
-      }).catch(function (error) {
-        console.error(error);
-      });
-    },
-    indexServicios: function indexServicios(_ref3) {
-      var commit = _ref3.commit;
-      var url = '/api/v1/servicios/get';
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
-        commit('SET_SERVICIOS', response.data);
-      }).catch(function (error) {
-        console.error(error);
-      });
-    },
-    indexRepuestos: function indexRepuestos(_ref4) {
-      var commit = _ref4.commit;
-      var url = '/api/v1/repuestos/get';
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
-        commit('SET_REPUESTOS', response.data);
-      }).catch(function (error) {
-        console.error(error);
-      });
-    },
-    setID: function setID(_ref5, id) {
-      var commit = _ref5.commit;
-      commit('SET_ID', id);
-    }
-  },
-  mutations: {
-    SET_CLIENTES: function SET_CLIENTES(state, clientes) {
-      state.clientes = clientes;
-    },
-    SET_ID: function SET_ID(state, id) {
-      state.id = id;
-    },
-    SET_EQUIPOS: function SET_EQUIPOS(state, equipos) {
-      state.equipos = equipos;
-    },
-    SET_SERVICIOS: function SET_SERVICIOS(state, servicios) {
-      state.servicios = servicios;
-    },
-    SET_REPUESTOS: function SET_REPUESTOS(state, repuestos) {
-      state.repuestos = repuestos;
-    },
-    CLEAR_ID: function CLEAR_ID(state) {
-      state.id = '';
-    }
+    servicio: _modules_servicio__WEBPACK_IMPORTED_MODULE_6__,
+    ticket: _modules_tickets__WEBPACK_IMPORTED_MODULE_7__
   }
-  /*  getters: {
-    clienteByID: state => id => {
-      return state.clientes.find(cliente => cliente.id === id)
-    },
-    equiposDeCliente: (state, getters, id) => {
-      return getters.clienteByID(id).equipos
-    },
-    servicioByID: state => id => {
-      return state.servicios.find(servicio => servicio.id === id)
-    },
-    repuestoByID: state => id => {
-      return state.repuestos.find(repuesto => repuesto.id === id)
-    }
-  } */
-
 }));
 
 /***/ }),

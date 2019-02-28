@@ -1,14 +1,20 @@
 <template>
   <v-container grid-list-xs>
     <v-layout row wrap>
-      <v-flex v-for="item in servicios" :key="item.id" xs12 sm6 md4>
+      <v-flex v-for="item in servicio.servicios" :key="item.id" xs12 sm6 md4>
         <v-card class="ma-2 pa-2 elevation-24">
+          <v-toolbar color="transparent" dense flat>
+            <v-toolbar-title> {{ item.titulo }} </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items>
+              <v-btn fab small flat color="error" @click.prevent="eliminar(item)"
+                ><v-icon>clear</v-icon></v-btn
+              >
+            </v-toolbar-items>
+          </v-toolbar>
           <v-responsive min-height="220">
             <v-card-title primary-title>
               <v-layout row wrap>
-                <v-flex xs12>
-                  <h3 v-text="item.titulo"></h3>
-                </v-flex>
                 <v-flex xs12>
                   <v-list three-line subheader>
                     <v-subheader>Acerca del servicio</v-subheader>
@@ -40,11 +46,6 @@
                 <v-flex>
                   <editar-servicio :id="item.id"></editar-servicio>
                 </v-flex>
-                <v-flex>
-                  <v-btn fab small depressed color="error" @click.prevent="eliminar(item)">
-                    <v-icon>clear</v-icon>
-                  </v-btn>
-                </v-flex>
               </v-layout>
             </v-container>
           </v-card-actions>
@@ -54,8 +55,7 @@
   </v-container>
 </template>
 <script>
-import { mapState } from 'vuex'
-import axios from 'axios'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'IndexServicios',
@@ -64,12 +64,16 @@ export default {
   },
   data: () => ({}),
   computed: {
-    ...mapState(['servicios'])
+    ...mapState(['servicio'])
   },
   mounted() {
-    this.$store.dispatch('indexServicios')
+    this.fetch()
   },
   methods: {
+    ...mapActions({
+      fetch: 'servicio/fetchAll',
+      eliminarServicio: 'servicio/deleteServicio'
+    }),
     formatoValor(valor) {
       let formato = valor.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
       formato = `$${formato}`
@@ -91,15 +95,19 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            const url = `/api/v1/servicios/${servicio.id}`
-
-            axios.delete(url).then(() => {
-              this.$swal.fire({
-                title: 'Servicio eliminado exitosamente',
-                type: 'success'
+            this.eliminarServicio(servicio.id)
+              .then(() => {
+                this.$swal.fire({
+                  title: 'Servicio dado de baja con éxito',
+                  type: 'success'
+                })
               })
-              this.$store.dispatch('indexServicios')
-            })
+              .catch(() => {
+                this.$swal.fire({
+                  title: 'Error al eliminar servicio',
+                  type: 'error'
+                })
+              })
           }
         })
     }

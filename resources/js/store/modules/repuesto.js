@@ -66,16 +66,16 @@ export const actions = {
 
     if (repuesto) {
       commit('SET_REPUESTO', repuesto)
-      // return repuesto
+    } else {
+      return RepuestoService.show(id)
+        .then(response => {
+          commit('SET_REPUESTO', response.data)
+        })
+        .catch(error => {
+          console.log(`Hubo un problema: ${error.message}`)
+        })
     }
-    return RepuestoService.show(id)
-      .then(response => {
-        commit('SET_REPUESTO', response.data)
-        return response.data
-      })
-      .catch(error => {
-        console.log(`Hubo un problema: ${error.message}`)
-      })
+    return 'ok'
   },
   clearRepuesto({ commit }) {
     commit('CLEAR_REPUESTO')

@@ -24,9 +24,9 @@ class ServicioController extends Controller
 
     public function store(Request $request)
     {
-        Servicio::create($request->all());
+        $servicio = Servicio::create($request->all());
 
-        return response(Response::HTTP_CREATED);
+        return response()->json($servicio);
     }
 
     public function update(Request $request, $id)

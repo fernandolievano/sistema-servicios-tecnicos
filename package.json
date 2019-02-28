@@ -33,6 +33,7 @@
         "@babel/preset-env": "^7.3.1",
         "axios": "^0.18",
         "babel-polyfill": "^6.26.0",
+        "eslint-plugin-html": "^5.0.3",
         "html2canvas": "^1.0.0-alpha.12",
         "jspdf": "^1.5.3",
         "vue": "^2.5.17",

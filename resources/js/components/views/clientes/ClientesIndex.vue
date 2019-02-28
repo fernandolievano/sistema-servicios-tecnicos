@@ -1,6 +1,11 @@
 <template>
   <v-container align-center>
     <v-layout row wrap>
+      <!-- <v-flex v-if="clientesCount < 1" xs12>
+        <v-alert type="warning" :value="true">
+          No hay clientes para mostrar
+        </v-alert>
+      </v-flex> -->
       <v-flex v-for="(cliente, index) in cliente.clientes" :key="index" xs12 sm6>
         <v-card class="ma-2 pa-2 elevation-24">
           <v-toolbar color="transparent" dense flat>
@@ -40,7 +45,7 @@
             <v-container grid-list-xs>
               <v-layout row wrap>
                 <v-flex xs12>
-                  <!-- <editar-cliente :id="cliente.id"></editar-cliente> -->
+                  <editar-cliente :id="cliente.id"></editar-cliente>
                 </v-flex>
                 <v-flex xs12>
                   <nuevo-equipo-cliente
@@ -64,16 +69,19 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
-    // EditarCliente: () => import('./ClienteEditar.vue'),
+    EditarCliente: () => import('./ClienteEditar.vue'),
     EquiposCliente: () => import('./ClienteEquipos.vue'),
     NuevoEquipoCliente: () => import('./ClienteEquipoNuevo.vue')
   },
   computed: {
-    ...mapState(['cliente'])
+    ...mapState(['cliente']),
+    ...mapGetters({
+      clientesCount: 'cliente/clientesCount'
+    })
   },
   mounted() {
     this.index()

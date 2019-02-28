@@ -9,7 +9,7 @@
         <v-toolbar-title>Nuevo equipo</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn dark flat @click.prevent="store">Registrar</v-btn>
+          <v-btn dark flat :disabled="success" @click.prevent="store">Registrar</v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-form ref="nuevoequipo" v-model="valid" lazy-validation>
@@ -26,7 +26,7 @@
                   </v-alert>
                 </v-flex>
                 <v-flex v-if="success" xs12>
-                  <TicketInicial :ticketId="ticketId"></TicketInicial>
+                  <TicketInicial :ticket-id="ticketId"></TicketInicial>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -117,7 +117,9 @@ export default {
     }),
     closeThis() {
       this.dialog = false
-      this.clear
+      this.$refs.nuevoequipo.reset()
+      this.success = false
+      this.clear()
     },
     store() {
       const url = '/api/v1/equipos/store'
@@ -128,8 +130,6 @@ export default {
       axios.post(url, params).then(response => {
         this.success = true
         this.$refs.nuevoequipo.reset()
-        this.$store.dispatch('indexClientes')
-
         this.ticketId = response.data
       })
     }

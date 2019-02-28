@@ -81,16 +81,12 @@ export default {
   }),
   computed: {
     formulario() {
-      return this.$store.getters.clienteByID(this.id)
+      return this.$store.getters['cliente/getClienteById'](this.id)
     }
-  },
-  mounted() {
-    this.$store.commit('SET_ID', this.id)
   },
   methods: {
     actualizar(id) {
       const url = `/api/v1/clientes/update/${id}`
-
       const params = Object.assign({}, this.formulario)
 
       axios.put(url, params).then(() => {
@@ -98,7 +94,6 @@ export default {
       })
     },
     closeThis() {
-      this.$store.commit('CLEAR_ID')
       this.dialog = false
     }
   }

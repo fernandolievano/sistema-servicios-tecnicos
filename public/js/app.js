@@ -73627,8 +73627,7 @@ var removeByAttr = function removeByAttr(arr, attr, value) {
 var namespaced = true;
 var state = {
   clientes: [],
-  cliente: {},
-  count: 0
+  cliente: {}
 };
 var mutations = {
   SET_CLIENTES: function SET_CLIENTES(state, clientes) {
@@ -73699,6 +73698,9 @@ var getters = {
         return cliente.id === id;
       });
     };
+  },
+  clientesCount: function clientesCount(state) {
+    return state.clientes.length;
   }
 };
 
@@ -73741,8 +73743,7 @@ var namespaced = true;
 var state = {
   equipos: [],
   equiposDeCliente: [],
-  equipo: {},
-  count: 0
+  equipo: {}
 };
 var mutations = {
   SET_EQUIPOS: function SET_EQUIPOS(state, equipos) {
@@ -73834,6 +73835,9 @@ var getters = {
         return equipo.id === id;
       });
     };
+  },
+  equiposDeClienteCount: function equiposDeClienteCount(state) {
+    return state.equiposDeCliente.length;
   }
 };
 

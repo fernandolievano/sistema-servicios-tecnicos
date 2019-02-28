@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex v-for="item in equipo.equipos" :key="item.id" xs12 sm6>
         <v-card class="ma-2 pa-2 elevation-24">
-          <v-toolbar flat>
+          <v-toolbar dense color="transparent" flat>
             <v-toolbar-title>
               {{ item.equipo }}
               <small class="grey--text text--darken-2">

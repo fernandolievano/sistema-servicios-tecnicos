@@ -79,10 +79,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    // EditarCliente: () => import('./ClienteEditar.vue'),
+    EditarCliente: function EditarCliente() {
+      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./ClienteEditar.vue */ "./resources/js/components/views/clientes/ClienteEditar.vue"));
+    },
     EquiposCliente: function EquiposCliente() {
       return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./ClienteEquipos.vue */ "./resources/js/components/views/clientes/ClienteEquipos.vue"));
     },
@@ -90,7 +97,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./ClienteEquipoNuevo.vue */ "./resources/js/components/views/clientes/ClienteEquipoNuevo.vue"));
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['cliente'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['cliente']), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    clientesCount: 'cliente/clientesCount'
+  })),
   mounted: function mounted() {
     this.index();
   },
@@ -301,7 +310,16 @@ var render = function() {
                             "v-layout",
                             { attrs: { row: "", wrap: "" } },
                             [
-                              _c("v-flex", { attrs: { xs12: "" } }),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("editar-cliente", {
+                                    attrs: { id: cliente.id }
+                                  })
+                                ],
+                                1
+                              ),
                               _vm._v(" "),
                               _c(
                                 "v-flex",

@@ -21,8 +21,7 @@ export const namespaced = true
 export const state = {
   equipos: [],
   equiposDeCliente: [],
-  equipo: {},
-  count: 0
+  equipo: {}
 }
 
 export const mutations = {
@@ -108,5 +107,8 @@ export const getters = {
   },
   getEquipoById: state => id => {
     return state.equipos.find(equipo => equipo.id === id)
+  },
+  equiposDeClienteCount: state => {
+    return state.equiposDeCliente.length
   }
 }

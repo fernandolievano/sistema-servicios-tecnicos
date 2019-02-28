@@ -138,7 +138,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }), {
     closeThis: function closeThis() {
       this.dialog = false;
-      this.clear;
+      this.$refs.nuevoequipo.reset();
+      this.success = false;
+      this.clear();
     },
     store: function store() {
       var _this = this;
@@ -150,8 +152,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.success = true;
 
         _this.$refs.nuevoequipo.reset();
-
-        _this.$store.dispatch('indexClientes');
 
         _this.ticketId = response.data;
       });
@@ -227,7 +227,7 @@ var render = function() {
                   _c(
                     "v-btn",
                     {
-                      attrs: { dark: "", flat: "" },
+                      attrs: { dark: "", flat: "", disabled: _vm.success },
                       on: {
                         click: function($event) {
                           $event.preventDefault()
@@ -313,7 +313,7 @@ var render = function() {
                                     { attrs: { xs12: "" } },
                                     [
                                       _c("TicketInicial", {
-                                        attrs: { ticketId: _vm.ticketId }
+                                        attrs: { "ticket-id": _vm.ticketId }
                                       })
                                     ],
                                     1

@@ -99,9 +99,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       showTicket: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['equipo']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['equipo']), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    count: 'equipo/equiposDeClienteCount'
+  }), {
     equiposCount: function equiposCount() {
-      return this.equipo.equiposDeCliente.length;
+      return this.count;
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({

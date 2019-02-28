@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'EquiposCliente',
@@ -85,8 +85,11 @@ export default {
   }),
   computed: {
     ...mapState(['equipo']),
+    ...mapGetters({
+      count: 'equipo/equiposDeClienteCount'
+    }),
     equiposCount() {
-      return this.equipo.equiposDeCliente.length
+      return this.count
     }
   },
   methods: {

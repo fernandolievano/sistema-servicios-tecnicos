@@ -20,8 +20,7 @@ export const namespaced = true
 
 export const state = {
   clientes: [],
-  cliente: {},
-  count: 0
+  cliente: {}
 }
 
 export const mutations = {
@@ -91,5 +90,8 @@ export const actions = {
 export const getters = {
   getClienteById: state => id => {
     return state.clientes.find(cliente => cliente.id === id)
+  },
+  clientesCount: state => {
+    return state.clientes.length
   }
 }

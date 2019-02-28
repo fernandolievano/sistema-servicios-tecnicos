@@ -159,7 +159,7 @@ var render = function() {
                 [
                   _c(
                     "v-toolbar",
-                    { attrs: { flat: "" } },
+                    { attrs: { dense: "", color: "transparent", flat: "" } },
                     [
                       _c("v-toolbar-title", [
                         _vm._v(

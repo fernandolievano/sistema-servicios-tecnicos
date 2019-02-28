@@ -1,13 +1,19 @@
 <template>
   <v-container grid-list-xs>
     <v-layout row wrap>
-      <v-flex v-for="item in repuestos" :key="item.id" xs12 sm6 md4>
+      <v-flex v-for="item in repuesto.repuestos" :key="item.id" xs12 sm6 md4>
         <v-card class="ma-2 pa-2 elevation-24">
-          <v-responsive min-height="220">
+          <v-toolbar color="transparent" dense flat>
+            <v-toolbar-title> {{ item.repuesto }} </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items>
+              <v-btn fab small flat color="error" @click.prevent="eliminar(item)"
+                ><v-icon>clear</v-icon></v-btn
+              >
+            </v-toolbar-items>
+          </v-toolbar>
+          <v-responsive min-height="150">
             <v-card-title primary-title>
-              <v-flex xs12>
-                <h3 v-text="item.repuesto"></h3>
-              </v-flex>
               <v-flex xs12>
                 <v-list three-line subheader>
                   <v-subheader v-text="item.descripcion"></v-subheader>
@@ -35,11 +41,6 @@
                 <v-flex>
                   <editar-repuesto :id="item.id"></editar-repuesto>
                 </v-flex>
-                <v-flex>
-                  <v-btn fab small depressed color="error" @click.prevent="eliminar(item)"
-                    ><v-icon>clear</v-icon></v-btn
-                  >
-                </v-flex>
               </v-layout>
             </v-container>
           </v-card-actions>
@@ -50,8 +51,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'IndexRepuestos',
@@ -59,12 +59,16 @@ export default {
     EditarRepuesto: () => import('./RepuestoEditar.vue')
   },
   computed: {
-    ...mapState(['repuestos'])
+    ...mapState(['repuesto'])
   },
   mounted() {
-    this.$store.dispatch('indexRepuestos')
+    this.index()
   },
   methods: {
+    ...mapActions({
+      index: 'repuesto/fetchAll',
+      eliminarRepuesto: 'repuesto/deleteRepuesto'
+    }),
     precioUnitario(precio) {
       let formato = precio.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
       formato = `$${formato}`
@@ -86,15 +90,19 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            const url = `/api/v1/repuestos/${repuesto.id}`
-
-            axios.delete(url).then(() => {
-              this.$swal.fire({
-                title: 'Repuesto eliminado exitosamente',
-                type: 'success'
+            this.eliminarRepuesto(repuesto.id)
+              .then(() => {
+                this.$swal.fire({
+                  title: 'Repuesto eliminado con éxito',
+                  type: 'success'
+                })
               })
-              this.$store.dispatch('indexRepuestos')
-            })
+              .catch(() => {
+                this.$swal.fire({
+                  title: 'Error al eliminar repuesto',
+                  type: 'error'
+                })
+              })
           }
         })
     }

@@ -73389,13 +73389,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/servicios',
     name: 'servicios',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
+      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
     }
   }, {
     path: '/repuestos',
     name: 'repuestos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
     }
   }, {
     path: '/equipos',
@@ -73493,6 +73493,39 @@ var apiEquipos = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
   },
   delete: function _delete(id) {
     return apiEquipos.delete("/".concat(id));
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/services/RepuestosService.js":
+/*!***************************************************!*\
+  !*** ./resources/js/services/RepuestosService.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var apiRepuestos = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: '/api/v1/repuestos',
+  timeout: 20000
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  index: function index() {
+    return apiRepuestos.get('/get');
+  },
+  show: function show(id) {
+    return apiRepuestos.get("/get".concat(id));
+  },
+  store: function store(repuesto) {
+    return apiRepuestos.post('/store', repuesto);
+  },
+  delete: function _delete(id) {
+    return apiRepuestos.delete("/".concat(id));
   }
 });
 
@@ -73770,6 +73803,124 @@ var getters = {
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/repuesto.js":
+/*!************************************************!*\
+  !*** ./resources/js/store/modules/repuesto.js ***!
+  \************************************************/
+/*! exports provided: namespaced, state, mutations, actions, getters */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "namespaced", function() { return namespaced; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mutations", function() { return mutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getters", function() { return getters; });
+/* harmony import */ var _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/RepuestosService */ "./resources/js/services/RepuestosService.js");
+/* eslint-disable no-param-reassign */
+
+/* eslint-disable no-shadow */
+ // eslint-disable-next-line func-names
+
+var removeByAttr = function removeByAttr(arr, attr, value) {
+  var i = arr.length; // eslint-disable-next-line no-plusplus
+
+  while (i--) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (arr[i] && arr[i].hasOwnProperty(attr) && arguments.length > 2 && arr[i][attr] === value) {
+      arr.splice(i, 1);
+    }
+  }
+
+  return arr;
+};
+
+var namespaced = true;
+var state = {
+  repuestos: [],
+  repuesto: {},
+  count: 0
+};
+var mutations = {
+  SET_REPUESTOS: function SET_REPUESTOS(state, repuestos) {
+    state.repuestos = repuestos;
+  },
+  SET_REPUESTOS_COUNT: function SET_REPUESTOS_COUNT(state, count) {
+    state.count = count;
+  },
+  SET_REPUESTO: function SET_REPUESTO(state, repuesto) {
+    state.repuesto = repuesto;
+  },
+  CLEAR_REPUESTO: function CLEAR_REPUESTO(state) {
+    state.repuesto = {};
+  },
+  ADD_REPUESTO: function ADD_REPUESTO(state, repuesto) {
+    state.repuestos.push(repuesto);
+  },
+  DELETE_REPUESTO: function DELETE_REPUESTO(state, id) {
+    removeByAttr(state.repuestos, 'id', id);
+  }
+};
+var actions = {
+  createRepuesto: function createRepuesto(_ref, repuesto) {
+    var commit = _ref.commit;
+    return _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__["default"].store(repuesto).then(function (response) {
+      commit('ADD_REPUESTO', response.data);
+      return response.data;
+    }).catch(function (error) {
+      return console.log("Hubo un error: ".concat(error.message));
+    });
+  },
+  fetchAll: function fetchAll(_ref2) {
+    var commit = _ref2.commit;
+    return _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__["default"].index().then(function (response) {
+      commit('SET_REPUESTOS', response.data);
+    }).catch(function (error) {
+      return console.log("Hubo un error: ".concat(error.message));
+    });
+  },
+  fetchOne: function fetchOne(_ref3, id) {
+    var commit = _ref3.commit,
+        getters = _ref3.getters;
+    var repuesto = getters.getRepuestoById(id);
+
+    if (repuesto) {
+      commit('SET_REPUESTO', repuesto); // return repuesto
+    }
+
+    return _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
+      commit('SET_REPUESTO', response.data);
+      return response.data;
+    }).catch(function (error) {
+      console.log("Hubo un problema: ".concat(error.message));
+    });
+  },
+  clearRepuesto: function clearRepuesto(_ref4) {
+    var commit = _ref4.commit;
+    commit('CLEAR_REPUESTO');
+  },
+  deleteRepuesto: function deleteRepuesto(_ref5, id) {
+    var commit = _ref5.commit;
+    return _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__["default"].delete(id).then(function () {
+      commit('DELETE_REPUESTO', id);
+    }).catch(function (error) {
+      return console.log("Hubo un error: ".concat(error.message));
+    });
+  }
+};
+var getters = {
+  getRepuestoById: function getRepuestoById(state) {
+    return function (id) {
+      return state.repuestos.find(function (repuesto) {
+        return repuesto.id === id;
+      });
+    };
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/store/modules/tickets.js":
 /*!***********************************************!*\
   !*** ./resources/js/store/modules/tickets.js ***!
@@ -73833,10 +73984,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _modules_cliente__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/cliente */ "./resources/js/store/modules/cliente.js");
 /* harmony import */ var _modules_equipo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/equipo */ "./resources/js/store/modules/equipo.js");
-/* harmony import */ var _modules_tickets__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/tickets */ "./resources/js/store/modules/tickets.js");
+/* harmony import */ var _modules_repuesto__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/repuesto */ "./resources/js/store/modules/repuesto.js");
+/* harmony import */ var _modules_tickets__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/tickets */ "./resources/js/store/modules/tickets.js");
 /* eslint-disable no-console */
 
 /* eslint-disable no-param-reassign */
+
 
 
 
@@ -73848,7 +74001,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   modules: {
     cliente: _modules_cliente__WEBPACK_IMPORTED_MODULE_3__,
     equipo: _modules_equipo__WEBPACK_IMPORTED_MODULE_4__,
-    ticket: _modules_tickets__WEBPACK_IMPORTED_MODULE_5__
+    repuesto: _modules_repuesto__WEBPACK_IMPORTED_MODULE_5__,
+    ticket: _modules_tickets__WEBPACK_IMPORTED_MODULE_6__
   },
   state: {
     clientes: [],

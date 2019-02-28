@@ -88,26 +88,30 @@ export default {
       delete: 'equipo/deleteEquipo'
     }),
     eliminar(item) {
-      const message = `¿Estás seguro de eliminar ${item.equipo} ${item.modelo} de la lista de equipos?`
+      const message = `¿Estás seguro de eliminar ${item.equipo} ${
+        item.modelo
+      } de la lista de equipos?`
 
-      this.$swal.fire({
-        title: message,
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, estoy seguro',
-        cancelButtonText: 'Cancelar'
-      }).then(result => {
-        if (result.value) {
-          this.delete(item.id).then(() => {
-            this.$swal.fire({
-              title: 'Equipo eliminado con éxito',
-              type: 'success'
+      this.$swal
+        .fire({
+          title: message,
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sí, estoy seguro',
+          cancelButtonText: 'Cancelar'
+        })
+        .then(result => {
+          if (result.value) {
+            this.delete(item.id).then(() => {
+              this.$swal.fire({
+                title: 'Equipo eliminado con éxito',
+                type: 'success'
+              })
             })
-          })
-        }
-      })
+          }
+        })
     }
   }
 }

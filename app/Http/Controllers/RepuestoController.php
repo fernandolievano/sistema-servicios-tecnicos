@@ -24,22 +24,26 @@ class RepuestoController extends Controller
 
     public function store(Request $request)
     {
-        Repuesto::create($request->all());
+       $repuesto = Repuesto::create($request->all());
 
-        return response(Response::HTTP_OK);
+        return response()->json($repuesto);
     }
 
     public function update(Request $request, $id)
     {
-        Repuesto::findOrFail($id)->update($request->all());
+        $repuesto = Repuesto::find($id);
+        $repuesto->repuesto         = $request->get('repuesto');
+        $repuesto->descripcion      = $request->get('descripcion');
+        $repuesto->cantidad         = $request->get('cantidad');
+        $repuesto->precio_unitario  = $request->get('precio_unitario');
+        $repuesto->update();
 
         return response(Response::HTTP_OK);
     }
 
     public function delete($id)
     {
-        $repuesto = Repuesto::findOrFail($id);
-        $repuesto->delete();
+        $repuesto = Repuesto::findOrFail($id)->delete();
 
         return response(Response::HTTP_OK);
     }

@@ -83,11 +83,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'EquiposCliente',
-  components: {
-    TicketInicial: function TicketInicial() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
-    }
-  },
   props: {
     cliente: {
       type: String,

@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import * as cliente from './modules/cliente'
 import * as equipo from './modules/equipo'
+import * as repuesto from './modules/repuesto'
 import * as ticket from './modules/tickets'
 
 Vue.use(Vuex, axios)
@@ -14,6 +15,7 @@ export default new Vuex.Store({
   modules: {
     cliente,
     equipo,
+    repuesto,
     ticket
   },
   state: {

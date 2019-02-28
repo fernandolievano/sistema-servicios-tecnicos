@@ -2,17 +2,6 @@
 
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -35,7 +24,7 @@ Route::prefix('/v1')->group(function () {
     Route::prefix('/repuestos')->name('repuestos.')->group(function () {
         Route::get('/get', 'RepuestoController@repuestos')->name('get');
         Route::get('/get/{id}', 'RepuestoController@repuesto')->name('single');
-        Route::put('/{id}', 'RepuestoController@update')->name('update');
+        Route::put('/update/{id}', 'RepuestoController@update')->name('update');
         Route::post('/store', 'RepuestoController@store')->name('store');
         Route::delete('/{id}', 'RepuestoController@delete')->name('delete');
     });
@@ -43,7 +32,7 @@ Route::prefix('/v1')->group(function () {
     Route::prefix('/equipos')->name('equipos.')->group(function () {
         Route::get('/get', 'EquipoController@equipos')->name('get');
         Route::get('/cliente/{id}', 'EquipoController@cliente_equipos')->name('cliente');
-        Route::put('/{id}', 'EquipoController@update')->name('update');
+        Route::put('/update/{id}', 'EquipoController@update')->name('update');
         Route::post('/store', 'EquipoController@store')->name('store');
         Route::delete('/{id}', 'EquipoController@delete')->name('delete');
     });

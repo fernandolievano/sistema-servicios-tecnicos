@@ -15,9 +15,6 @@ export default {
   store(repuesto) {
     return apiRepuestos.post('/store', repuesto)
   },
-  update(id, repuesto) {
-    return apiRepuestos.put(`/update/${id}`, repuesto)
-  },
   delete(id) {
     return apiRepuestos.delete(`/${id}`)
   }

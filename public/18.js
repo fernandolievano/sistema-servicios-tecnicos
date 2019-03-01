@@ -10,10 +10,6 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -73,8 +69,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
-
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'IndexServicios',
@@ -86,11 +81,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {};
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['servicios'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['servicio'])),
   mounted: function mounted() {
-    this.$store.dispatch('indexServicios');
+    this.fetch();
   },
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    fetch: 'servicio/fetchAll',
+    eliminarServicio: 'servicio/deleteServicio'
+  }), {
     formatoValor: function formatoValor(valor) {
       var formato = valor.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
       formato = "$".concat(formato);
@@ -110,19 +108,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cancelButtonText: 'Cancelar'
       }).then(function (result) {
         if (result.value) {
-          var url = "/api/v1/servicios/".concat(servicio.id);
-          axios__WEBPACK_IMPORTED_MODULE_2___default.a.delete(url).then(function () {
+          _this.eliminarServicio(servicio.id).then(function () {
             _this.$swal.fire({
-              title: 'Servicio eliminado exitosamente',
+              title: 'Servicio dado de baja con éxito',
               type: 'success'
             });
-
-            _this.$store.dispatch('indexServicios');
+          }).catch(function () {
+            _this.$swal.fire({
+              title: 'Error al eliminar servicio',
+              type: 'error'
+            });
           });
         }
       });
     }
-  }
+  })
 });
 
 /***/ }),
@@ -149,7 +149,7 @@ var render = function() {
       _c(
         "v-layout",
         { attrs: { row: "", wrap: "" } },
-        _vm._l(_vm.servicios, function(item) {
+        _vm._l(_vm.servicio.servicios, function(item) {
           return _c(
             "v-flex",
             { key: item.id, attrs: { xs12: "", sm6: "", md4: "" } },
@@ -158,6 +158,45 @@ var render = function() {
                 "v-card",
                 { staticClass: "ma-2 pa-2 elevation-24" },
                 [
+                  _c(
+                    "v-toolbar",
+                    { attrs: { color: "transparent", dense: "", flat: "" } },
+                    [
+                      _c("v-toolbar-title", [
+                        _vm._v(" " + _vm._s(item.titulo) + " ")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-toolbar-items",
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                fab: "",
+                                small: "",
+                                flat: "",
+                                color: "error"
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.eliminar(item)
+                                }
+                              }
+                            },
+                            [_c("v-icon", [_vm._v("clear")])],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
                   _c(
                     "v-responsive",
                     { attrs: { "min-height": "220" } },
@@ -170,12 +209,6 @@ var render = function() {
                             "v-layout",
                             { attrs: { row: "", wrap: "" } },
                             [
-                              _c("v-flex", { attrs: { xs12: "" } }, [
-                                _c("h3", {
-                                  domProps: { textContent: _vm._s(item.titulo) }
-                                })
-                              ]),
-                              _vm._v(" "),
                               _c(
                                 "v-flex",
                                 { attrs: { xs12: "" } },
@@ -277,32 +310,6 @@ var render = function() {
                                   _c("editar-servicio", {
                                     attrs: { id: item.id }
                                   })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                [
-                                  _c(
-                                    "v-btn",
-                                    {
-                                      attrs: {
-                                        fab: "",
-                                        small: "",
-                                        depressed: "",
-                                        color: "error"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.eliminar(item)
-                                        }
-                                      }
-                                    },
-                                    [_c("v-icon", [_vm._v("clear")])],
-                                    1
-                                  )
                                 ],
                                 1
                               )

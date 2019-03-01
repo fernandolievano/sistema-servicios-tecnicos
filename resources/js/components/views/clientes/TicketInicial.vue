@@ -2,18 +2,18 @@
   <v-container>
     <v-layout row wrap align-center justify-center>
       <v-flex xs6>
-        <v-btn color="primary" block  @click="imprimir">
+        <v-btn :disabled="!show" color="primary" block @click="imprimir">
           Imprimir ticket
         </v-btn>
       </v-flex>
       <v-flex xs6>
-        <v-btn :disabled="show" @click="mostrarTicket" block flat>
+        <v-btn :disabled="show" block flat @click="mostrarTicket">
           Ver ticket
         </v-btn>
       </v-flex>
     </v-layout>
-    <v-layout row wrap align-center justify-center v-if="show">
-      <v-flex :id="'ticketInicial' + ticketId" xs6>
+    <v-layout v-if="show" row wrap align-center justify-center>
+      <v-flex :id="'ticketInicial' + ticketId" class="ticket" xs6>
         <v-card>
           <v-toolbar flat dense>
             <v-toolbar-title>
@@ -33,7 +33,9 @@
                 </v-flex>
                 <v-flex xs8>
                   <v-card-text>
-                    <h1 class="title">{{ ticketInicial.cliente.nombre }} {{ ticketInicial.cliente.apellido }}</h1>
+                    <h1 class="title">
+                      {{ ticketInicial.cliente.nombre }} {{ ticketInicial.cliente.apellido }}
+                    </h1>
                   </v-card-text>
                   <v-card-text>
                     <h4>Dirección</h4>
@@ -63,7 +65,7 @@
                     </p>
                   </v-card-text>
                   <v-card-text>
-                    <h4>Diagnóstico del equipo al ser entregado</h4>
+                    <h4>Diagnóstico</h4>
                     <p>{{ ticketInicial.equipo.diagnostico }}</p>
                   </v-card-text>
                 </v-flex>
@@ -88,7 +90,9 @@ import html2canvas from 'html2canvas'
 export default {
   props: {
     ticketId: {
-      type: Number
+      type: Number,
+      required: true,
+      default: 0
     }
   },
   data() {
@@ -110,7 +114,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetch: 'ticket/fetchInicial',
+      fetch: 'ticket/fetchInicial'
     }),
     imprimir() {
       this.fetch(this.ticketId)
@@ -120,7 +124,8 @@ export default {
       html2canvas(document.querySelector(`#ticketInicial${this.ticketId}`)).then(canvas => {
         // eslint-disable-next-line new-cap
         const pdf = new jsPDF('p', 'mm', 'a4')
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297)
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 3, 5, 100, 150)
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 107, 5, 100, 150)
         pdf.save(filename)
       })
     },
@@ -136,5 +141,8 @@ export default {
 <style scoped>
 .icon-ticket {
   width: 10%;
+}
+.ticket {
+  border: 1px solid black;
 }
 </style>

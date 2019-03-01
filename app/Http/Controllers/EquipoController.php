@@ -19,7 +19,7 @@ class EquipoController extends Controller
     public function cliente_equipos($id)
     {
         $equipos = Equipo::with('ticket_inicial')->where('cliente_id', $id)->get();
-        
+
         return response()->json($equipos);
     }
 
@@ -46,7 +46,16 @@ class EquipoController extends Controller
         $equipo = Equipo::find($id);
         $equipo->update($request->all());
 
-        return reponse(Response::HTTP_OK);
+        return response($equipo);
+    }
+
+    public function estado(Request $request, $id)
+    {
+      $equipo = Equipo::find($id);
+      $equipo->estado = $request->get('estado');
+      $equipo->update();
+
+      return response()->json($equipo);
     }
 
     public function delete($id)

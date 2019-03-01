@@ -100,13 +100,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     ticketId: {
-      type: Number
+      type: Number,
+      required: true,
+      default: 0
     }
   },
   data: function data() {
@@ -134,7 +138,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       html2canvas__WEBPACK_IMPORTED_MODULE_2___default()(document.querySelector("#ticketInicial".concat(this.ticketId))).then(function (canvas) {
         // eslint-disable-next-line new-cap
         var pdf = new jspdf__WEBPACK_IMPORTED_MODULE_1___default.a('p', 'mm', 'a4');
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 3, 5, 100, 150);
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 107, 5, 100, 150);
         pdf.save(filename);
       });
     },
@@ -162,7 +167,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.icon-ticket[data-v-163c3242] {\n  width: 10%;\n}\n", ""]);
+exports.push([module.i, "\n.icon-ticket[data-v-163c3242] {\n  width: 10%;\n}\n.ticket[data-v-163c3242] {\n  border: 1px solid black;\n}\n", ""]);
 
 // exports
 
@@ -230,7 +235,7 @@ var render = function() {
               _c(
                 "v-btn",
                 {
-                  attrs: { color: "primary", block: "" },
+                  attrs: { disabled: !_vm.show, color: "primary", block: "" },
                   on: { click: _vm.imprimir }
                 },
                 [_vm._v("\n        Imprimir ticket\n      ")]
@@ -272,7 +277,10 @@ var render = function() {
             [
               _c(
                 "v-flex",
-                { attrs: { id: "ticketInicial" + _vm.ticketId, xs6: "" } },
+                {
+                  staticClass: "ticket",
+                  attrs: { id: "ticketInicial" + _vm.ticketId, xs6: "" }
+                },
                 [
                   _c(
                     "v-card",
@@ -336,14 +344,16 @@ var render = function() {
                                       _c("v-card-text", [
                                         _c("h1", { staticClass: "title" }, [
                                           _vm._v(
-                                            _vm._s(
-                                              _vm.ticketInicial.cliente.nombre
-                                            ) +
+                                            "\n                    " +
+                                              _vm._s(
+                                                _vm.ticketInicial.cliente.nombre
+                                              ) +
                                               " " +
                                               _vm._s(
                                                 _vm.ticketInicial.cliente
                                                   .apellido
-                                              )
+                                              ) +
+                                              "\n                  "
                                           )
                                         ])
                                       ]),
@@ -440,11 +450,7 @@ var render = function() {
                                       ]),
                                       _vm._v(" "),
                                       _c("v-card-text", [
-                                        _c("h4", [
-                                          _vm._v(
-                                            "Diagnóstico del equipo al ser entregado"
-                                          )
-                                        ]),
+                                        _c("h4", [_vm._v("Diagnóstico")]),
                                         _vm._v(" "),
                                         _c("p", [
                                           _vm._v(

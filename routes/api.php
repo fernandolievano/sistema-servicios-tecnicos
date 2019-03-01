@@ -33,6 +33,7 @@ Route::prefix('/v1')->group(function () {
         Route::get('/get', 'EquipoController@equipos')->name('get');
         Route::get('/cliente/{id}', 'EquipoController@cliente_equipos')->name('cliente');
         Route::put('/update/{id}', 'EquipoController@update')->name('update');
+        Route::put('/estado/{id}', 'EquipoController@estado')->name('estado');
         Route::post('/store', 'EquipoController@store')->name('store');
         Route::delete('/{id}', 'EquipoController@delete')->name('delete');
     });

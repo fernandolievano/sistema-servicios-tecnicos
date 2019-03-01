@@ -65,6 +65,9 @@
               </v-layout>
             </v-card-title>
           </v-responsive>
+          <v-card-actions>
+            <BotonEstado :id="item.id" :estado="item.estado"></BotonEstado>
+          </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
@@ -76,6 +79,9 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'IndexEquipos',
+  components: {
+    BotonEstado: () => import('./Estado.vue')
+  },
   computed: {
     ...mapState(['equipo'])
   },

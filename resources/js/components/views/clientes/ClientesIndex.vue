@@ -1,70 +1,83 @@
 <template>
-  <v-container grid-list-xs>
-    <v-layout row wrap>
-      <v-flex v-for="(cliente, index) in cliente.clientes" :key="index" xs12 sm4>
-        <v-card class="ma-2 pa-2 elevation-24">
-          <v-toolbar color="transparent" dense flat>
-            <v-toolbar-title> {{ cliente.nombre }} {{ cliente.apellido }} </v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-toolbar-items>
-              <v-btn color="error" flat fab small @click.prevent="eliminar(cliente)">
-                <v-icon>clear</v-icon>
-              </v-btn>
-            </v-toolbar-items>
-          </v-toolbar>
-          <v-responsive min-height="220">
-            <v-card-title primary-title>
-              <v-layout row wrap>
-                <v-flex xs12>
-                  <v-list three-line subheader>
-                    <v-subheader>Información de contacto</v-subheader>
+  <div>
+    <v-toolbar dense flat>
+      <v-toolbar-title> {{ counter }} clientes registrados </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-text-field
+          v-model="keyword"
+          append-icon="search"
+          label="Búsqueda de clientes"
+        ></v-text-field>
+      </v-toolbar-items>
+    </v-toolbar>
+    <v-container grid-list-xs>
+      <v-layout row wrap>
+        <v-flex v-for="(cliente, index) in clientes" :key="index" xs12 sm4>
+          <v-card class="ma-2 pa-2 elevation-24">
+            <v-toolbar color="transparent" dense flat>
+              <v-toolbar-title> {{ cliente.nombre }} {{ cliente.apellido }} </v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items>
+                <v-btn color="error" flat fab small @click.prevent="eliminar(cliente)">
+                  <v-icon>clear</v-icon>
+                </v-btn>
+              </v-toolbar-items>
+            </v-toolbar>
+            <v-responsive min-height="220">
+              <v-card-title primary-title>
+                <v-layout row wrap>
+                  <v-flex xs12>
+                    <v-list three-line subheader>
+                      <v-subheader>Información de contacto</v-subheader>
 
-                    <v-list-tile>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Teléfono</v-list-tile-title>
-                        <v-list-tile-sub-title v-text="cliente.telefono"></v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Dirección</v-list-tile-title>
-                        <v-list-tile-sub-title v-text="cliente.direccion"></v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                  </v-list>
-                </v-flex>
-              </v-layout>
-            </v-card-title>
-          </v-responsive>
-          <v-card-actions>
-            <v-container grid-list-xs>
-              <v-layout row wrap>
-                <v-flex xs12>
-                  <equipos-cliente
-                    :cliente="cliente.nombre"
-                    :id-cliente="cliente.id"
-                  ></equipos-cliente>
-                </v-flex>
-                <v-flex xs12>
-                  <editar-cliente :id="cliente.id"></editar-cliente>
-                </v-flex>
-                <v-flex xs12>
-                  <nuevo-equipo-cliente
-                    :id-cliente="cliente.id"
-                    :cliente="cliente.nombre"
-                  ></nuevo-equipo-cliente>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+                      <v-list-tile>
+                        <v-list-tile-content>
+                          <v-list-tile-title>Teléfono</v-list-tile-title>
+                          <v-list-tile-sub-title v-text="cliente.telefono"></v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                      <v-list-tile>
+                        <v-list-tile-content>
+                          <v-list-tile-title>Dirección</v-list-tile-title>
+                          <v-list-tile-sub-title v-text="cliente.direccion"></v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-list>
+                  </v-flex>
+                </v-layout>
+              </v-card-title>
+            </v-responsive>
+            <v-card-actions>
+              <v-container grid-list-xs>
+                <v-layout row wrap>
+                  <v-flex xs12>
+                    <equipos-cliente
+                      :cliente="cliente.nombre"
+                      :id-cliente="cliente.id"
+                    ></equipos-cliente>
+                  </v-flex>
+                  <v-flex xs12>
+                    <editar-cliente :id="cliente.id"></editar-cliente>
+                  </v-flex>
+                  <v-flex xs12>
+                    <nuevo-equipo-cliente
+                      :id-cliente="cliente.id"
+                      :cliente="cliente.nombre"
+                    ></nuevo-equipo-cliente>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -72,11 +85,20 @@ export default {
     EquiposCliente: () => import('./ClienteEquipos.vue'),
     NuevoEquipoCliente: () => import('./ClienteEquipoNuevo.vue')
   },
+  data() {
+    return {
+      keyword: ''
+    }
+  },
   computed: {
-    ...mapState(['cliente']),
     ...mapGetters({
-      clientesCount: 'cliente/clientesCount'
-    })
+      clientesCount: 'cliente/clientesCount',
+      filteredClientes: 'cliente/filteredClientes',
+      counter: 'cliente/clientesCount'
+    }),
+    clientes() {
+      return this.filteredClientes(this.keyword)
+    }
   },
   mounted() {
     this.index()

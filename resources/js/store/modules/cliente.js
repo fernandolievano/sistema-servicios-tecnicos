@@ -20,7 +20,8 @@ export const namespaced = true
 
 export const state = {
   clientes: [],
-  cliente: {}
+  cliente: {},
+  keyword: ''
 }
 
 export const mutations = {
@@ -43,21 +44,19 @@ export const mutations = {
 
 export const actions = {
   createCliente({ commit }, cliente) {
-    return ClienteService.store(cliente)
-      .then(response => {
-        commit('ADD_CLIENTE', response.data)
-        return response.data
-      })
-      .catch(error => console.log(`Hubo un error: ${error.message}`))
+    return ClienteService.store(cliente).then(response => {
+      commit('ADD_CLIENTE', response.data)
+      return response.data
+    })
+    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchAll({ commit }) {
-    return ClienteService.index()
-      .then(response => {
-        commit('SET_CLIENTES', response.data)
-      })
-      .catch(error => {
-        console.log(`Hubo un problema: ${error.message}`)
-      })
+    return ClienteService.index().then(response => {
+      commit('SET_CLIENTES', response.data)
+    })
+    // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   fetchOne({ commit, getters }, id) {
     const cliente = getters.getClienteById(id)
@@ -66,24 +65,22 @@ export const actions = {
       commit('SET_CLIENTE', cliente)
       return cliente
     }
-    return ClienteService.show(id)
-      .then(response => {
-        const cliente = response.data
-        commit('SET_CLIENTE', cliente)
-        return cliente
-      })
-      .catch(error => {
-        console.log(`Hubo un problema: ${error.message}`)
-      })
+    return ClienteService.show(id).then(response => {
+      const cliente = response.data
+      commit('SET_CLIENTE', cliente)
+      return cliente
+    })
+    // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   deleteCliente({ commit }, id) {
-    return ClienteService.delete(id)
-      .then(() => {
-        commit('DELETE_CLIENTE', id)
-      })
-      .catch(error => {
-        console.log(`Hubo un problema: ${error.message}`)
-      })
+    return ClienteService.delete(id).then(() => {
+      commit('DELETE_CLIENTE', id)
+    })
+    // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   }
 }
 
@@ -93,5 +90,10 @@ export const getters = {
   },
   clientesCount: state => {
     return state.clientes.length
+  },
+  filteredClientes: state => keyword => {
+    return state.clientes.filter(
+      cli => cli.nombre.toLowerCase().indexOf(keyword.toLowerCase()) > -1
+    )
   }
 }

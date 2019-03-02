@@ -74179,7 +74179,8 @@ var removeByAttr = function removeByAttr(arr, attr, value) {
 var namespaced = true;
 var state = {
   clientes: [],
-  cliente: {}
+  cliente: {},
+  keyword: ''
 };
 var mutations = {
   SET_CLIENTES: function SET_CLIENTES(state, clientes) {
@@ -74204,17 +74205,15 @@ var actions = {
     return _services_ClienteService__WEBPACK_IMPORTED_MODULE_0__["default"].store(cliente).then(function (response) {
       commit('ADD_CLIENTE', response.data);
       return response.data;
-    }).catch(function (error) {
-      return console.log("Hubo un error: ".concat(error.message));
-    });
+    }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchAll: function fetchAll(_ref2) {
     var commit = _ref2.commit;
     return _services_ClienteService__WEBPACK_IMPORTED_MODULE_0__["default"].index().then(function (response) {
       commit('SET_CLIENTES', response.data);
-    }).catch(function (error) {
-      console.log("Hubo un problema: ".concat(error.message));
-    });
+    }); // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   fetchOne: function fetchOne(_ref3, id) {
     var commit = _ref3.commit,
@@ -74230,17 +74229,17 @@ var actions = {
       var cliente = response.data;
       commit('SET_CLIENTE', cliente);
       return cliente;
-    }).catch(function (error) {
-      console.log("Hubo un problema: ".concat(error.message));
-    });
+    }); // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   deleteCliente: function deleteCliente(_ref4, id) {
     var commit = _ref4.commit;
     return _services_ClienteService__WEBPACK_IMPORTED_MODULE_0__["default"].delete(id).then(function () {
       commit('DELETE_CLIENTE', id);
-    }).catch(function (error) {
-      console.log("Hubo un problema: ".concat(error.message));
-    });
+    }); // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   }
 };
 var getters = {
@@ -74253,6 +74252,13 @@ var getters = {
   },
   clientesCount: function clientesCount(state) {
     return state.clientes.length;
+  },
+  filteredClientes: function filteredClientes(state) {
+    return function (keyword) {
+      return state.clientes.filter(function (cli) {
+        return cli.nombre.toLowerCase().indexOf(keyword.toLowerCase()) > -1;
+      });
+    };
   }
 };
 

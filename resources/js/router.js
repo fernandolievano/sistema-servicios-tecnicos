@@ -35,8 +35,8 @@ const router = new Router({
 /* router.beforeResolve((to, from, next) => {
   // If this isn't an initial page load.
   if (to.name) {
-    // Start the route progress bar.
-    NProgress.start()
+      // Start the route progress bar.
+      NProgress.start()
   }
   next()
 })

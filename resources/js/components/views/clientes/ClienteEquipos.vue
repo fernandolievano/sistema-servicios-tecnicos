@@ -6,9 +6,9 @@
     hide-overlay
     transition="dialog-bottom-transition"
   >
-    <v-btn slot="activator" color="info" small depressed block @click.prevent="fetch(idCliente)">
+    <v-btn slot="activator" color="info" small flat block @click.prevent="fetch(idCliente)">
       Equipos de {{ cliente }}
-      <v-icon>
+      <v-icon right>
         devices_other
       </v-icon>
     </v-btn>

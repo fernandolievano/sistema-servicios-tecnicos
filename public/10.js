@@ -126,11 +126,7 @@ var render = function() {
                 }
               }
             },
-            [
-              _vm._v(
-                "\n    Marcar como Retirado (id: " + _vm._s(_vm.id) + ")\n  "
-              )
-            ]
+            [_vm._v("\n    Marcar como Retirado\n  ")]
           )
         : _c("div", [_vm._v("\n    Equipo despachado\n  ")])
     ],

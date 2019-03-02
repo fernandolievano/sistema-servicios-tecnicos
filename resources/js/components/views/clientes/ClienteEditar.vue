@@ -1,8 +1,8 @@
 <template>
   <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <v-btn slot="activator" color="warning" small flat>
+    <v-btn slot="activator" color="warning" small block flat>
       Editar información
-      <v-icon>
+      <v-icon right>
         edit
       </v-icon>
     </v-btn>

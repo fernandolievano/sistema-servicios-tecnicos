@@ -1,5 +1,12 @@
 <template>
   <div>
+    <v-toolbar dense flat>
+      <v-toolbar-title> {{ counter }} clientes registrados </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-text-field append-icon="search" label="Búsqueda de clientes"></v-text-field>
+      </v-toolbar-items>
+    </v-toolbar>
     <v-tabs v-model="activeBtn" centered color="transparent" light icons-and-text>
       <v-tabs-slider color="primary"></v-tabs-slider>
       <v-tab>
@@ -23,6 +30,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   components: {
     nuevoCliente: () => import('./ClienteNuevo.vue'),
@@ -30,7 +39,12 @@ export default {
   },
   data: () => ({
     activeBtn: 0
-  })
+  }),
+  computed: {
+    ...mapGetters({
+      counter: 'cliente/clientesCount'
+    })
+  }
 }
 </script>
 

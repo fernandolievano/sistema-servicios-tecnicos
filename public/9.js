@@ -90,6 +90,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'IndexEquipos',
@@ -253,100 +267,185 @@ var render = function() {
                                       ]),
                                       _vm._v(" "),
                                       _c(
-                                        "v-list-tile",
+                                        "v-container",
+                                        { attrs: { "grid-list-xs": "" } },
                                         [
                                           _c(
-                                            "v-list-tile-content",
+                                            "v-layout",
+                                            { attrs: { row: "", wrap: "" } },
                                             [
-                                              _c("v-list-tile-title", [
-                                                _vm._v("Propietario")
-                                              ]),
+                                              _c(
+                                                "v-flex",
+                                                { attrs: { xs6: "" } },
+                                                [
+                                                  _c(
+                                                    "v-list-tile",
+                                                    [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-title",
+                                                            [
+                                                              _vm._v(
+                                                                "Propietario"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-sub-title",
+                                                            [
+                                                              _vm._v(
+                                                                "\n                              " +
+                                                                  _vm._s(
+                                                                    item.cliente
+                                                                      .nombre
+                                                                  ) +
+                                                                  " " +
+                                                                  _vm._s(
+                                                                    item.cliente
+                                                                      .apellido
+                                                                  ) +
+                                                                  "\n                            "
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              ),
                                               _vm._v(" "),
-                                              _c("v-list-tile-sub-title", [
-                                                _vm._v(
-                                                  "\n                        " +
-                                                    _vm._s(
-                                                      item.cliente.nombre
-                                                    ) +
-                                                    " " +
-                                                    _vm._s(
-                                                      item.cliente.apellido
-                                                    ) +
-                                                    "\n                      "
-                                                )
-                                              ])
+                                              _c(
+                                                "v-flex",
+                                                { attrs: { xs6: "" } },
+                                                [
+                                                  _c(
+                                                    "v-list-tile",
+                                                    [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-title",
+                                                            [_vm._v("Estado")]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-sub-title",
+                                                            [
+                                                              _vm._v(
+                                                                "\n                              " +
+                                                                  _vm._s(
+                                                                    item.estado
+                                                                  ) +
+                                                                  "\n                            "
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              )
                                             ],
                                             1
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        [
+                                          ),
+                                          _vm._v(" "),
                                           _c(
-                                            "v-list-tile-content",
+                                            "v-layout",
+                                            { attrs: { row: "", wrap: "" } },
                                             [
-                                              _c("v-list-tile-title", [
-                                                _vm._v("Estado")
-                                              ]),
+                                              _c(
+                                                "v-flex",
+                                                { attrs: { xs12: "" } },
+                                                [
+                                                  _c(
+                                                    "v-list-tile",
+                                                    [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-title",
+                                                            [
+                                                              _vm._v(
+                                                                "Diagnóstico"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-sub-title",
+                                                            [
+                                                              _vm._v(
+                                                                "\n                              " +
+                                                                  _vm._s(
+                                                                    item.diagnostico
+                                                                  ) +
+                                                                  "\n                            "
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              ),
                                               _vm._v(" "),
-                                              _c("v-list-tile-sub-title", [
-                                                _vm._v(
-                                                  "\n                        " +
-                                                    _vm._s(item.estado) +
-                                                    "\n                      "
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v("Diagnóstico")
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("v-list-tile-sub-title", [
-                                                _vm._v(
-                                                  "\n                        " +
-                                                    _vm._s(item.diagnostico) +
-                                                    "\n                      "
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v("Descripción")
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("v-list-tile-sub-title", [
-                                                _vm._v(
-                                                  "\n                        " +
-                                                    _vm._s(item.descripcion) +
-                                                    "\n                      "
-                                                )
-                                              ])
+                                              _c(
+                                                "v-flex",
+                                                { attrs: { xs12: "" } },
+                                                [
+                                                  _c(
+                                                    "v-list-tile",
+                                                    [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-title",
+                                                            [
+                                                              _vm._v(
+                                                                "Descripción"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-sub-title",
+                                                            [
+                                                              _vm._v(
+                                                                "\n                              " +
+                                                                  _vm._s(
+                                                                    item.descripcion
+                                                                  ) +
+                                                                  "\n                            "
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              )
                                             ],
                                             1
                                           )

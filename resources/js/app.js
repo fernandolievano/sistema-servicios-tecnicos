@@ -2,6 +2,7 @@
 import './bootstrap'
 import 'babel-polyfill'
 import 'vuetify/dist/vuetify.min.css'
+import 'nprogress/nprogress.css'
 
 // vue
 import Vue from 'vue'

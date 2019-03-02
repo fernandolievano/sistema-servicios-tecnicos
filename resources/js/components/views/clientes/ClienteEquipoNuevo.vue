@@ -1,6 +1,9 @@
 <template>
   <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <v-btn slot="activator" small color="success"> Añadir nuevo equipo <v-icon>add</v-icon> </v-btn>
+    <v-btn slot="activator" block small color="success">
+      Añadir nuevo equipo
+      <v-icon right>add</v-icon>
+    </v-btn>
     <v-card>
       <v-toolbar dark color="success" dense>
         <v-btn icon dark @click="closeThis">

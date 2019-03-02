@@ -89,6 +89,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -229,7 +233,13 @@ var render = function() {
                                             " registrado con éxito\n                "
                                         )
                                       ]
-                                    )
+                                    ),
+                                    _vm._v(" "),
+                                    _c("small", [
+                                      _vm._v(
+                                        "Continúe con el proceso de registro"
+                                      )
+                                    ])
                                   ]),
                                   _vm._v(" "),
                                   _c(
@@ -238,8 +248,8 @@ var render = function() {
                                     [
                                       _c("nuevo-equipo-cliente", {
                                         attrs: {
-                                          cliente: _vm.cliente,
-                                          nuevo: true
+                                          cliente: _vm.cliente.nombre,
+                                          "id-cliente": _vm.cliente.id
                                         }
                                       })
                                     ],
@@ -253,157 +263,161 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _c(
-                        "v-responsive",
-                        [
-                          _c(
-                            "v-container",
+                      !_vm.success
+                        ? _c(
+                            "v-responsive",
                             [
                               _c(
-                                "v-layout",
-                                { attrs: { row: "", wrap: "" } },
+                                "v-container",
                                 [
                                   _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Nombre",
-                                          required: "",
-                                          rules: _vm.generales
-                                        },
-                                        model: {
-                                          value: _vm.formulario.nombre,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.formulario,
-                                              "nombre",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "formulario.nombre"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Apellido",
-                                          required: "",
-                                          rules: _vm.generales
-                                        },
-                                        model: {
-                                          value: _vm.formulario.apellido,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.formulario,
-                                              "apellido",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "formulario.apellido"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Dirección",
-                                          required: "",
-                                          rules: _vm.generales
-                                        },
-                                        model: {
-                                          value: _vm.formulario.direccion,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.formulario,
-                                              "direccion",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "formulario.direccion"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          label: "Teléfono",
-                                          required: "",
-                                          rules: _vm.generales
-                                        },
-                                        model: {
-                                          value: _vm.formulario.telefono,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.formulario,
-                                              "telefono",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "formulario.telefono"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: { label: "E-mail" },
-                                        model: {
-                                          value: _vm.formulario.email,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.formulario,
-                                              "email",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "formulario.email"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
+                                    "v-layout",
+                                    { attrs: { row: "", wrap: "" } },
                                     [
                                       _c(
-                                        "v-btn",
-                                        {
-                                          attrs: {
-                                            type: "submit",
-                                            block: "",
-                                            large: "",
-                                            color: "success"
-                                          }
-                                        },
-                                        [_vm._v("Registar")]
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Nombre",
+                                              required: "",
+                                              rules: _vm.generales
+                                            },
+                                            model: {
+                                              value: _vm.formulario.nombre,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formulario,
+                                                  "nombre",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "formulario.nombre"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Apellido",
+                                              required: "",
+                                              rules: _vm.generales
+                                            },
+                                            model: {
+                                              value: _vm.formulario.apellido,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formulario,
+                                                  "apellido",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "formulario.apellido"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Dirección",
+                                              required: "",
+                                              rules: _vm.generales
+                                            },
+                                            model: {
+                                              value: _vm.formulario.direccion,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formulario,
+                                                  "direccion",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "formulario.direccion"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Teléfono",
+                                              required: "",
+                                              rules: _vm.generales
+                                            },
+                                            model: {
+                                              value: _vm.formulario.telefono,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formulario,
+                                                  "telefono",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "formulario.telefono"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "E-mail" },
+                                            model: {
+                                              value: _vm.formulario.email,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formulario,
+                                                  "email",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "formulario.email"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: {
+                                                type: "submit",
+                                                block: "",
+                                                large: "",
+                                                color: "success"
+                                              }
+                                            },
+                                            [_vm._v("Registar")]
+                                          )
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
@@ -414,9 +428,7 @@ var render = function() {
                             ],
                             1
                           )
-                        ],
-                        1
-                      )
+                        : _vm._e()
                     ],
                     1
                   )

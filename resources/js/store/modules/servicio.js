@@ -87,5 +87,8 @@ export const actions = {
 export const getters = {
   getServicioById: state => id => {
     return state.servicios.find(servicio => servicio.id === id)
+  },
+  serviciosCount: state => {
+    return state.servicios.length
   }
 }

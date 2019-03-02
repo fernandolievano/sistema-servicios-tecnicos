@@ -159,7 +159,7 @@ var render = function() {
             slot: "activator",
             color: "info",
             small: "",
-            depressed: "",
+            flat: "",
             block: ""
           },
           on: {
@@ -172,7 +172,9 @@ var render = function() {
         },
         [
           _vm._v("\n    Equipos de " + _vm._s(_vm.cliente) + "\n    "),
-          _c("v-icon", [_vm._v("\n      devices_other\n    ")])
+          _c("v-icon", { attrs: { right: "" } }, [
+            _vm._v("\n      devices_other\n    ")
+          ])
         ],
         1
       ),

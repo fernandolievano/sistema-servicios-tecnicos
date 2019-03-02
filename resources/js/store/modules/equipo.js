@@ -108,6 +108,9 @@ export const getters = {
   getEquipoById: state => id => {
     return state.equipos.find(equipo => equipo.id === id)
   },
+  equiposCount: state => {
+    return state.equipos.length
+  },
   equiposDeClienteCount: state => {
     return state.equiposDeCliente.length
   }

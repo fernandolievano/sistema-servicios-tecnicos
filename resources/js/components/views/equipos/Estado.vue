@@ -4,7 +4,7 @@
       Marcar como Reparado (id: {{ id }})
     </v-btn>
     <v-btn v-else-if="estado === 'Reparado'" color="success" @click="marcarComo(estado, id)">
-      Marcar como Retirado (id: {{ id }})
+      Marcar como Retirado
     </v-btn>
     <div v-else>
       Equipo despachado

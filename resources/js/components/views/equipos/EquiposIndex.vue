@@ -28,38 +28,52 @@
                       Información del equipo
                     </v-subheader>
 
-                    <v-list-tile>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Propietario</v-list-tile-title>
-                        <v-list-tile-sub-title>
-                          {{ item.cliente.nombre }} {{ item.cliente.apellido }}
-                        </v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Estado</v-list-tile-title>
-                        <v-list-tile-sub-title>
-                          {{ item.estado }}
-                        </v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Diagnóstico</v-list-tile-title>
-                        <v-list-tile-sub-title>
-                          {{ item.diagnostico }}
-                        </v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Descripción</v-list-tile-title>
-                        <v-list-tile-sub-title>
-                          {{ item.descripcion }}
-                        </v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
+                    <v-container grid-list-xs>
+                      <v-layout row wrap>
+                        <v-flex xs6>
+                          <v-list-tile>
+                            <v-list-tile-content>
+                              <v-list-tile-title>Propietario</v-list-tile-title>
+                              <v-list-tile-sub-title>
+                                {{ item.cliente.nombre }} {{ item.cliente.apellido }}
+                              </v-list-tile-sub-title>
+                            </v-list-tile-content>
+                          </v-list-tile>
+                        </v-flex>
+                        <v-flex xs6>
+                          <v-list-tile>
+                            <v-list-tile-content>
+                              <v-list-tile-title>Estado</v-list-tile-title>
+                              <v-list-tile-sub-title>
+                                {{ item.estado }}
+                              </v-list-tile-sub-title>
+                            </v-list-tile-content>
+                          </v-list-tile>
+                        </v-flex>
+                      </v-layout>
+                      <v-layout row wrap>
+                        <v-flex xs12>
+                          <v-list-tile>
+                            <v-list-tile-content>
+                              <v-list-tile-title>Diagnóstico</v-list-tile-title>
+                              <v-list-tile-sub-title>
+                                {{ item.diagnostico }}
+                              </v-list-tile-sub-title>
+                            </v-list-tile-content>
+                          </v-list-tile>
+                        </v-flex>
+                        <v-flex xs12>
+                          <v-list-tile>
+                            <v-list-tile-content>
+                              <v-list-tile-title>Descripción</v-list-tile-title>
+                              <v-list-tile-sub-title>
+                                {{ item.descripcion }}
+                              </v-list-tile-sub-title>
+                            </v-list-tile-content>
+                          </v-list-tile>
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
                   </v-list>
                 </v-flex>
               </v-layout>
@@ -93,6 +107,7 @@ export default {
       fetch: 'equipo/fetchAll',
       delete: 'equipo/deleteEquipo'
     }),
+
     eliminar(item) {
       const message = `¿Estás seguro de eliminar ${item.equipo} ${
         item.modelo

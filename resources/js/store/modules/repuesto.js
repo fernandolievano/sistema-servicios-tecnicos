@@ -92,5 +92,8 @@ export const actions = {
 export const getters = {
   getRepuestoById: state => id => {
     return state.repuestos.find(repuesto => repuesto.id === id)
+  },
+  repuestosCount: state => {
+    return state.repuestos.length
   }
 }

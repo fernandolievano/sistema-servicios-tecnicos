@@ -1,12 +1,7 @@
 <template>
-  <v-container align-center>
+  <v-container grid-list-xs>
     <v-layout row wrap>
-      <!-- <v-flex v-if="clientesCount < 1" xs12>
-        <v-alert type="warning" :value="true">
-          No hay clientes para mostrar
-        </v-alert>
-      </v-flex> -->
-      <v-flex v-for="(cliente, index) in cliente.clientes" :key="index" xs12 sm6>
+      <v-flex v-for="(cliente, index) in cliente.clientes" :key="index" xs12 sm4>
         <v-card class="ma-2 pa-2 elevation-24">
           <v-toolbar color="transparent" dense flat>
             <v-toolbar-title> {{ cliente.nombre }} {{ cliente.apellido }} </v-toolbar-title>
@@ -45,6 +40,12 @@
             <v-container grid-list-xs>
               <v-layout row wrap>
                 <v-flex xs12>
+                  <equipos-cliente
+                    :cliente="cliente.nombre"
+                    :id-cliente="cliente.id"
+                  ></equipos-cliente>
+                </v-flex>
+                <v-flex xs12>
                   <editar-cliente :id="cliente.id"></editar-cliente>
                 </v-flex>
                 <v-flex xs12>
@@ -52,12 +53,6 @@
                     :id-cliente="cliente.id"
                     :cliente="cliente.nombre"
                   ></nuevo-equipo-cliente>
-                </v-flex>
-                <v-flex xs12>
-                  <equipos-cliente
-                    :cliente="cliente.nombre"
-                    :id-cliente="cliente.id"
-                  ></equipos-cliente>
                 </v-flex>
               </v-layout>
             </v-container>

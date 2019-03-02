@@ -16,13 +16,17 @@
                   <h3 class="success--text display-5">
                     Cliente {{ cliente.nombre }} {{ cliente.apellido }} registrado con éxito
                   </h3>
+                  <small>Continúe con el proceso de registro</small>
                 </v-flex>
                 <v-flex xs12>
-                  <nuevo-equipo-cliente :cliente="cliente" :nuevo="true"></nuevo-equipo-cliente>
+                  <nuevo-equipo-cliente
+                    :cliente="cliente.nombre"
+                    :id-cliente="cliente.id"
+                  ></nuevo-equipo-cliente>
                 </v-flex>
               </v-layout>
             </v-card-title>
-            <v-responsive>
+            <v-responsive v-if="!success">
               <v-container>
                 <v-layout row wrap>
                   <v-flex xs12>

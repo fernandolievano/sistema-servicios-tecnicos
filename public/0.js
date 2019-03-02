@@ -95,6 +95,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -196,10 +199,13 @@ var render = function() {
       _c(
         "v-btn",
         {
-          attrs: { slot: "activator", small: "", color: "success" },
+          attrs: { slot: "activator", block: "", small: "", color: "success" },
           slot: "activator"
         },
-        [_vm._v(" Añadir nuevo equipo "), _c("v-icon", [_vm._v("add")])],
+        [
+          _vm._v("\n    Añadir nuevo equipo\n    "),
+          _c("v-icon", { attrs: { right: "" } }, [_vm._v("add")])
+        ],
         1
       ),
       _vm._v(" "),

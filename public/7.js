@@ -79,11 +79,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -151,7 +146,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
-    { attrs: { "align-center": "" } },
+    { attrs: { "grid-list-xs": "" } },
     [
       _c(
         "v-layout",
@@ -159,7 +154,7 @@ var render = function() {
         _vm._l(_vm.cliente.clientes, function(cliente, index) {
           return _c(
             "v-flex",
-            { key: index, attrs: { xs12: "", sm6: "" } },
+            { key: index, attrs: { xs12: "", sm4: "" } },
             [
               _c(
                 "v-card",
@@ -314,6 +309,20 @@ var render = function() {
                                 "v-flex",
                                 { attrs: { xs12: "" } },
                                 [
+                                  _c("equipos-cliente", {
+                                    attrs: {
+                                      cliente: cliente.nombre,
+                                      "id-cliente": cliente.id
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
                                   _c("editar-cliente", {
                                     attrs: { id: cliente.id }
                                   })
@@ -329,20 +338,6 @@ var render = function() {
                                     attrs: {
                                       "id-cliente": cliente.id,
                                       cliente: cliente.nombre
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "" } },
-                                [
-                                  _c("equipos-cliente", {
-                                    attrs: {
-                                      cliente: cliente.nombre,
-                                      "id-cliente": cliente.id
                                     }
                                   })
                                 ],

@@ -1,70 +1,99 @@
 <template>
-  <v-container grid-list-xs>
-    <v-layout row wrap>
-      <v-flex v-for="item in servicio.servicios" :key="item.id" xs12 sm6 md4>
-        <v-card class="ma-2 pa-2 elevation-24">
-          <v-toolbar color="transparent" dense flat>
-            <v-toolbar-title> {{ item.titulo }} </v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-toolbar-items>
-              <v-btn fab small flat color="error" @click.prevent="eliminar(item)"
-                ><v-icon>clear</v-icon></v-btn
-              >
-            </v-toolbar-items>
-          </v-toolbar>
-          <v-responsive min-height="220">
-            <v-card-title primary-title>
-              <v-layout row wrap>
-                <v-flex xs12>
-                  <v-list three-line subheader>
-                    <v-subheader>Acerca del servicio</v-subheader>
+  <div>
+    <div class="bottom-shadow">
+      <v-toolbar color="indigo" dark dense flat>
+        <v-toolbar-title> {{ counter }} servicios disponibles </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items>
+          <v-text-field
+            v-model.lazy="keyword"
+            dark
+            flat
+            solo
+            background-color="transparent"
+            append-icon="search"
+            placeholder="Búsqueda de servicios"
+          ></v-text-field>
+        </v-toolbar-items>
+      </v-toolbar>
+    </div>
+    <v-container grid-list-xs>
+      <v-layout row wrap>
+        <v-flex v-for="item in servicios" :key="item.id" xs12 sm6 md4>
+          <v-card class="ma-2 pa-2 elevation-24">
+            <v-toolbar color="transparent" dense flat>
+              <v-toolbar-title> {{ item.titulo }} </v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items>
+                <v-btn fab small flat color="error" @click.prevent="eliminar(item)"
+                  ><v-icon>clear</v-icon></v-btn
+                >
+              </v-toolbar-items>
+            </v-toolbar>
+            <v-responsive min-height="220">
+              <v-card-title primary-title>
+                <v-layout row wrap>
+                  <v-flex xs12>
+                    <v-list three-line subheader>
+                      <v-subheader>Acerca del servicio</v-subheader>
 
-                    <v-list-tile>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Descripción</v-list-tile-title>
-                        <v-list-tile-sub-title>
-                          {{ item.descripcion }}
-                        </v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Valor</v-list-tile-title>
-                        <v-list-tile-sub-title>
-                          {{ formatoValor(item.valor) }}
-                        </v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                  </v-list>
-                </v-flex>
-              </v-layout>
-            </v-card-title>
-          </v-responsive>
-          <v-card-actions>
-            <v-container grid-list-xs class="text-xs-center">
-              <v-layout row wrap>
-                <v-flex>
-                  <editar-servicio :id="item.id"></editar-servicio>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+                      <v-list-tile>
+                        <v-list-tile-content>
+                          <v-list-tile-title>Descripción</v-list-tile-title>
+                          <v-list-tile-sub-title>
+                            {{ item.descripcion }}
+                          </v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                      <v-list-tile>
+                        <v-list-tile-content>
+                          <v-list-tile-title>Valor</v-list-tile-title>
+                          <v-list-tile-sub-title>
+                            {{ formatoValor(item.valor) }}
+                          </v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-list>
+                  </v-flex>
+                </v-layout>
+              </v-card-title>
+            </v-responsive>
+            <v-card-actions>
+              <v-container grid-list-xs class="text-xs-center">
+                <v-layout row wrap>
+                  <v-flex>
+                    <editar-servicio :id="item.id"></editar-servicio>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'IndexServicios',
   components: {
     EditarServicio: () => import('./ServiciosEditar.vue')
   },
-  data: () => ({}),
+  data() {
+    return {
+      keyword: ''
+    }
+  },
   computed: {
-    ...mapState(['servicio'])
+    ...mapGetters({
+      counter: 'servicio/serviciosCount',
+      filteredServicios: 'servicio/filteredServicios'
+    }),
+    servicios() {
+      return this.filteredServicios(this.keyword)
+    }
   },
   mounted() {
     this.fetch()

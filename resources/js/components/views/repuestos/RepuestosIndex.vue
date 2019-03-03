@@ -5,7 +5,15 @@
         <v-toolbar-title> {{ counter }} repuestos diferentes disponibles</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-text-field v-model="keyword" append-icon="search" flat dark background-color="transparent" solo placeholder="Búsqueda de repuestos"></v-text-field>
+          <v-text-field
+            v-model.lazy="keyword"
+            append-icon="search"
+            flat
+            dark
+            background-color="transparent"
+            solo
+            placeholder="Búsqueda de repuestos"
+          ></v-text-field>
         </v-toolbar-items>
       </v-toolbar>
     </div>

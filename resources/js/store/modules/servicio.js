@@ -20,8 +20,7 @@ export const namespaced = true
 
 export const state = {
   servicios: [],
-  servicio: {},
-  count: 0
+  servicio: {}
 }
 
 export const mutations = {
@@ -44,19 +43,17 @@ export const mutations = {
 
 export const actions = {
   createServicio({ commit }, servicio) {
-    return ServicioService.store(servicio)
-      .then(response => {
-        commit('ADD_SERVICIO', response.data)
-        return response.data
-      })
-      .catch(error => console.log(`Hubo un error: ${error.message}`))
+    return ServicioService.store(servicio).then(response => {
+      commit('ADD_SERVICIO', response.data)
+      return response.data
+    })
+    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchAll({ commit }) {
-    return ServicioService.index()
-      .then(response => {
-        commit('SET_SERVICIOS', response.data)
-      })
-      .catch(error => console.log(`Hubo un error: ${error.message}`))
+    return ServicioService.index().then(response => {
+      commit('SET_SERVICIOS', response.data)
+    })
+    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchOne({ commit, getters }, id) {
     const servicio = getters.getServicioById(id)
@@ -64,11 +61,10 @@ export const actions = {
     if (servicio) {
       commit('SET_SERVICIO')
     } else {
-      return ServicioService.show(id)
-        .then(response => {
-          commit('SET_SERVICIO', response.data)
-        })
-        .catch(error => console.log(`Hubo un error: ${error.message}`))
+      return ServicioService.show(id).then(response => {
+        commit('SET_SERVICIO', response.data)
+      })
+      // .catch(error => console.log(`Hubo un error: ${error.message}`))
     }
     return 'ok'
   },
@@ -76,11 +72,10 @@ export const actions = {
     commit('CLEAR_SERVICIO')
   },
   deleteServicio({ commit }, id) {
-    return ServicioService.delete(id)
-      .then(() => {
-        commit('DELETE_SERVICIO', id)
-      })
-      .catch(error => console.log(`Hubo un error: ${error.message}`))
+    return ServicioService.delete(id).then(() => {
+      commit('DELETE_SERVICIO', id)
+    })
+    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   }
 }
 
@@ -90,5 +85,10 @@ export const getters = {
   },
   serviciosCount: state => {
     return state.servicios.length
+  },
+  filteredServicios: state => keyword => {
+    return state.servicios.filter(
+      serv => serv.titulo.toLowerCase().indexOf(keyword.toLowerCase()) > -1
+    )
   }
 }

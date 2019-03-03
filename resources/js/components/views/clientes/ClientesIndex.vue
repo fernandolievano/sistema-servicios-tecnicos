@@ -6,7 +6,7 @@
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-text-field
-            v-model="keyword"
+            v-model.lazy="keyword"
             dark
             flat
             append-icon="search"

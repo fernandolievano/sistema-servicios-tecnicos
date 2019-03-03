@@ -74570,8 +74570,7 @@ var removeByAttr = function removeByAttr(arr, attr, value) {
 var namespaced = true;
 var state = {
   servicios: [],
-  servicio: {},
-  count: 0
+  servicio: {}
 };
 var mutations = {
   SET_SERVICIOS: function SET_SERVICIOS(state, servicios) {
@@ -74596,17 +74595,13 @@ var actions = {
     return _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].store(servicio).then(function (response) {
       commit('ADD_SERVICIO', response.data);
       return response.data;
-    }).catch(function (error) {
-      return console.log("Hubo un error: ".concat(error.message));
-    });
+    }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchAll: function fetchAll(_ref2) {
     var commit = _ref2.commit;
     return _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].index().then(function (response) {
       commit('SET_SERVICIOS', response.data);
-    }).catch(function (error) {
-      return console.log("Hubo un error: ".concat(error.message));
-    });
+    }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchOne: function fetchOne(_ref3, id) {
     var commit = _ref3.commit,
@@ -74618,9 +74613,7 @@ var actions = {
     } else {
       return _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
         commit('SET_SERVICIO', response.data);
-      }).catch(function (error) {
-        return console.log("Hubo un error: ".concat(error.message));
-      });
+      }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
     }
 
     return 'ok';
@@ -74633,9 +74626,7 @@ var actions = {
     var commit = _ref5.commit;
     return _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].delete(id).then(function () {
       commit('DELETE_SERVICIO', id);
-    }).catch(function (error) {
-      return console.log("Hubo un error: ".concat(error.message));
-    });
+    }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
   }
 };
 var getters = {
@@ -74648,6 +74639,13 @@ var getters = {
   },
   serviciosCount: function serviciosCount(state) {
     return state.servicios.length;
+  },
+  filteredServicios: function filteredServicios(state) {
+    return function (keyword) {
+      return state.servicios.filter(function (serv) {
+        return serv.titulo.toLowerCase().indexOf(keyword.toLowerCase()) > -1;
+      });
+    };
   }
 };
 

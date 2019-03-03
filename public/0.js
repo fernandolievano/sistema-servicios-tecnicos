@@ -104,7 +104,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: 'NuevoEquipoCliente',
   components: {
     TicketInicial: function TicketInicial() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
     }
   },
   props: {

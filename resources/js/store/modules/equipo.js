@@ -47,13 +47,12 @@ export const mutations = {
 
 export const actions = {
   fetchAll({ commit }) {
-    return EquiposService.index()
-      .then(response => {
-        commit('SET_EQUIPOS', response.data)
-      })
-      .catch(error => {
-        console.log(`Hubo un problema: ${error.message}`)
-      })
+    return EquiposService.index().then(response => {
+      commit('SET_EQUIPOS', response.data)
+    })
+    // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   fetchOne({ commit, getters }, id) {
     const equipo = getters.getEquipoById(id)
@@ -62,14 +61,13 @@ export const actions = {
       commit('SET_EQUIPO', equipo)
       return equipo
     }
-    return EquiposService.show(id)
-      .then(response => {
-        commit('SET_EQUIPO', response.data)
-        return response.data
-      })
-      .catch(error => {
-        console.log(`Hubo un problema: ${error.message}`)
-      })
+    return EquiposService.show(id).then(response => {
+      commit('SET_EQUIPO', response.data)
+      return response.data
+    })
+    // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   fetchByCliente({ commit, getters }, id) {
     const equipos = getters.getEquiposByCliente(id)
@@ -78,23 +76,21 @@ export const actions = {
       commit('SET_EQUIPOS_DE_CLIENTE', equipos)
       return equipos
     }
-    return EquiposService.byCliente(id)
-      .then(response => {
-        commit('SET_EQUIPOS_DE_CLIENTE', response.data)
-        return response.data
-      })
-      .catch(error => {
-        console.log(`Hubo un problema: ${error.message}`)
-      })
+    return EquiposService.byCliente(id).then(response => {
+      commit('SET_EQUIPOS_DE_CLIENTE', response.data)
+      return response.data
+    })
+    // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   deleteEquipo({ commit }, id) {
-    return EquiposService.delete(id)
-      .then(() => {
-        commit('DELETE_EQUIPO', id)
-      })
-      .catch(error => {
-        console.log(`Hubo un problema: ${error.message}`)
-      })
+    return EquiposService.delete(id).then(() => {
+      commit('DELETE_EQUIPO', id)
+    })
+    // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   clearEquiposByCliente({ commit }) {
     commit('CLEAR_EQUIPOS_DE_CLIENTE')
@@ -113,5 +109,8 @@ export const getters = {
   },
   equiposDeClienteCount: state => {
     return state.equiposDeCliente.length
+  },
+  filteredEquipos: state => keyword => {
+    return state.equipos.filter(eq => eq.equipo.toLowerCase().indexOf(keyword.toLowerCase()) > -1)
   }
 }

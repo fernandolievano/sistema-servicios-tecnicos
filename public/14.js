@@ -66,6 +66,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'IndexRepuestos',
@@ -74,7 +85,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./RepuestoEditar.vue */ "./resources/js/components/views/repuestos/RepuestoEditar.vue"));
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['repuesto'])),
+  data: function data() {
+    return {
+      keyword: ''
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    counter: 'repuesto/repuestosCount',
+    filteredRepuestos: 'repuesto/filteredRepuestos'
+  }), {
+    repuestos: function repuestos() {
+      return this.filteredRepuestos(this.keyword);
+    }
+  }),
   mounted: function mounted() {
     this.fetch();
   },
@@ -136,125 +159,187 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-container",
-    { attrs: { "grid-list-xs": "" } },
+    "div",
     [
       _c(
-        "v-layout",
-        { attrs: { row: "", wrap: "" } },
-        _vm._l(_vm.repuesto.repuestos, function(item) {
-          return _c(
-            "v-flex",
-            { key: item.id, attrs: { xs12: "", sm6: "", md4: "" } },
+        "div",
+        { staticClass: "bottom-shadow" },
+        [
+          _c(
+            "v-toolbar",
+            {
+              attrs: { color: "green darken-2", dark: "", dense: "", flat: "" }
+            },
             [
+              _c("v-toolbar-title", [
+                _vm._v(
+                  " " +
+                    _vm._s(_vm.counter) +
+                    " repuestos diferentes disponibles"
+                )
+              ]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
               _c(
-                "v-card",
-                { staticClass: "ma-2 pa-2 elevation-24" },
+                "v-toolbar-items",
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      "append-icon": "search",
+                      flat: "",
+                      dark: "",
+                      "background-color": "transparent",
+                      solo: "",
+                      placeholder: "Búsqueda de repuestos"
+                    },
+                    model: {
+                      value: _vm.keyword,
+                      callback: function($$v) {
+                        _vm.keyword = $$v
+                      },
+                      expression: "keyword"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-container",
+        { attrs: { "grid-list-xs": "" } },
+        [
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
+            _vm._l(_vm.repuestos, function(item) {
+              return _c(
+                "v-flex",
+                { key: item.id, attrs: { xs12: "", sm6: "", md4: "" } },
                 [
                   _c(
-                    "v-toolbar",
-                    { attrs: { color: "transparent", dense: "", flat: "" } },
+                    "v-card",
+                    { staticClass: "ma-2 pa-2 elevation-24" },
                     [
-                      _c("v-toolbar-title", [
-                        _vm._v(" " + _vm._s(item.repuesto) + " ")
-                      ]),
-                      _vm._v(" "),
-                      _c("v-spacer"),
-                      _vm._v(" "),
                       _c(
-                        "v-toolbar-items",
+                        "v-toolbar",
+                        {
+                          attrs: { color: "transparent", dense: "", flat: "" }
+                        },
                         [
+                          _c("v-toolbar-title", [
+                            _vm._v(" " + _vm._s(item.repuesto) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
                           _c(
-                            "v-btn",
-                            {
-                              attrs: {
-                                fab: "",
-                                small: "",
-                                flat: "",
-                                color: "error"
-                              },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.eliminar(item)
-                                }
-                              }
-                            },
-                            [_c("v-icon", [_vm._v("clear")])],
+                            "v-toolbar-items",
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    fab: "",
+                                    small: "",
+                                    flat: "",
+                                    color: "error"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.eliminar(item)
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("clear")])],
+                                1
+                              )
+                            ],
                             1
                           )
                         ],
                         1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-responsive",
-                    { attrs: { "min-height": "150" } },
-                    [
+                      ),
+                      _vm._v(" "),
                       _c(
-                        "v-card-title",
-                        { attrs: { "primary-title": "" } },
+                        "v-responsive",
+                        { attrs: { "min-height": "150" } },
                         [
                           _c(
-                            "v-flex",
-                            { attrs: { xs12: "" } },
+                            "v-card-title",
+                            { attrs: { "primary-title": "" } },
                             [
                               _c(
-                                "v-list",
-                                { attrs: { "three-line": "", subheader: "" } },
+                                "v-flex",
+                                { attrs: { xs12: "" } },
                                 [
-                                  _c("v-subheader", {
-                                    domProps: {
-                                      textContent: _vm._s(item.descripcion)
-                                    }
-                                  }),
-                                  _vm._v(" "),
                                   _c(
-                                    "v-list-tile",
+                                    "v-list",
+                                    {
+                                      attrs: { "three-line": "", subheader: "" }
+                                    },
                                     [
+                                      _c("v-subheader", {
+                                        domProps: {
+                                          textContent: _vm._s(item.descripcion)
+                                        }
+                                      }),
+                                      _vm._v(" "),
                                       _c(
-                                        "v-list-tile-content",
+                                        "v-list-tile",
                                         [
-                                          _c("v-list-tile-title", [
-                                            _vm._v("Stock")
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("v-list-tile-sub-title", {
-                                            domProps: {
-                                              textContent: _vm._s(item.cantidad)
-                                            }
-                                          })
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v("Stock")
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-list-tile-sub-title", {
+                                                domProps: {
+                                                  textContent: _vm._s(
+                                                    item.cantidad
+                                                  )
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
                                         ],
                                         1
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-list-tile",
-                                    [
+                                      ),
+                                      _vm._v(" "),
                                       _c(
-                                        "v-list-tile-content",
+                                        "v-list-tile",
                                         [
-                                          _c("v-list-tile-title", [
-                                            _vm._v("Precio unitario")
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("v-list-tile-sub-title", [
-                                            _vm._v(
-                                              "\n                      " +
-                                                _vm._s(
-                                                  _vm.precioUnitario(
-                                                    item.precio_unitario
-                                                  )
-                                                ) +
-                                                "\n                    "
-                                            )
-                                          ])
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v("Precio unitario")
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-list-tile-sub-title", [
+                                                _vm._v(
+                                                  "\n                        " +
+                                                    _vm._s(
+                                                      _vm.precioUnitario(
+                                                        item.precio_unitario
+                                                      )
+                                                    ) +
+                                                    "\n                      "
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          )
                                         ],
                                         1
                                       )
@@ -269,31 +354,31 @@ var render = function() {
                           )
                         ],
                         1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-actions",
-                    [
+                      ),
+                      _vm._v(" "),
                       _c(
-                        "v-container",
-                        {
-                          staticClass: "text-xs-center",
-                          attrs: { "grid-list-xs": "" }
-                        },
+                        "v-card-actions",
                         [
                           _c(
-                            "v-layout",
-                            { attrs: { row: "", wrap: "" } },
+                            "v-container",
+                            {
+                              staticClass: "text-xs-center",
+                              attrs: { "grid-list-xs": "" }
+                            },
                             [
                               _c(
-                                "v-flex",
+                                "v-layout",
+                                { attrs: { row: "", wrap: "" } },
                                 [
-                                  _c("editar-repuesto", {
-                                    attrs: { id: item.id }
-                                  })
+                                  _c(
+                                    "v-flex",
+                                    [
+                                      _c("editar-repuesto", {
+                                        attrs: { id: item.id }
+                                      })
+                                    ],
+                                    1
+                                  )
                                 ],
                                 1
                               )
@@ -309,10 +394,10 @@ var render = function() {
                 ],
                 1
               )
-            ],
+            }),
             1
           )
-        }),
+        ],
         1
       )
     ],

@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <v-tabs v-model="activeBtn" color="blue" centered dense flat icons-and-text>
-      <v-tabs-slider color="primary"></v-tabs-slider>
+  <div class="border-cliente">
+    <v-tabs v-model="activeBtn" color="blue darken-1" dark centered flat icons-and-text>
+      <v-tabs-slider color="blue lighten-4"></v-tabs-slider>
       <v-tab>
         Lista de clientes
         <v-icon>people</v-icon>
@@ -34,4 +34,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style media="screen" scoped>
+  .border-cliente {
+    border-top: 2px solid #1E88E5;
+  }
+</style>

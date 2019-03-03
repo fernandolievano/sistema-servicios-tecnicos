@@ -92,14 +92,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     EditarCliente: function EditarCliente() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./ClienteEditar.vue */ "./resources/js/components/views/clientes/ClienteEditar.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./ClienteEditar.vue */ "./resources/js/components/views/clientes/ClienteEditar.vue"));
     },
     EquiposCliente: function EquiposCliente() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./ClienteEquipos.vue */ "./resources/js/components/views/clientes/ClienteEquipos.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./ClienteEquipos.vue */ "./resources/js/components/views/clientes/ClienteEquipos.vue"));
     },
     NuevoEquipoCliente: function NuevoEquipoCliente() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./ClienteEquipoNuevo.vue */ "./resources/js/components/views/clientes/ClienteEquipoNuevo.vue"));
@@ -111,7 +115,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    clientesCount: 'cliente/clientesCount',
     filteredClientes: 'cliente/filteredClientes',
     counter: 'cliente/clientesCount'
   }), {
@@ -172,31 +175,42 @@ var render = function() {
     "div",
     [
       _c(
-        "v-toolbar",
-        { attrs: { dense: "", flat: "" } },
+        "div",
+        { staticClass: "bottom-shadow" },
         [
-          _c("v-toolbar-title", [
-            _vm._v(" " + _vm._s(_vm.counter) + " clientes registrados ")
-          ]),
-          _vm._v(" "),
-          _c("v-spacer"),
-          _vm._v(" "),
           _c(
-            "v-toolbar-items",
+            "v-toolbar",
+            {
+              attrs: { color: "blue darken-1", dense: "", dark: "", flat: "" }
+            },
             [
-              _c("v-text-field", {
-                attrs: {
-                  "append-icon": "search",
-                  label: "Búsqueda de clientes"
-                },
-                model: {
-                  value: _vm.keyword,
-                  callback: function($$v) {
-                    _vm.keyword = $$v
-                  },
-                  expression: "keyword"
-                }
-              })
+              _c("v-toolbar-title", [
+                _vm._v(" " + _vm._s(_vm.counter) + " clientes registrados ")
+              ]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-toolbar-items",
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      dark: "",
+                      flat: "",
+                      "append-icon": "search",
+                      placeholder: "Búsqueda de clientes"
+                    },
+                    model: {
+                      value: _vm.keyword,
+                      callback: function($$v) {
+                        _vm.keyword = $$v
+                      },
+                      expression: "keyword"
+                    }
+                  })
+                ],
+                1
+              )
             ],
             1
           )

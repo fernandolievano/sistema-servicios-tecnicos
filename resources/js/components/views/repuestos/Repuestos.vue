@@ -1,19 +1,12 @@
 <template>
   <div>
-    <v-toolbar dense flat>
-      <v-toolbar-title> {{ counter }} repuestos diferentes disponibles</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-text-field append-icon="search" label="Búsqueda de repuestos"></v-text-field>
-      </v-toolbar-items>
-    </v-toolbar>
     <v-tabs
       v-model="active"
-      color="transparent"
+      color="green darken-2"
       centered
       icons-and-text
-      light
-      slider-color="green darken-2"
+      dark
+      slider-color="green lighten-2"
     >
       <v-tab>Lista de Repuestos <v-icon>memory</v-icon></v-tab>
       <v-tab>Nuevo <v-icon>add</v-icon></v-tab>
@@ -30,8 +23,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'Repuestos',
   components: {
@@ -40,12 +31,7 @@ export default {
   },
   data: () => ({
     active: 0
-  }),
-  computed: {
-    ...mapGetters({
-      counter: 'repuesto/repuestosCount'
-    })
-  }
+  })
 }
 </script>
 

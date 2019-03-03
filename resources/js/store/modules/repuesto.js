@@ -47,19 +47,17 @@ export const mutations = {
 
 export const actions = {
   createRepuesto({ commit }, repuesto) {
-    return RepuestoService.store(repuesto)
-      .then(response => {
-        commit('ADD_REPUESTO', response.data)
-        return response.data
-      })
-      .catch(error => console.log(`Hubo un error: ${error.message}`))
+    return RepuestoService.store(repuesto).then(response => {
+      commit('ADD_REPUESTO', response.data)
+      return response.data
+    })
+    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchAll({ commit }) {
-    return RepuestoService.index()
-      .then(response => {
-        commit('SET_REPUESTOS', response.data)
-      })
-      .catch(error => console.log(`Hubo un error: ${error.message}`))
+    return RepuestoService.index().then(response => {
+      commit('SET_REPUESTOS', response.data)
+    })
+    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchOne({ commit, getters }, id) {
     const repuesto = getters.getRepuestoById(id)
@@ -67,13 +65,12 @@ export const actions = {
     if (repuesto) {
       commit('SET_REPUESTO', repuesto)
     } else {
-      return RepuestoService.show(id)
-        .then(response => {
-          commit('SET_REPUESTO', response.data)
-        })
-        .catch(error => {
-          console.log(`Hubo un problema: ${error.message}`)
-        })
+      return RepuestoService.show(id).then(response => {
+        commit('SET_REPUESTO', response.data)
+      })
+      // .catch(error => {
+      //   console.log(`Hubo un problema: ${error.message}`)
+      // })
     }
     return 'ok'
   },
@@ -81,11 +78,10 @@ export const actions = {
     commit('CLEAR_REPUESTO')
   },
   deleteRepuesto({ commit }, id) {
-    return RepuestoService.delete(id)
-      .then(() => {
-        commit('DELETE_REPUESTO', id)
-      })
-      .catch(error => console.log(`Hubo un error: ${error.message}`))
+    return RepuestoService.delete(id).then(() => {
+      commit('DELETE_REPUESTO', id)
+    })
+    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   }
 }
 
@@ -95,5 +91,10 @@ export const getters = {
   },
   repuestosCount: state => {
     return state.repuestos.length
+  },
+  filteredRepuestos: state => keyword => {
+    return state.repuestos.filter(
+      rep => rep.repuesto.toLowerCase().indexOf(keyword.toLowerCase()) > -1
+    )
   }
 }

@@ -26,4 +26,9 @@ export default {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
+.bottom-shadow {
+  -webkit-box-shadow: 0px 3px 2px 0px rgba(50, 50, 50, 0.5);
+  -moz-box-shadow:    0px 3px 2px 0px rgba(50, 50, 50, 0.5);
+  box-shadow:         0px 3px 2px 0px rgba(50, 50, 50, 0.5);
+}
 </style>

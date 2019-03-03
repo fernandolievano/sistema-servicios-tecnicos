@@ -12280,7 +12280,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.v-content {\n  background-image: url('/images/merely_cubed.png') !important;\n  background-repeat: repeat;\n}\n.swal2-popup {\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',\n    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;\n}\n", ""]);
+exports.push([module.i, "\n.v-content {\n  background-image: url('/images/merely_cubed.png') !important;\n  background-repeat: repeat;\n}\n.swal2-popup {\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',\n    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;\n}\n.bottom-shadow {\n  box-shadow:         0px 3px 2px 0px rgba(50, 50, 50, 0.5);\n}\n", ""]);
 
 // exports
 
@@ -73923,7 +73923,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/clientes',
     name: 'clientes',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./components/views/clientes/Clientes.vue */ "./resources/js/components/views/clientes/Clientes.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/views/clientes/Clientes.vue */ "./resources/js/components/views/clientes/Clientes.vue"));
     }
   }, {
     path: '/servicios',
@@ -74328,9 +74328,9 @@ var actions = {
     var commit = _ref.commit;
     return _services_EquiposService__WEBPACK_IMPORTED_MODULE_0__["default"].index().then(function (response) {
       commit('SET_EQUIPOS', response.data);
-    }).catch(function (error) {
-      console.log("Hubo un problema: ".concat(error.message));
-    });
+    }); // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   fetchOne: function fetchOne(_ref2, id) {
     var commit = _ref2.commit,
@@ -74345,9 +74345,9 @@ var actions = {
     return _services_EquiposService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
       commit('SET_EQUIPO', response.data);
       return response.data;
-    }).catch(function (error) {
-      console.log("Hubo un problema: ".concat(error.message));
-    });
+    }); // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   fetchByCliente: function fetchByCliente(_ref3, id) {
     var commit = _ref3.commit,
@@ -74362,17 +74362,17 @@ var actions = {
     return _services_EquiposService__WEBPACK_IMPORTED_MODULE_0__["default"].byCliente(id).then(function (response) {
       commit('SET_EQUIPOS_DE_CLIENTE', response.data);
       return response.data;
-    }).catch(function (error) {
-      console.log("Hubo un problema: ".concat(error.message));
-    });
+    }); // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   deleteEquipo: function deleteEquipo(_ref4, id) {
     var commit = _ref4.commit;
     return _services_EquiposService__WEBPACK_IMPORTED_MODULE_0__["default"].delete(id).then(function () {
       commit('DELETE_EQUIPO', id);
-    }).catch(function (error) {
-      console.log("Hubo un problema: ".concat(error.message));
-    });
+    }); // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
   },
   clearEquiposByCliente: function clearEquiposByCliente(_ref5) {
     var commit = _ref5.commit;
@@ -74399,6 +74399,13 @@ var getters = {
   },
   equiposDeClienteCount: function equiposDeClienteCount(state) {
     return state.equiposDeCliente.length;
+  },
+  filteredEquipos: function filteredEquipos(state) {
+    return function (keyword) {
+      return state.equipos.filter(function (eq) {
+        return eq.equipo.toLowerCase().indexOf(keyword.toLowerCase()) > -1;
+      });
+    };
   }
 };
 
@@ -74469,17 +74476,13 @@ var actions = {
     return _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__["default"].store(repuesto).then(function (response) {
       commit('ADD_REPUESTO', response.data);
       return response.data;
-    }).catch(function (error) {
-      return console.log("Hubo un error: ".concat(error.message));
-    });
+    }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchAll: function fetchAll(_ref2) {
     var commit = _ref2.commit;
     return _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__["default"].index().then(function (response) {
       commit('SET_REPUESTOS', response.data);
-    }).catch(function (error) {
-      return console.log("Hubo un error: ".concat(error.message));
-    });
+    }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchOne: function fetchOne(_ref3, id) {
     var commit = _ref3.commit,
@@ -74491,9 +74494,9 @@ var actions = {
     } else {
       return _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
         commit('SET_REPUESTO', response.data);
-      }).catch(function (error) {
-        console.log("Hubo un problema: ".concat(error.message));
-      });
+      }); // .catch(error => {
+      //   console.log(`Hubo un problema: ${error.message}`)
+      // })
     }
 
     return 'ok';
@@ -74506,9 +74509,7 @@ var actions = {
     var commit = _ref5.commit;
     return _services_RepuestosService__WEBPACK_IMPORTED_MODULE_0__["default"].delete(id).then(function () {
       commit('DELETE_REPUESTO', id);
-    }).catch(function (error) {
-      return console.log("Hubo un error: ".concat(error.message));
-    });
+    }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
   }
 };
 var getters = {
@@ -74521,6 +74522,13 @@ var getters = {
   },
   repuestosCount: function repuestosCount(state) {
     return state.repuestos.length;
+  },
+  filteredRepuestos: function filteredRepuestos(state) {
+    return function (keyword) {
+      return state.repuestos.filter(function (rep) {
+        return rep.repuesto.toLowerCase().indexOf(keyword.toLowerCase()) > -1;
+      });
+    };
   }
 };
 

@@ -1,16 +1,20 @@
 <template>
   <div>
-    <v-toolbar dense flat>
-      <v-toolbar-title> {{ counter }} clientes registrados </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-text-field
-          v-model="keyword"
-          append-icon="search"
-          label="Búsqueda de clientes"
-        ></v-text-field>
-      </v-toolbar-items>
-    </v-toolbar>
+    <div class="bottom-shadow">
+      <v-toolbar color="blue darken-1" dense dark flat>
+        <v-toolbar-title> {{ counter }} clientes registrados </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items>
+          <v-text-field
+            v-model="keyword"
+            dark
+            flat
+            append-icon="search"
+            placeholder="Búsqueda de clientes"
+          ></v-text-field>
+        </v-toolbar-items>
+      </v-toolbar>
+    </div>
     <v-container grid-list-xs>
       <v-layout row wrap>
         <v-flex v-for="(cliente, index) in clientes" :key="index" xs12 sm4>
@@ -92,7 +96,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      clientesCount: 'cliente/clientesCount',
       filteredClientes: 'cliente/filteredClientes',
       counter: 'cliente/clientesCount'
     }),

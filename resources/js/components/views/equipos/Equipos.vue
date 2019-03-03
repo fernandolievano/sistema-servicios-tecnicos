@@ -1,19 +1,12 @@
 <template>
   <div>
-    <v-toolbar dense flat>
-      <v-toolbar-title> {{ counter }} equipos registrados </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-text-field append-icon="search" label="Búsqueda de equipos"></v-text-field>
-      </v-toolbar-items>
-    </v-toolbar>
     <v-tabs
       v-model="active"
-      color="transparent"
+      color="deep-orange darken-1"
       centered
       icons-and-text
-      light
-      slider-color="orange"
+      dark
+      slider-color="deep-orange lighten-1"
     >
       <v-tab>
         Lista de equipos
@@ -29,8 +22,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'Equipos',
   components: {
@@ -38,12 +29,7 @@ export default {
   },
   data: () => ({
     active: 0
-  }),
-  computed: {
-    ...mapGetters({
-      counter: 'equipo/equiposCount'
-    })
-  }
+  })
 }
 </script>
 

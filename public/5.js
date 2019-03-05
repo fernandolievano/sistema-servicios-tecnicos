@@ -80,6 +80,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'EquiposCliente',
@@ -141,6 +142,7 @@ var render = function() {
       attrs: {
         fullscreen: "",
         "hide-overlay": "",
+        lazy: "",
         transition: "dialog-bottom-transition"
       },
       model: {

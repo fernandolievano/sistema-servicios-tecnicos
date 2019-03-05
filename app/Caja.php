@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Caja extends Model
 {
-    public function retiros()
+    protected $fillable = ['total'];
+
+    public function ingresos_retiros()
     {
-        return $this->hasMany(CajaRetiros::class);
+      return $this->hasMany(IngresosRetiros::class);
     }
 }

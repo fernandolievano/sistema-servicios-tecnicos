@@ -13,5 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         factory(App\Cliente::class, 10)->create();
+
+        DB::table('cajas')->insert([
+            'total' => 0
+        ]);
     }
 }

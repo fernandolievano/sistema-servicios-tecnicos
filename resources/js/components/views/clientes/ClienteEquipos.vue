@@ -4,6 +4,7 @@
     v-model="dialog"
     fullscreen
     hide-overlay
+    lazy
     transition="dialog-bottom-transition"
   >
     <v-btn slot="activator" color="info" small flat block @click.prevent="fetch(idCliente)">

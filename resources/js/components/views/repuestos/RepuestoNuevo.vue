@@ -44,15 +44,23 @@
                     <v-text-field
                       v-model.number="formulario.cantidad"
                       name="cantidad"
-                      label="Cantidad o Stock"
+                      label="Stock Inicial"
                       :rules="generales"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12>
                     <v-text-field
-                      v-model.number="formulario.precio_unitario"
+                      v-model.number="formulario.precio_unitario_compra"
                       name="precio_unitario"
-                      label="Precio unitario"
+                      label="Precio unitario de compra"
+                      :rules="generales"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-text-field
+                      v-model.number="formulario.precio_unitario_venta"
+                      name="precio_unitario"
+                      label="Precio unitario de venta"
                       :rules="generales"
                     ></v-text-field>
                   </v-flex>
@@ -86,7 +94,8 @@ export default {
       repuesto: null,
       descripcion: null,
       cantidad: null,
-      precio_unitario: null
+      precio_unitario_compra: null,
+      precio_unitario_venta: null
     },
     generales: [v => !!v || 'Este campo es requerido']
   }),

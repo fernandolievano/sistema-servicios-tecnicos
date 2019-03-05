@@ -1,9 +1,10 @@
 <template>
-  <v-toolbar dense>
+  <v-toolbar flat dense>
     <v-toolbar-title>
       <img src="/images/xg-icon.png" alt="icon" class="icon-navbar" />
     </v-toolbar-title>
-    <v-toolbar-items class="mx-5">
+    <v-spacer></v-spacer>
+    <v-toolbar-items class="hidden-sm-and-down mx-5">
       <v-btn :to="{ name: 'servicios' }" flat>
         Servicios
       </v-btn>
@@ -16,8 +17,50 @@
       <v-btn :to="{ name: 'clientes' }" flat>
         Clientes
       </v-btn>
+      <v-btn :to="{ name: 'caja' }" flat>
+        Caja
+      </v-btn>
     </v-toolbar-items>
-    <v-spacer></v-spacer>
+    <v-menu class="hidden-md-and-up mx-5">
+      <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
+      <v-list>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-btn :to="{ name: 'servicios' }" flat>
+              Servicios
+            </v-btn>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-btn :to="{ name: 'repuestos' }" flat>
+              Repuestos
+            </v-btn>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-btn :to="{ name: 'equipos' }" flat>
+              Equipos
+            </v-btn>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-btn :to="{ name: 'clientes' }" flat>
+              Clientes
+            </v-btn>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-btn :to="{ name: 'caja' }" flat>
+              Caja
+            </v-btn>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
   </v-toolbar>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+  <v-dialog v-model="dialog" fullscreen hide-overlay lazy transition="dialog-bottom-transition">
     <v-btn slot="activator" color="warning" small block flat>
       Editar información
       <v-icon right>

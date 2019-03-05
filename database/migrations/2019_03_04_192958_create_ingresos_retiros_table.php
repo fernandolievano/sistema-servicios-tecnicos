@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCajaRetirosTable extends Migration
+class CreateIngresosRetirosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateCajaRetirosTable extends Migration
      */
     public function up()
     {
-        Schema::create('caja_retiros', function (Blueprint $table) {
+        Schema::create('ingresos_retiros', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('retiro');
+            $table->float('cantidad');
+            $table->boolean('ingreso');
             $table->string('descripcion');
             $table->integer('caja_id')->unsigned();
-            $table->foreign('caja_id')->references('id')->on('cajas');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateCajaRetirosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('caja_retiros');
+        Schema::dropIfExists('ingresos_retiros');
     }
 }

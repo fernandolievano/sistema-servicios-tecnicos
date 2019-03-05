@@ -1926,6 +1926,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Toolbar'
 });
@@ -31924,7 +31967,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-toolbar",
-    { attrs: { dense: "" } },
+    { attrs: { flat: "", dense: "" } },
     [
       _c("v-toolbar-title", [
         _c("img", {
@@ -31933,9 +31976,11 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
+      _c("v-spacer"),
+      _vm._v(" "),
       _c(
         "v-toolbar-items",
-        { staticClass: "mx-5" },
+        { staticClass: "hidden-sm-and-down mx-5" },
         [
           _c("v-btn", { attrs: { to: { name: "servicios" }, flat: "" } }, [
             _vm._v("\n      Servicios\n    ")
@@ -31951,12 +31996,122 @@ var render = function() {
           _vm._v(" "),
           _c("v-btn", { attrs: { to: { name: "clientes" }, flat: "" } }, [
             _vm._v("\n      Clientes\n    ")
+          ]),
+          _vm._v(" "),
+          _c("v-btn", { attrs: { to: { name: "caja" }, flat: "" } }, [
+            _vm._v("\n      Caja\n    ")
           ])
         ],
         1
       ),
       _vm._v(" "),
-      _c("v-spacer")
+      _c(
+        "v-menu",
+        { staticClass: "hidden-md-and-up mx-5" },
+        [
+          _c("v-toolbar-side-icon", {
+            attrs: { slot: "activator" },
+            slot: "activator"
+          }),
+          _vm._v(" "),
+          _c(
+            "v-list",
+            [
+              _c(
+                "v-list-tile",
+                [
+                  _c(
+                    "v-list-tile-content",
+                    [
+                      _c(
+                        "v-btn",
+                        { attrs: { to: { name: "servicios" }, flat: "" } },
+                        [_vm._v("\n            Servicios\n          ")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-tile",
+                [
+                  _c(
+                    "v-list-tile-content",
+                    [
+                      _c(
+                        "v-btn",
+                        { attrs: { to: { name: "repuestos" }, flat: "" } },
+                        [_vm._v("\n            Repuestos\n          ")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-tile",
+                [
+                  _c(
+                    "v-list-tile-content",
+                    [
+                      _c(
+                        "v-btn",
+                        { attrs: { to: { name: "equipos" }, flat: "" } },
+                        [_vm._v("\n            Equipos\n          ")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-tile",
+                [
+                  _c(
+                    "v-list-tile-content",
+                    [
+                      _c(
+                        "v-btn",
+                        { attrs: { to: { name: "clientes" }, flat: "" } },
+                        [_vm._v("\n            Clientes\n          ")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-tile",
+                [
+                  _c(
+                    "v-list-tile-content",
+                    [
+                      _c(
+                        "v-btn",
+                        { attrs: { to: { name: "caja" }, flat: "" } },
+                        [_vm._v("\n            Caja\n          ")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -73649,9 +73804,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/src/index.js");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
-/* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue");
+/* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue");
+/* harmony import */ var _filters_date__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./filters/date */ "./resources/js/filters/date.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
 /* eslint-disable no-unused-vars */
 
 
@@ -73660,20 +73816,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // components
+
+ // filters
+
  // vue-router and vuex
 
 
- // components
 
-
+vue__WEBPACK_IMPORTED_MODULE_4___default.a.filter('date', _filters_date__WEBPACK_IMPORTED_MODULE_8__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_6__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_5___default.a);
 var app = new vue__WEBPACK_IMPORTED_MODULE_4___default.a({
   el: '#app',
-  router: _router__WEBPACK_IMPORTED_MODULE_7__["default"],
-  store: _store_store__WEBPACK_IMPORTED_MODULE_8__["default"],
+  router: _router__WEBPACK_IMPORTED_MODULE_9__["default"],
+  store: _store_store__WEBPACK_IMPORTED_MODULE_10__["default"],
   components: {
-    App: _components_App_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+    App: _components_App_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   }
 });
 
@@ -73898,6 +74057,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/filters/date.js":
+/*!**************************************!*\
+  !*** ./resources/js/filters/date.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function (value) {
+  var date = new Date(value);
+  return date.toLocaleString(['ES'], {
+    month: 'long',
+    day: '2-digit',
+    year: 'numeric'
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -73929,19 +74108,25 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/servicios',
     name: 'servicios',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
+      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
     }
   }, {
     path: '/repuestos',
     name: 'repuestos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
     }
   }, {
     path: '/equipos',
     name: 'equipos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
+      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
+    }
+  }, {
+    path: '/caja',
+    name: 'caja',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ./components/views/caja/Caja.vue */ "./resources/js/components/views/caja/Caja.vue"));
     }
   }]
 });
@@ -73960,6 +74145,44 @@ router.afterEach((to, from) => {
 }) */
 
 /* harmony default export */ __webpack_exports__["default"] = (router);
+
+/***/ }),
+
+/***/ "./resources/js/services/CajaService.js":
+/*!**********************************************!*\
+  !*** ./resources/js/services/CajaService.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var apiCaja = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: '/api/v1/caja',
+  timeout: 15000
+});
+apiCaja.interceptors.request.use(function (config) {
+  nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.start();
+  return config;
+});
+apiCaja.interceptors.response.use(function (response) {
+  nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+  return response;
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  cajaTotal: function cajaTotal() {
+    return apiCaja.get('/get');
+  },
+  ingresosRetiros: function ingresosRetiros() {
+    return apiCaja.get('/ingresos_y_retiros');
+  }
+});
 
 /***/ }),
 
@@ -74140,6 +74363,54 @@ var apiTickets = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
     return apiTickets.get("/get/".concat(id));
   }
 });
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/caja.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/modules/caja.js ***!
+  \********************************************/
+/*! exports provided: namespaced, state, mutations, actions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "namespaced", function() { return namespaced; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mutations", function() { return mutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
+/* harmony import */ var _services_CajaService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/CajaService */ "./resources/js/services/CajaService.js");
+/* eslint-disable no-param-reassign */
+
+/* eslint-disable no-shadow */
+
+var namespaced = true;
+var state = {
+  caja: {},
+  ingresosYRetiros: []
+};
+var mutations = {
+  SET_CAJA: function SET_CAJA(state, caja) {
+    state.caja = caja;
+  },
+  SET_INGRESOS_Y_RETIROS: function SET_INGRESOS_Y_RETIROS(state, ingresosYRetiros) {
+    state.ingresosYRetiros = ingresosYRetiros;
+  }
+};
+var actions = {
+  fetchCaja: function fetchCaja(_ref) {
+    var commit = _ref.commit;
+    return _services_CajaService__WEBPACK_IMPORTED_MODULE_0__["default"].cajaTotal().then(function (response) {
+      commit('SET_CAJA', response.data);
+    });
+  },
+  fetchIngresosYRetiros: function fetchIngresosYRetiros(_ref2) {
+    var commit = _ref2.commit;
+    return _services_CajaService__WEBPACK_IMPORTED_MODULE_0__["default"].ingresosRetiros().then(function (response) {
+      commit('SET_INGRESOS_Y_RETIROS', response.data);
+    });
+  }
+};
 
 /***/ }),
 
@@ -74712,11 +74983,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _modules_cliente__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/cliente */ "./resources/js/store/modules/cliente.js");
-/* harmony import */ var _modules_equipo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/equipo */ "./resources/js/store/modules/equipo.js");
-/* harmony import */ var _modules_repuesto__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/repuesto */ "./resources/js/store/modules/repuesto.js");
-/* harmony import */ var _modules_servicio__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/servicio */ "./resources/js/store/modules/servicio.js");
-/* harmony import */ var _modules_tickets__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/tickets */ "./resources/js/store/modules/tickets.js");
+/* harmony import */ var _modules_caja__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/caja */ "./resources/js/store/modules/caja.js");
+/* harmony import */ var _modules_cliente__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/cliente */ "./resources/js/store/modules/cliente.js");
+/* harmony import */ var _modules_equipo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/equipo */ "./resources/js/store/modules/equipo.js");
+/* harmony import */ var _modules_repuesto__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/repuesto */ "./resources/js/store/modules/repuesto.js");
+/* harmony import */ var _modules_servicio__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/servicio */ "./resources/js/store/modules/servicio.js");
+/* harmony import */ var _modules_tickets__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/tickets */ "./resources/js/store/modules/tickets.js");
 /* eslint-disable no-console */
 
 /* eslint-disable no-param-reassign */
@@ -74728,14 +75000,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"], axios__WEBPACK_IMPORTED_MODULE_2___default.a);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    cliente: _modules_cliente__WEBPACK_IMPORTED_MODULE_3__,
-    equipo: _modules_equipo__WEBPACK_IMPORTED_MODULE_4__,
-    repuesto: _modules_repuesto__WEBPACK_IMPORTED_MODULE_5__,
-    servicio: _modules_servicio__WEBPACK_IMPORTED_MODULE_6__,
-    ticket: _modules_tickets__WEBPACK_IMPORTED_MODULE_7__
+    caja: _modules_caja__WEBPACK_IMPORTED_MODULE_3__,
+    cliente: _modules_cliente__WEBPACK_IMPORTED_MODULE_4__,
+    equipo: _modules_equipo__WEBPACK_IMPORTED_MODULE_5__,
+    repuesto: _modules_repuesto__WEBPACK_IMPORTED_MODULE_6__,
+    servicio: _modules_servicio__WEBPACK_IMPORTED_MODULE_7__,
+    ticket: _modules_tickets__WEBPACK_IMPORTED_MODULE_8__
   }
 }));
 

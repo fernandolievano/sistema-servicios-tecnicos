@@ -48,17 +48,17 @@
               </v-flex>
               <v-flex xs12>
                 <v-text-field
-                  v-model.number="formulario.cantidad"
-                  name="cantidad"
-                  label="Cantidad o stock"
+                  v-model.number="formulario.precio_unitario_compra"
+                  name="valor"
+                  label="Precio unitario de compra"
                   :rules="generales"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-text-field
-                  v-model.number="formulario.precio_unitario"
+                  v-model.number="formulario.precio_unitario_venta"
                   name="valor"
-                  label="Valor o Costo del repuesto por unidad"
+                  label="Precio unitario de venta"
                   :rules="generales"
                 ></v-text-field>
               </v-flex>

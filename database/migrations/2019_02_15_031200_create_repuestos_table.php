@@ -18,7 +18,8 @@ class CreateRepuestosTable extends Migration
             $table->string('repuesto');
             $table->string('descripcion')->nullable();
             $table->integer('cantidad');
-            $table->float('precio_unitario');
+            $table->float('precio_unitario_compra');
+            $table->float('precio_unitario_venta');
             $table->timestamps();
         });
     }

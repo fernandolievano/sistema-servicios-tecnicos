@@ -4,6 +4,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+import * as caja from './modules/caja'
 import * as cliente from './modules/cliente'
 import * as equipo from './modules/equipo'
 import * as repuesto from './modules/repuesto'
@@ -14,6 +15,7 @@ Vue.use(Vuex, axios)
 
 export default new Vuex.Store({
   modules: {
+    caja,
     cliente,
     equipo,
     repuesto,

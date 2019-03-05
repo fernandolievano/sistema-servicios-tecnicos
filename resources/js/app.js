@@ -9,13 +9,17 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueSweetalert2 from 'vue-sweetalert2'
 
+// components
+import App from './components/App.vue'
+
+// filters
+import DateFilter from './filters/date'
+
 // vue-router and vuex
 import router from './router'
 import store from './store/store'
 
-// components
-import App from './components/App.vue'
-
+Vue.filter('date', DateFilter)
 Vue.use(VueSweetalert2)
 Vue.use(Vuetify)
 

@@ -43,9 +43,17 @@
                     </v-list-tile>
                     <v-list-tile>
                       <v-list-tile-content>
-                        <v-list-tile-title>Precio unitario</v-list-tile-title>
+                        <v-list-tile-title>Precio unitario de compra</v-list-tile-title>
                         <v-list-tile-sub-title>
-                          {{ precioUnitario(item.precio_unitario) }}
+                          {{ precioUnitario(item.precio_unitario_compra) }}
+                        </v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile>
+                      <v-list-tile-content>
+                        <v-list-tile-title>Precio unitario de venta</v-list-tile-title>
+                        <v-list-tile-sub-title>
+                          {{ precioUnitario(item.precio_unitario_venta) }}
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
                     </v-list-tile>

@@ -143,6 +143,7 @@ var render = function() {
       attrs: {
         fullscreen: "",
         "hide-overlay": "",
+        lazy: "",
         transition: "dialog-bottom-transition"
       },
       model: {

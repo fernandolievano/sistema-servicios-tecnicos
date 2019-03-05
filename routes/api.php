@@ -25,6 +25,7 @@ Route::prefix('/v1')->group(function () {
         Route::get('/get', 'RepuestoController@repuestos')->name('get');
         Route::get('/get/{id}', 'RepuestoController@repuesto')->name('single');
         Route::put('/update/{id}', 'RepuestoController@update')->name('update');
+        Route::put('/update/stock/{id}', 'RepuestoController@stock')->name('stock');
         Route::post('/store', 'RepuestoController@store')->name('store');
         Route::delete('/{id}', 'RepuestoController@delete')->name('delete');
     });
@@ -40,5 +41,10 @@ Route::prefix('/v1')->group(function () {
 
     Route::prefix('/tickets')->name('tickets.')->group(function () {
         Route::get('/get/{id}', 'TicketController@ticket_inicial')->name('inicial.show');
+    });
+
+    Route::prefix('/caja')->name('caja.')->group(function () {
+      Route::get('/get', 'IngresosRetirosController@caja')->name('get');
+      Route::get('/ingresos_y_retiros', 'IngresosRetirosController@ingresos_y_retiros')->name('ingresos_returos');
     });
 });

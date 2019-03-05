@@ -70,6 +70,16 @@
                           </v-flex>
                         </v-layout>
                         <v-layout row wrap>
+                          <v-flex xs6>
+                            <v-list-tile>
+                              <v-list-tile-content>
+                                <v-list-tile-title>Recibido</v-list-tile-title>
+                                <v-list-tile-sub-title>
+                                  {{ item.created_at }}
+                                </v-list-tile-sub-title>
+                              </v-list-tile-content>
+                            </v-list-tile>
+                          </v-flex>
                           <v-flex xs12>
                             <v-list-tile>
                               <v-list-tile-content>
@@ -98,7 +108,16 @@
               </v-card-title>
             </v-responsive>
             <v-card-actions>
-              <BotonEstado :id="item.id" :estado="item.estado"></BotonEstado>
+              <v-container>
+                <v-layout row wrap>
+                  <v-flex>
+                    <BotonEstado :id="item.id" :estado="item.estado"></BotonEstado>
+                  </v-flex>
+                  <v-flex>
+                    <RetirarEquipo></RetirarEquipo>
+                  </v-flex>
+                </v-layout>
+              </v-container>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -113,7 +132,8 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'IndexEquipos',
   components: {
-    BotonEstado: () => import('./Estado.vue')
+    BotonEstado: () => import('./Estado.vue'),
+    RetirarEquipo: () => import('./EquipoRetirar.vue')
   },
   data() {
     return {

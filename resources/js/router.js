@@ -28,6 +28,11 @@ const router = new Router({
       path: '/equipos',
       name: 'equipos',
       component: () => import('./components/views/equipos/Equipos.vue')
+    },
+    {
+      path: '/caja',
+      name: 'caja',
+      component: () => import('./components/views/caja/Caja.vue')
     }
   ]
 })

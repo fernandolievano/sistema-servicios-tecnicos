@@ -74,7 +74,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-actions class="pa-3">
-            <b>Equipo recibido el {{ ticket.ticketInicial.created_at }}</b>
+            <b>Equipo recibido el {{ ticket.ticketInicial.created_at | date }}</b>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -124,8 +124,8 @@ export default {
       html2canvas(document.querySelector(`#ticketInicial${this.ticketId}`)).then(canvas => {
         // eslint-disable-next-line new-cap
         const pdf = new jsPDF('p', 'mm', 'a4')
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 3, 5, 100, 150)
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 107, 5, 100, 150)
+        pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 3, 5, 100, 180)
+        pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 107, 5, 100, 180)
         pdf.save(filename)
       })
     },
@@ -143,6 +143,6 @@ export default {
   width: 10%;
 }
 .ticket {
-  border: 1px solid black;
+  border: 1px solid gray;
 }
 </style>

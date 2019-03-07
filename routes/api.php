@@ -41,6 +41,7 @@ Route::prefix('/v1')->group(function () {
 
     Route::prefix('/tickets')->name('tickets.')->group(function () {
         Route::get('/get/{id}', 'TicketController@ticket_inicial')->name('inicial.show');
+        Route::post('/store/final', 'TicketController@store_ticket_final')->name('final.store');
     });
 
     Route::prefix('/caja')->name('caja.')->group(function () {

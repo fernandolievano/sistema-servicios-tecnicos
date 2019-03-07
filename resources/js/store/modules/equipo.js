@@ -94,6 +94,10 @@ export const actions = {
   },
   clearEquiposByCliente({ commit }) {
     commit('CLEAR_EQUIPOS_DE_CLIENTE')
+  },
+  estadoEquipo({ getters }, id, estado) {
+    const equipo = getters.getEquipoById(id)
+    equipo.estado = estado
   }
 }
 

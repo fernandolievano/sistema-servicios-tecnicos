@@ -75,7 +75,7 @@
                               <v-list-tile-content>
                                 <v-list-tile-title>Recibido</v-list-tile-title>
                                 <v-list-tile-sub-title>
-                                  {{ item.created_at }}
+                                  {{ item.created_at | date }}
                                 </v-list-tile-sub-title>
                               </v-list-tile-content>
                             </v-list-tile>
@@ -109,12 +109,12 @@
             </v-responsive>
             <v-card-actions>
               <v-container>
-                <v-layout row wrap>
-                  <v-flex>
+                <v-layout justify-center row wrap>
+                  <v-flex xs8>
                     <BotonEstado :id="item.id" :estado="item.estado"></BotonEstado>
                   </v-flex>
-                  <v-flex>
-                    <RetirarEquipo></RetirarEquipo>
+                  <v-flex xs8>
+                    <RetirarEquipo :clienteId="item.cliente.id" :equipoId="item.id"></RetirarEquipo>
                   </v-flex>
                 </v-layout>
               </v-container>

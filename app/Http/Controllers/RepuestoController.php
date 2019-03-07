@@ -26,7 +26,7 @@ class RepuestoController extends Controller
 
     public function store(Request $request)
     {
-       $repuesto = Repuesto::create($request->all());
+       $NuevoRepuesto = Repuesto::create($request->all());
 
        $repuesto      = $request->get('repuesto') ;
        $precio_compra = $request->get('precio_unitario_compra');
@@ -45,7 +45,7 @@ class RepuestoController extends Controller
        $ingreso_retiro->caja_id     = $caja->id;
        $ingreso_retiro->save();
 
-        return response()->json($repuesto);
+        return response()->json($NuevoRepuesto);
     }
 
     public function update(Request $request, $id)

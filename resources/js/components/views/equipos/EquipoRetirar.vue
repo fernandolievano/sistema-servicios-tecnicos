@@ -13,7 +13,10 @@
             <v-btn dark flat @click="generarTicket">Save</v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        <v-form ref="retirarequipo" v-model="valid" lazy-validation>
+        <div v-if="success" class="success--text">
+          Creado con éxito
+        </div>
+        <v-form v-if="!success" ref="retirarequipo" v-model="valid" lazy-validation>
           <h1 class="display-2">Generar ticket de pago</h1>
           <v-list>
             <v-container>
@@ -31,14 +34,14 @@
                             :key="repuesto.repuesto"
                             v-model="repuestosUsados[index]"
                             :label="repuesto.repuesto"
-                            :value="repuesto.precio_unitario"
+                            :value="repuesto"
                           ></v-checkbox>
                         </v-list-tile-content>
                       </v-flex>
                       <v-flex xs12 sm6>
                         <v-list-tile-content>
                           <v-text-field
-                            :key="repuesto.precio_unitario"
+                            :key="repuesto.precio_unitario_venta"
                             v-model="repuestosUsadosCantidad[index]"
                             placeholder="Cantidad"
                           >
@@ -59,7 +62,7 @@
                         :key="servicio.titulo"
                         v-model="serviciosRequeridos[index]"
                         :label="servicio.titulo"
-                        :value="servicio.valor"
+                        :value="servicio"
                       ></v-checkbox>
                     </v-list-tile-content>
                   </v-list-tile>
@@ -77,10 +80,24 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
+  props: {
+    clienteId: {
+      type: Number,
+      required: true,
+      default: 0
+    },
+    equipoId: {
+      type: Number,
+      required: true,
+      default: 0
+    }
+  },
   data() {
     return {
       dialog: false,
       valid: false,
+      success: false,
+      detail: null,
       serviciosRequeridos: [],
       repuestosUsados: [],
       repuestosUsadosCantidad: []
@@ -96,22 +113,50 @@ export default {
   methods: {
     ...mapActions({
       fetchRepuestos: 'repuesto/fetchAll',
-      fetchServicios: 'servicio/fetchAll'
+      fetchServicios: 'servicio/fetchAll',
+      createFinal: 'ticket/createFinal'
     }),
     generarTicket() {
       let pagoTotal = 0
 
       for (let i = 0; i < this.repuestosUsados.length; i++) {
-        const precio = this.repuestosUsados[i]
+        const precio = this.repuestosUsados[i].precio_unitario_venta
         const cantidad = this.repuestosUsadosCantidad[i]
         pagoTotal += precio * cantidad
       }
 
       for (let i = 0; i < this.serviciosRequeridos.length; i++) {
-        pagoTotal += this.serviciosRequeridos[i]
+        pagoTotal += this.serviciosRequeridos[i].valor
       }
 
-      console.log(pagoTotal)
+      const servicios = this.serviciosRequeridos
+      const joinedServicios = servicios.map(serv => serv.titulo).join(', ')
+
+      const repuestos = this.repuestosUsados
+      const joinedRepuestos = repuestos.map(rep => rep.repuesto).join(', ')
+
+      let message = ''
+
+      if (servicios.length < 1) {
+        message = `Ingresos por la venta de los siguientes repuestos: ${joinedRepuestos}.`
+      } else if (repuestos.length < 1) {
+        message = `Ingresos por servicios técnicos: ${joinedServicios}.`
+      } else {
+        message = `Ingresos por por la venta de los siguientes repuestos: ${joinedRepuestos} y por servicios técnicos: ${joinedServicios}.`
+      }
+
+      const formulario = {
+        cliente_id: this.clienteId,
+        equipo_id: this.equipoId,
+        total: pagoTotal,
+        mensaje: message
+      }
+
+      const params = Object.assign({}, formulario)
+
+      this.createFinal(params).then(() => {
+        this.success = true
+      })
     }
   }
 }

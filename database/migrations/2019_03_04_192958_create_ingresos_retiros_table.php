@@ -17,7 +17,7 @@ class CreateIngresosRetirosTable extends Migration
             $table->increments('id');
             $table->float('cantidad');
             $table->boolean('ingreso');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->integer('caja_id')->unsigned();
             $table->timestamps();
         });

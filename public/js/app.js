@@ -74108,25 +74108,25 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/servicios',
     name: 'servicios',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
+      return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
     }
   }, {
     path: '/repuestos',
     name: 'repuestos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
+      return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
     }
   }, {
     path: '/equipos',
     name: 'equipos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
     }
   }, {
     path: '/caja',
     name: 'caja',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ./components/views/caja/Caja.vue */ "./resources/js/components/views/caja/Caja.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/views/caja/Caja.vue */ "./resources/js/components/views/caja/Caja.vue"));
     }
   }]
 });
@@ -74361,6 +74361,9 @@ var apiTickets = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
 /* harmony default export */ __webpack_exports__["default"] = ({
   ticketInicial: function ticketInicial(id) {
     return apiTickets.get("/get/".concat(id));
+  },
+  createTicketFinal: function createTicketFinal(ticket) {
+    return apiTickets.post('/store/final', ticket);
   }
 });
 
@@ -74648,6 +74651,11 @@ var actions = {
   clearEquiposByCliente: function clearEquiposByCliente(_ref5) {
     var commit = _ref5.commit;
     commit('CLEAR_EQUIPOS_DE_CLIENTE');
+  },
+  estadoEquipo: function estadoEquipo(_ref6, id, estado) {
+    var getters = _ref6.getters;
+    var equipo = getters.getEquipoById(id);
+    equipo.estado = estado;
   }
 };
 var getters = {
@@ -74942,14 +74950,21 @@ __webpack_require__.r(__webpack_exports__);
 
 var namespaced = true;
 var state = {
-  ticketInicial: {}
+  ticketInicial: {},
+  ticketFinal: {}
 };
 var mutations = {
   SET_TICKET_INICIAL: function SET_TICKET_INICIAL(state, ticket) {
     state.ticketInicial = ticket;
   },
+  SET_TICKET_FINAL: function SET_TICKET_FINAL(state, ticket) {
+    state.ticketFinal = ticket;
+  },
   CLEAR_TICKET_INICIAL: function CLEAR_TICKET_INICIAL(state) {
     state.ticketInicial = {};
+  },
+  CLEAR_TICKET_FINAL: function CLEAR_TICKET_FINAL(state) {
+    state.ticketFinal = {};
   }
 };
 var actions = {
@@ -74957,13 +74972,24 @@ var actions = {
     var commit = _ref.commit;
     return _services_TicketsService__WEBPACK_IMPORTED_MODULE_0__["default"].ticketInicial(id).then(function (response) {
       commit('SET_TICKET_INICIAL', response.data);
-    }).catch(function (error) {
-      console.log("Hubo un problema: ".concat(error.message));
+    }); // .catch(error => {
+    //   console.log(`Hubo un problema: ${error.message}`)
+    // })
+  },
+  createFinal: function createFinal(_ref2, ticket) {
+    var commit = _ref2.commit;
+    return _services_TicketsService__WEBPACK_IMPORTED_MODULE_0__["default"].createTicketFinal(ticket).then(function (response) {
+      commit('SET_TICKET_FINAL', response.data);
+      console.log(response.data);
     });
   },
-  clearInicial: function clearInicial(_ref2) {
-    var commit = _ref2.commit;
+  clearInicial: function clearInicial(_ref3) {
+    var commit = _ref3.commit;
     commit('CLEAR_TICKET_INICIAL');
+  },
+  clearFinal: function clearFinal(_ref4) {
+    var commit = _ref4.commit;
+    commit('CLEAR_TICKET_FINAL');
   }
 };
 

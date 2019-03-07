@@ -1,18 +1,19 @@
 <template>
   <div>
-    <v-btn v-if="estado === 'En Reparación'" color="primary" @click="marcarComo(estado, id)">
-      Marcar como Reparado (id: {{ id }})
+    <p v-if="!estado" class="title">
+      El estado fue actualizado
+    </p>
+    <v-btn v-else-if="estado === 'En Reparación'" color="primary" @click="marcarComo(estado, id)">
+      Marcar como Reparado
     </v-btn>
     <v-btn v-else-if="estado === 'Reparado'" color="success" @click="marcarComo(estado, id)">
-      Marcar como Retirado
+      Marcar como Despachado
     </v-btn>
-    <div v-else>
-      Equipo despachado
-    </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import axios from 'axios'
 
 export default {
@@ -20,7 +21,7 @@ export default {
   props: {
     estado: {
       type: String,
-      required: true
+      default: null
     },
     id: {
       type: Number,
@@ -28,7 +29,10 @@ export default {
     }
   },
   methods: {
-    // PENDIENTE AHORA ACTUALIZAR EL STATE DE VUEX
+    ...mapActions({
+      cambiarEstado: 'equipo/estadoEquipo'
+    }),
+    // PENDIENTE MIGRAR EL CÓDIGO A VUEX
     marcarComo(estado, id) {
       const url = `/api/v1/equipos/estado/${id}`
 
@@ -40,9 +44,11 @@ export default {
 
         axios.put(url, params).then(response => {
           const msg = `${response.data.equipo} ${response.data.modelo} fue reparado`
-          this.$swal.fire({
-            title: msg,
-            type: 'success'
+          this.cambiarEstado(id, 'Reparado').then(() => {
+            this.$swal.fire({
+              title: msg,
+              type: 'success'
+            })
           })
         })
       } else if (estado === 'Reparado') {
@@ -53,9 +59,11 @@ export default {
 
         axios.put(url, params).then(response => {
           const msg = `${response.data.equipo} ${response.data.modelo} fue despachado`
-          this.$swal.fire({
-            title: msg,
-            type: 'success'
+          this.cambiarEstado(id, 'Despachado').then(() => {
+            this.$swal.fire({
+              title: msg,
+              type: 'success'
+            })
           })
         })
       }

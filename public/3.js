@@ -138,8 +138,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       html2canvas__WEBPACK_IMPORTED_MODULE_2___default()(document.querySelector("#ticketInicial".concat(this.ticketId))).then(function (canvas) {
         // eslint-disable-next-line new-cap
         var pdf = new jspdf__WEBPACK_IMPORTED_MODULE_1___default.a('p', 'mm', 'a4');
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 3, 5, 100, 150);
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 107, 5, 100, 150);
+        pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 3, 5, 100, 180);
+        pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 107, 5, 100, 180);
         pdf.save(filename);
       });
     },
@@ -167,7 +167,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.icon-ticket[data-v-163c3242] {\n  width: 10%;\n}\n.ticket[data-v-163c3242] {\n  border: 1px solid black;\n}\n", ""]);
+exports.push([module.i, "\n.icon-ticket[data-v-163c3242] {\n  width: 10%;\n}\n.ticket[data-v-163c3242] {\n  border: 1px solid gray;\n}\n", ""]);
 
 // exports
 
@@ -480,7 +480,11 @@ var render = function() {
                         _c("b", [
                           _vm._v(
                             "Equipo recibido el " +
-                              _vm._s(_vm.ticket.ticketInicial.created_at)
+                              _vm._s(
+                                _vm._f("date")(
+                                  _vm.ticket.ticketInicial.created_at
+                                )
+                              )
                           )
                         ])
                       ])

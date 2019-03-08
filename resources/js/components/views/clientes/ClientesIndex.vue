@@ -17,7 +17,7 @@
     </div>
     <v-container grid-list-xs>
       <v-layout row wrap>
-        <v-flex v-for="(cliente, index) in clientes" :key="index" xs12 sm4>
+        <v-flex v-for="(cliente, index) in clientes" :key="index + cliente.nombre" xs12 sm4>
           <v-card class="ma-2 pa-2 elevation-24">
             <v-toolbar color="transparent" dense flat>
               <v-toolbar-title> {{ cliente.nombre }} {{ cliente.apellido }} </v-toolbar-title>
@@ -58,7 +58,7 @@
                   <v-flex xs12>
                     <equipos-cliente
                       :cliente="cliente.nombre"
-                      :id-cliente="cliente.id"
+                      :equipos="cliente.equipos"
                     ></equipos-cliente>
                   </v-flex>
                   <v-flex xs12>

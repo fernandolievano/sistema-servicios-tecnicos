@@ -36,7 +36,7 @@ export const actions = {
   createFinal({ commit }, ticket) {
     return TicketsService.createTicketFinal(ticket).then(response => {
       commit('SET_TICKET_FINAL', response.data)
-      console.log(response.data)
+      // console.log(response.data)
     })
   },
   clearInicial({ commit }) {

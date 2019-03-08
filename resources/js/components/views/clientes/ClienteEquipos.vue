@@ -1,13 +1,6 @@
 <template>
-  <v-dialog
-    :key="idCliente"
-    v-model="dialog"
-    fullscreen
-    hide-overlay
-    lazy
-    transition="dialog-bottom-transition"
-  >
-    <v-btn slot="activator" color="info" small flat block @click.prevent="fetch(idCliente)">
+  <v-dialog v-model="dialog" fullscreen hide-overlay lazy transition="dialog-bottom-transition">
+    <v-btn slot="activator" color="info" small flat block>
       Equipos de {{ cliente }}
       <v-icon right>
         devices_other
@@ -22,14 +15,14 @@
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-container grid-list-xs>
-        <v-layout v-if="equiposCount < 1">
+        <v-layout v-if="!equiposCount">
           <v-flex xs12>
             <v-alert type="warning" :value="true">
               No hay equipos para mostrar
             </v-alert>
           </v-flex>
         </v-layout>
-        <v-layout v-for="item in equipo.equiposDeCliente" v-else :key="item.id" row wrap>
+        <v-layout v-for="item in equipos" :key="item.equipo + item.modelo" row wrap>
           <v-flex>
             <v-card>
               <v-card-title primary-title>
@@ -66,8 +59,6 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
-
 export default {
   name: 'EquiposCliente',
   props: {
@@ -75,9 +66,9 @@ export default {
       type: String,
       default: 'Cliente'
     },
-    idCliente: {
-      type: Number,
-      default: 0
+    equipos: {
+      type: Array,
+      required: true
     }
   },
   data: () => ({
@@ -85,22 +76,13 @@ export default {
     showTicket: false
   }),
   computed: {
-    ...mapState(['equipo']),
-    ...mapGetters({
-      count: 'equipo/equiposDeClienteCount'
-    }),
     equiposCount() {
-      return this.count
+      return this.equipos.length
     }
   },
   methods: {
-    ...mapActions({
-      fetch: 'equipo/fetchByCliente',
-      clear: 'equipo/clearEquiposByCliente'
-    }),
     close() {
       this.dialog = false
-      this.clear()
     }
   }
 }

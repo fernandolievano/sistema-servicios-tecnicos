@@ -3,7 +3,7 @@
     <v-layout row wrap align-center justify-center>
       <v-flex xs6>
         <v-btn :disabled="!show" color="primary" block @click="imprimir">
-          Imprimir ticket
+          Descargar ticket
         </v-btn>
       </v-flex>
       <v-flex xs6>

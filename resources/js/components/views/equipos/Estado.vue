@@ -1,9 +1,6 @@
 <template>
   <div>
-    <p v-if="!estado" class="title">
-      El estado fue actualizado
-    </p>
-    <v-btn v-else-if="estado === 'En Reparación'" color="primary" @click="marcarComo(estado, id)">
+    <v-btn v-if="estado === 'En Reparación'" color="primary" @click="marcarComo(estado, id)">
       Marcar como Reparado
     </v-btn>
     <v-btn v-else-if="estado === 'Reparado'" color="success" @click="marcarComo(estado, id)">
@@ -30,9 +27,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      cambiarEstado: 'equipo/estadoEquipo'
+      cambiarEstado: 'equipo/estadoEquipo',
+      fetch: 'equipo/fetchAll'
     }),
-    // PENDIENTE MIGRAR EL CÓDIGO A VUEX
+    // PENDIENTE OPTIMIZAR Y MIGRAR EL CÓDIGO A VUEX
     marcarComo(estado, id) {
       const url = `/api/v1/equipos/estado/${id}`
 
@@ -45,6 +43,7 @@ export default {
         axios.put(url, params).then(response => {
           const msg = `${response.data.equipo} ${response.data.modelo} fue reparado`
           this.cambiarEstado(id, 'Reparado').then(() => {
+            this.fetch()
             this.$swal.fire({
               title: msg,
               type: 'success'
@@ -60,6 +59,7 @@ export default {
         axios.put(url, params).then(response => {
           const msg = `${response.data.equipo} ${response.data.modelo} fue despachado`
           this.cambiarEstado(id, 'Despachado').then(() => {
+            this.fetch()
             this.$swal.fire({
               title: msg,
               type: 'success'

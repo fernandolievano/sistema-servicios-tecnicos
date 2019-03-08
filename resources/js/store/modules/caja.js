@@ -16,6 +16,9 @@ export const mutations = {
   },
   SET_INGRESOS_Y_RETIROS(state, ingresosYRetiros) {
     state.ingresosYRetiros = ingresosYRetiros
+  },
+  ADD_INGRESO_RETIRO(state, params) {
+    state.ingresosYRetiros.push(params)
   }
 }
 
@@ -28,6 +31,12 @@ export const actions = {
   fetchIngresosYRetiros({ commit }) {
     return CajaService.ingresosRetiros().then(response => {
       commit('SET_INGRESOS_Y_RETIROS', response.data)
+    })
+  },
+  nuevaOperacion({ commit, dispatch }, params) {
+    return CajaService.nuevaOperacion(params).then(response => {
+      commit('ADD_INGRESO_RETIRO', response.data)
+      dispatch('fetchCaja')
     })
   }
 }

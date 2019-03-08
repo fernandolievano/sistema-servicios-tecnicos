@@ -6,9 +6,9 @@
         Ingresos y Retiros
         <v-icon>attach_money</v-icon>
       </v-tab>
-      <v-tab>
-        Otras cosas
-        <v-icon>cloud</v-icon>
+      <v-tab disabled>
+        Nuevo ingreso/retiro
+        <v-icon>add</v-icon>
       </v-tab>
     </v-tabs>
     <div class="bottom-shadow">
@@ -27,10 +27,10 @@
     </div>
     <v-tabs-items v-model="active">
       <v-tab-item>
-        <IngresosRetiros></IngresosRetiros>
+        <IngresosRetiros />
       </v-tab-item>
       <v-tab-item>
-        Otras cosas
+        <NuevoIngresoRetiro />
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -42,7 +42,8 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'Caja',
   components: {
-    IngresosRetiros: () => import('./IngresosRetiros.vue')
+    IngresosRetiros: () => import('./IngresosRetiros.vue'),
+    NuevoIngresoRetiro: () => import('./IngresarRetirar.vue')
   },
   data() {
     return {

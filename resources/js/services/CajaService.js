@@ -22,5 +22,8 @@ export default {
   },
   ingresosRetiros() {
     return apiCaja.get('/ingresos_y_retiros')
+  },
+  nuevaOperacion(params) {
+    return apiCaja.post('/operacion/store', params)
   }
 }

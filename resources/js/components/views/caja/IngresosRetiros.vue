@@ -4,7 +4,7 @@
       <v-flex v-for="tr in transacciones" :key="tr.id" xs8>
         <v-sheet
           dark
-          :class="[tr.ingreso ? 'light-green lighten-2' : 'red lighten-1']"
+          :class="[tr.ingreso ? 'light-green darken-1' : 'red lighten-1']"
           class="ma-2 pa-2 elevation-24"
         >
           <v-container>

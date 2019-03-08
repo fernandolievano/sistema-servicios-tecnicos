@@ -19,7 +19,7 @@
     </div>
     <v-container align-center>
       <v-layout row wrap>
-        <v-flex v-for="item in equipos" :key="item.id" xs12 sm6>
+        <v-flex v-for="item in equipos" :key="item.equipo + item.id" xs12 sm6>
           <v-card class="ma-2 pa-2 elevation-24">
             <v-toolbar dense color="transparent" flat>
               <v-toolbar-title>
@@ -111,10 +111,18 @@
               <v-container>
                 <v-layout justify-center row wrap>
                   <v-flex xs8>
-                    <BotonEstado :id="item.id" :estado="item.estado"></BotonEstado>
+                    <BotonEstado
+                      :key="item.id + item.estado"
+                      :id="item.id"
+                      :estado="item.estado"
+                    ></BotonEstado>
                   </v-flex>
-                  <v-flex xs8>
-                    <RetirarEquipo :clienteId="item.cliente.id" :equipoId="item.id"></RetirarEquipo>
+                  <v-flex xs8 v-if="item.estado === 'Despachado'">
+                    <RetirarEquipo
+                      :key="item.id + item.descripcion"
+                      :clienteId="item.cliente.id"
+                      :equipoId="item.id"
+                    ></RetirarEquipo>
                   </v-flex>
                 </v-layout>
               </v-container>

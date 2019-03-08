@@ -238,7 +238,7 @@ var render = function() {
                   attrs: { disabled: !_vm.show, color: "primary", block: "" },
                   on: { click: _vm.imprimir }
                 },
-                [_vm._v("\n        Imprimir ticket\n      ")]
+                [_vm._v("\n        Descargar ticket\n      ")]
               )
             ],
             1

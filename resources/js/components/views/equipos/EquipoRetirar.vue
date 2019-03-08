@@ -119,12 +119,14 @@ export default {
     generarTicket() {
       let pagoTotal = 0
 
+      // eslint-disable-next-line no-plusplus
       for (let i = 0; i < this.repuestosUsados.length; i++) {
         const precio = this.repuestosUsados[i].precio_unitario_venta
         const cantidad = this.repuestosUsadosCantidad[i]
         pagoTotal += precio * cantidad
       }
 
+      // eslint-disable-next-line no-plusplus
       for (let i = 0; i < this.serviciosRequeridos.length; i++) {
         pagoTotal += this.serviciosRequeridos[i].valor
       }

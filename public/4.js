@@ -57,7 +57,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: 'Caja',
   components: {
     IngresosRetiros: function IngresosRetiros() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./IngresosRetiros.vue */ "./resources/js/components/views/caja/IngresosRetiros.vue"));
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./IngresosRetiros.vue */ "./resources/js/components/views/caja/IngresosRetiros.vue"));
+    },
+    NuevoIngresoRetiro: function NuevoIngresoRetiro() {
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./IngresarRetirar.vue */ "./resources/js/components/views/caja/IngresarRetirar.vue"));
     }
   },
   data: function data() {
@@ -138,9 +141,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-tab",
+            { attrs: { disabled: "" } },
             [
-              _vm._v("\n      Otras cosas\n      "),
-              _c("v-icon", [_vm._v("cloud")])
+              _vm._v("\n      Nuevo ingreso/retiro\n      "),
+              _c("v-icon", [_vm._v("add")])
             ],
             1
           )
@@ -202,7 +206,7 @@ var render = function() {
         [
           _c("v-tab-item", [_c("IngresosRetiros")], 1),
           _vm._v(" "),
-          _c("v-tab-item", [_vm._v("\n      Otras cosas\n    ")])
+          _c("v-tab-item", [_c("NuevoIngresoRetiro")], 1)
         ],
         1
       )

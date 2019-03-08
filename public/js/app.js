@@ -74108,19 +74108,19 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/servicios',
     name: 'servicios',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
+      return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
     }
   }, {
     path: '/repuestos',
     name: 'repuestos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
+      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
     }
   }, {
     path: '/equipos',
     name: 'equipos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
     }
   }, {
     path: '/caja',
@@ -74181,6 +74181,9 @@ apiCaja.interceptors.response.use(function (response) {
   },
   ingresosRetiros: function ingresosRetiros() {
     return apiCaja.get('/ingresos_y_retiros');
+  },
+  nuevaOperacion: function nuevaOperacion(params) {
+    return apiCaja.post('/operacion/store', params);
   }
 });
 
@@ -74398,6 +74401,9 @@ var mutations = {
   },
   SET_INGRESOS_Y_RETIROS: function SET_INGRESOS_Y_RETIROS(state, ingresosYRetiros) {
     state.ingresosYRetiros = ingresosYRetiros;
+  },
+  ADD_INGRESO_RETIRO: function ADD_INGRESO_RETIRO(state, params) {
+    state.ingresosYRetiros.push(params);
   }
 };
 var actions = {
@@ -74411,6 +74417,14 @@ var actions = {
     var commit = _ref2.commit;
     return _services_CajaService__WEBPACK_IMPORTED_MODULE_0__["default"].ingresosRetiros().then(function (response) {
       commit('SET_INGRESOS_Y_RETIROS', response.data);
+    });
+  },
+  nuevaOperacion: function nuevaOperacion(_ref3, params) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
+    return _services_CajaService__WEBPACK_IMPORTED_MODULE_0__["default"].nuevaOperacion(params).then(function (response) {
+      commit('ADD_INGRESO_RETIRO', response.data);
+      dispatch('fetchCaja');
     });
   }
 };
@@ -74582,7 +74596,7 @@ var mutations = {
     state.equipos = equipos;
   },
   SET_EQUIPOS_DE_CLIENTE: function SET_EQUIPOS_DE_CLIENTE(state, equipos) {
-    state.equiposDeCliente = equipos;
+    state.equiposDeCliente.push(equipos);
   },
   SET_EQUIPOS_COUNT: function SET_EQUIPOS_COUNT(state, count) {
     state.count = count;
@@ -74659,13 +74673,6 @@ var actions = {
   }
 };
 var getters = {
-  getEquiposByCliente: function getEquiposByCliente(state) {
-    return function (id) {
-      return state.equipos.find(function (equipo) {
-        return equipo.cliente_id === id;
-      });
-    };
-  },
   getEquipoById: function getEquipoById(state) {
     return function (id) {
       return state.equipos.find(function (equipo) {
@@ -74675,9 +74682,6 @@ var getters = {
   },
   equiposCount: function equiposCount(state) {
     return state.equipos.length;
-  },
-  equiposDeClienteCount: function equiposDeClienteCount(state) {
-    return state.equiposDeCliente.length;
   },
   filteredEquipos: function filteredEquipos(state) {
     return function (keyword) {
@@ -74979,8 +74983,7 @@ var actions = {
   createFinal: function createFinal(_ref2, ticket) {
     var commit = _ref2.commit;
     return _services_TicketsService__WEBPACK_IMPORTED_MODULE_0__["default"].createTicketFinal(ticket).then(function (response) {
-      commit('SET_TICKET_FINAL', response.data);
-      console.log(response.data);
+      commit('SET_TICKET_FINAL', response.data); // console.log(response.data)
     });
   },
   clearInicial: function clearInicial(_ref3) {

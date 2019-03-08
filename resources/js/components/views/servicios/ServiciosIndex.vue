@@ -19,7 +19,7 @@
     </div>
     <v-container grid-list-xs>
       <v-layout row wrap>
-        <v-flex v-for="item in servicios" :key="item.id" xs12 sm6 md4>
+        <v-flex v-for="item in servicios" :key="item.id + item.titulo" xs12 sm6 md4>
           <v-card class="ma-2 pa-2 elevation-24">
             <v-toolbar color="transparent" dense flat>
               <v-toolbar-title> {{ item.titulo }} </v-toolbar-title>

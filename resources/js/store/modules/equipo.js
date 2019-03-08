@@ -29,7 +29,7 @@ export const mutations = {
     state.equipos = equipos
   },
   SET_EQUIPOS_DE_CLIENTE(state, equipos) {
-    state.equiposDeCliente = equipos
+    state.equiposDeCliente.push(equipos)
   },
   SET_EQUIPOS_COUNT(state, count) {
     state.count = count
@@ -102,17 +102,11 @@ export const actions = {
 }
 
 export const getters = {
-  getEquiposByCliente: state => id => {
-    return state.equipos.find(equipo => equipo.cliente_id === id)
-  },
   getEquipoById: state => id => {
     return state.equipos.find(equipo => equipo.id === id)
   },
   equiposCount: state => {
     return state.equipos.length
-  },
-  equiposDeClienteCount: state => {
-    return state.equiposDeCliente.length
   },
   filteredEquipos: state => keyword => {
     return state.equipos.filter(eq => eq.equipo.toLowerCase().indexOf(keyword.toLowerCase()) > -1)

@@ -21,4 +21,15 @@ class IngresosRetirosController extends Controller
 
       return response()->json($ingresos_retiros);
     }
+
+    public function nueva_operacion(Request $request)
+    {
+      $operacion = IngresosRetiros::create($request->all());
+
+      $caja = Caja::first();
+      $caja->total += $request->cantidad;
+      $caja->save();
+
+      return response()->json($operacion);
+    }
 }

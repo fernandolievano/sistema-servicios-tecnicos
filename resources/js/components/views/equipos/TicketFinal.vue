@@ -2,24 +2,125 @@
   <v-container>
     <v-layout row wrap align-center justify-center>
       <v-flex xs6>
-        <v-btn color="primary">Descargar Ticket</v-btn>
+        <table
+          :id="ticket.id + 'ticket_final'"
+          class="table table-light table-sm table-borderless text-center"
+        >
+          <thead>
+            <tr>
+              <th colspan="3">
+                <h3>Ciber X-Gamer</h3>
+              </th>
+            </tr>
+            <tr>
+              <th colspan="3">
+                <img src="/images/xg-icon.png" alt="icon" class="icon-ticket mx-auto" />
+              </th>
+            </tr>
+            <tr>
+              <th colspan="3">Av. Mac Lean 333, Las Breñas, Chaco</th>
+            </tr>
+            <tr>
+              <th colspan="3">
+                {{ new Date() | date }}
+              </th>
+            </tr>
+            <tr class="border-bottom">
+              <th colspan="3">Ticket n° {{ ticket.id }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-if="details.repuestos.length > 0">
+              <td class="text-muted">
+                <b>Repuestos</b>
+              </td>
+              <td class="text-muted">
+                <b>Cantidad</b>
+              </td>
+              <td class="text-muted">
+                <b>Precio unitario</b>
+              </td>
+            </tr>
+            <tr v-for="repuesto in details.repuestos" :key="repuesto.repuesto">
+              <td>{{ repuesto.repuesto }}</td>
+              <td>{{ repuesto.cantidad }}</td>
+              <td>{{ repuesto.precio_unitario | price }}</td>
+            </tr>
+            <tr v-if="details.servicios.length > 0">
+              <td class="text-muted">
+                <b>Servicios</b>
+              </td>
+              <td></td>
+              <td class="text-muted">
+                <b>Costo</b>
+              </td>
+            </tr>
+            <tr v-for="servicio in details.servicios" :key="servicio.titulo">
+              <td>{{ servicio.servicio }}</td>
+              <td></td>
+              <td>{{ servicio.precio | price }}</td>
+            </tr>
+            <tr class="border-top">
+              <td colspan="3" class="text-center h5">
+                <b>Total {{ ticket.total | price }}</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </v-flex>
-      <v-flex xs6>
-        <v-btn flat></v-btn>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap align-center justify-center>
-      <v-flex xs6 id="idDelTicket+TicketFInal">
-        <v-card>
-          <v-toolbar></v-toolbar>
-        </v-card>
+      <v-flex xs12>
+        <v-btn color="primary" block @click="imprimir(ticket.id + 'ticket_final')"
+          >Imprimir Ticket</v-btn
+        >
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-export default {}
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
+
+export default {
+  name: 'TicketFinal',
+  props: {
+    ticket: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    details() {
+      return this.$store.state.ticket.details
+    }
+  },
+  methods: {
+    imprimir(id) {
+      const filename = `ticket_final${this.ticket.id}`
+
+      html2canvas(document.getElementById(id)).then(canvas => {
+        // eslint-disable-next-line new-cap
+        const pdf = new jsPDF('p', 'mm', 'a4')
+        pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 5, 5)
+        pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 5, 148)
+        pdf.save(filename)
+      })
+    }
+  }
+}
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" media="print" scoped>
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+
+.table th {
+  text-align: center
+}
+.table td {
+  text-align: center
+}
+.icon-ticket {
+  width: 10%;
+  top:0;
+}
+</style>

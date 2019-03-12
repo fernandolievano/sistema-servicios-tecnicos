@@ -16,15 +16,19 @@ class TicketController extends Controller
         return response()->json($ticket_inicial);
     }
 
+    public function ticket_final($id) {
+        $ticket_final = FinalTicket::where('id', $id)->with(['equipo', 'cliente'])->first();
+
+        return response()->json($ticket_final);
+    }
+
     public function store_ticket_final(Request $request)
     {
       $ticket = new FinalTicket;
-      $ticket->cliente_id   = $request->get('cliente_id');
-      $ticket->equipo_id    = $request->get('equipo_id');
-      $ticket->total        = $request->get('total');
+      $ticket->cliente_id   = $request->cliente_id;
+      $ticket->equipo_id    = $request->equipo_id;
+      $ticket->total        = $request->total;
       $ticket->save();
-
-      $ticket->with(['equipo', 'cliente']);
 
       $caja = Caja::first();
       $caja->total += $request->total;

@@ -67,8 +67,7 @@ export default {
       default: 'Cliente'
     },
     equipos: {
-      type: Array,
-      required: true
+      type: Array
     }
   },
   data: () => ({

@@ -14,12 +14,14 @@ import App from './components/App.vue'
 
 // filters
 import DateFilter from './filters/date'
+import PriceFilter from './filters/cash'
 
 // vue-router and vuex
 import router from './router'
 import store from './store/store'
 
 Vue.filter('date', DateFilter)
+Vue.filter('price', PriceFilter)
 Vue.use(VueSweetalert2)
 Vue.use(Vuetify)
 

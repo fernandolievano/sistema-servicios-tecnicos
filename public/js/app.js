@@ -73806,8 +73806,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/src/index.js");
 /* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue");
 /* harmony import */ var _filters_date__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./filters/date */ "./resources/js/filters/date.js");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
+/* harmony import */ var _filters_cash__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./filters/cash */ "./resources/js/filters/cash.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
 /* eslint-disable no-unused-vars */
 
 
@@ -73820,17 +73821,19 @@ __webpack_require__.r(__webpack_exports__);
 
  // filters
 
+
  // vue-router and vuex
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_4___default.a.filter('date', _filters_date__WEBPACK_IMPORTED_MODULE_8__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_4___default.a.filter('price', _filters_cash__WEBPACK_IMPORTED_MODULE_9__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_6__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_5___default.a);
 var app = new vue__WEBPACK_IMPORTED_MODULE_4___default.a({
   el: '#app',
-  router: _router__WEBPACK_IMPORTED_MODULE_9__["default"],
-  store: _store_store__WEBPACK_IMPORTED_MODULE_10__["default"],
+  router: _router__WEBPACK_IMPORTED_MODULE_10__["default"],
+  store: _store_store__WEBPACK_IMPORTED_MODULE_11__["default"],
   components: {
     App: _components_App_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   }
@@ -74057,6 +74060,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/filters/cash.js":
+/*!**************************************!*\
+  !*** ./resources/js/filters/cash.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function (value) {
+  var price = value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+  price = "".concat(price, " ARS");
+  return price;
+});
+
+/***/ }),
+
 /***/ "./resources/js/filters/date.js":
 /*!**************************************!*\
   !*** ./resources/js/filters/date.js ***!
@@ -74089,11 +74109,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
 /* eslint-disable no-unused-vars */
 
 /* eslint-disable no-undef */
 
- // import NProgress from 'nprogress'
+
+
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
@@ -74108,42 +74132,57 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/servicios',
     name: 'servicios',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
+      return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
     }
   }, {
     path: '/repuestos',
     name: 'repuestos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
+      return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
     }
   }, {
     path: '/equipos',
     name: 'equipos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
+      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
+    }
+  }, {
+    path: '/imprimir/ticket_final/:id',
+    name: 'factura',
+    component: function component() {
+      return Promise.all(/*! import() */[__webpack_require__.e(24), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./components/views/equipos/TicketFinal.vue */ "./resources/js/components/views/equipos/TicketFinal.vue"));
+    },
+    props: true,
+    beforeEnter: function beforeEnter(routeTo, routeFrom, next) {
+      _store_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch('ticket/fetchFinal', routeTo.params.id).then(function (ticket) {
+        // eslint-disable-next-line no-param-reassign
+        routeTo.params.ticket = ticket;
+        next();
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
   }, {
     path: '/caja',
     name: 'caja',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/views/caja/Caja.vue */ "./resources/js/components/views/caja/Caja.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/views/caja/Caja.vue */ "./resources/js/components/views/caja/Caja.vue"));
     }
   }]
 });
-/* router.beforeResolve((to, from, next) => {
+router.beforeResolve(function (to, from, next) {
   // If this isn't an initial page load.
   if (to.name) {
-      // Start the route progress bar.
-      NProgress.start()
+    // Start the route progress bar.
+    nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
   }
-  next()
-})
 
-router.afterEach((to, from) => {
+  next();
+});
+router.afterEach(function (to, from) {
   // Complete the animation of the route progress bar.
-  NProgress.done()
-}) */
-
+  nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
+});
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
@@ -74365,8 +74404,11 @@ var apiTickets = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
   ticketInicial: function ticketInicial(id) {
     return apiTickets.get("/get/".concat(id));
   },
-  createTicketFinal: function createTicketFinal(ticket) {
-    return apiTickets.post('/store/final', ticket);
+  ticketFinal: function ticketFinal(id) {
+    return apiTickets.get("/get/final/".concat(id));
+  },
+  createTicketFinal: function createTicketFinal(params) {
+    return apiTickets.post('/store/final', params);
   }
 });
 
@@ -74480,18 +74522,15 @@ var mutations = {
   SET_CLIENTES_COUNT: function SET_CLIENTES_COUNT(state, count) {
     state.count = count;
   },
-  ADD_CLIENTE: function ADD_CLIENTE(state, cliente) {
-    state.clientes.push(cliente);
-  },
   DELETE_CLIENTE: function DELETE_CLIENTE(state, id) {
     removeByAttr(state.clientes, 'id', id);
   }
 };
 var actions = {
   createCliente: function createCliente(_ref, cliente) {
-    var commit = _ref.commit;
+    var dispatch = _ref.dispatch;
     return _services_ClienteService__WEBPACK_IMPORTED_MODULE_0__["default"].store(cliente).then(function (response) {
-      commit('ADD_CLIENTE', response.data);
+      dispatch('fetchAll');
       return response.data;
     }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
@@ -74955,9 +74994,17 @@ __webpack_require__.r(__webpack_exports__);
 var namespaced = true;
 var state = {
   ticketInicial: {},
-  ticketFinal: {}
+  ticketFinal: {},
+  ticketsFinales: [],
+  details: {
+    repuestos: [],
+    servicios: []
+  }
 };
 var mutations = {
+  ADD_TICKET_FINAL: function ADD_TICKET_FINAL(state, ticket) {
+    state.ticketsFinales.push(ticket);
+  },
   SET_TICKET_INICIAL: function SET_TICKET_INICIAL(state, ticket) {
     state.ticketInicial = ticket;
   },
@@ -74969,6 +75016,9 @@ var mutations = {
   },
   CLEAR_TICKET_FINAL: function CLEAR_TICKET_FINAL(state) {
     state.ticketFinal = {};
+  },
+  SET_DETAILS: function SET_DETAILS(state, details) {
+    state.details = details;
   }
 };
 var actions = {
@@ -74976,23 +75026,32 @@ var actions = {
     var commit = _ref.commit;
     return _services_TicketsService__WEBPACK_IMPORTED_MODULE_0__["default"].ticketInicial(id).then(function (response) {
       commit('SET_TICKET_INICIAL', response.data);
-    }); // .catch(error => {
-    //   console.log(`Hubo un problema: ${error.message}`)
-    // })
-  },
-  createFinal: function createFinal(_ref2, ticket) {
-    var commit = _ref2.commit;
-    return _services_TicketsService__WEBPACK_IMPORTED_MODULE_0__["default"].createTicketFinal(ticket).then(function (response) {
-      commit('SET_TICKET_FINAL', response.data); // console.log(response.data)
     });
   },
-  clearInicial: function clearInicial(_ref3) {
+  fetchFinal: function fetchFinal(_ref2, id) {
+    var commit = _ref2.commit;
+    return _services_TicketsService__WEBPACK_IMPORTED_MODULE_0__["default"].ticketFinal(id).then(function (response) {
+      commit('SET_TICKET_FINAL', response.data);
+      return response.data;
+    });
+  },
+  createFinal: function createFinal(_ref3, ticket) {
     var commit = _ref3.commit;
+    return _services_TicketsService__WEBPACK_IMPORTED_MODULE_0__["default"].createTicketFinal(ticket).then(function (response) {
+      commit('SET_TICKET_FINAL', response.data);
+    });
+  },
+  clearInicial: function clearInicial(_ref4) {
+    var commit = _ref4.commit;
     commit('CLEAR_TICKET_INICIAL');
   },
-  clearFinal: function clearFinal(_ref4) {
-    var commit = _ref4.commit;
+  clearFinal: function clearFinal(_ref5) {
+    var commit = _ref5.commit;
     commit('CLEAR_TICKET_FINAL');
+  },
+  sendDetails: function sendDetails(_ref6, details) {
+    var commit = _ref6.commit;
+    commit('SET_DETAILS', details);
   }
 };
 

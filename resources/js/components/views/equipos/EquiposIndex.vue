@@ -112,17 +112,22 @@
                 <v-layout justify-center row wrap>
                   <v-flex xs8>
                     <BotonEstado
-                      :key="item.id + item.estado"
                       :id="item.id"
+                      :key="item.id + item.estado"
                       :estado="item.estado"
                     ></BotonEstado>
                   </v-flex>
-                  <v-flex xs8 v-if="item.estado === 'Despachado'">
+                  <v-flex v-if="item.estado === 'Despachado'" xs8>
                     <RetirarEquipo
                       :key="item.id + item.descripcion"
-                      :clienteId="item.cliente.id"
-                      :equipoId="item.id"
+                      :cliente-id="item.cliente.id"
+                      :equipo-id="item.id"
                     ></RetirarEquipo>
+                  </v-flex>
+                  <v-flex v-else-if="item.ticket_final !== null" xs8>
+                    <b class="primary--text">
+                      El equipo ya fue despachado y el ticket final fue generado
+                    </b>
                   </v-flex>
                 </v-layout>
               </v-container>

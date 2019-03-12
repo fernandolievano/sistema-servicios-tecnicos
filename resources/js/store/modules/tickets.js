@@ -7,10 +7,18 @@ export const namespaced = true
 
 export const state = {
   ticketInicial: {},
-  ticketFinal: {}
+  ticketFinal: {},
+  ticketsFinales: [],
+  details: {
+    repuestos: [],
+    servicios: []
+  }
 }
 
 export const mutations = {
+  ADD_TICKET_FINAL(state, ticket) {
+    state.ticketsFinales.push(ticket)
+  },
   SET_TICKET_INICIAL(state, ticket) {
     state.ticketInicial = ticket
   },
@@ -22,6 +30,9 @@ export const mutations = {
   },
   CLEAR_TICKET_FINAL(state) {
     state.ticketFinal = {}
+  },
+  SET_DETAILS(state, details) {
+    state.details = details
   }
 }
 export const actions = {
@@ -29,14 +40,16 @@ export const actions = {
     return TicketsService.ticketInicial(id).then(response => {
       commit('SET_TICKET_INICIAL', response.data)
     })
-    // .catch(error => {
-    //   console.log(`Hubo un problema: ${error.message}`)
-    // })
+  },
+  fetchFinal({ commit }, id) {
+    return TicketsService.ticketFinal(id).then(response => {
+      commit('SET_TICKET_FINAL', response.data)
+      return response.data
+    })
   },
   createFinal({ commit }, ticket) {
     return TicketsService.createTicketFinal(ticket).then(response => {
       commit('SET_TICKET_FINAL', response.data)
-      // console.log(response.data)
     })
   },
   clearInicial({ commit }) {
@@ -44,5 +57,8 @@ export const actions = {
   },
   clearFinal({ commit }) {
     commit('CLEAR_TICKET_FINAL')
+  },
+  sendDetails({ commit }, details) {
+    commit('SET_DETAILS', details)
   }
 }

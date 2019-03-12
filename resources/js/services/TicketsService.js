@@ -9,7 +9,10 @@ export default {
   ticketInicial(id) {
     return apiTickets.get(`/get/${id}`)
   },
-  createTicketFinal(ticket) {
-    return apiTickets.post('/store/final', ticket)
+  ticketFinal(id) {
+    return apiTickets.get(`/get/final/${id}`)
+  },
+  createTicketFinal(params) {
+    return apiTickets.post('/store/final', params)
   }
 }

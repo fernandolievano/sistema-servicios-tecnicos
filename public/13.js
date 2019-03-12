@@ -1,19 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/Equipos.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/Equipos.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -37,182 +32,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'IndexEquipos',
+  name: 'Equipos',
   components: {
-    BotonEstado: function BotonEstado() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./Estado.vue */ "./resources/js/components/views/equipos/Estado.vue"));
-    },
-    RetirarEquipo: function RetirarEquipo() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./EquipoRetirar.vue */ "./resources/js/components/views/equipos/EquipoRetirar.vue"));
+    IndexEquipos: function IndexEquipos() {
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./EquiposIndex.vue */ "./resources/js/components/views/equipos/EquiposIndex.vue"));
     }
   },
   data: function data() {
     return {
-      keyword: ''
+      active: 0
     };
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    filteredEquipos: 'equipo/filteredEquipos',
-    counter: 'equipo/equiposCount'
-  }), {
-    equipos: function equipos() {
-      return this.filteredEquipos(this.keyword);
-    }
-  }),
-  mounted: function mounted() {
-    this.fetch();
-  },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    fetch: 'equipo/fetchAll',
-    delete: 'equipo/deleteEquipo'
-  }), {
-    eliminar: function eliminar(item) {
-      var _this = this;
-
-      var message = "\xBFEst\xE1s seguro de eliminar ".concat(item.equipo, " ").concat(item.modelo, " de la lista de equipos?");
-      this.$swal.fire({
-        title: message,
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, estoy seguro',
-        cancelButtonText: 'Cancelar'
-      }).then(function (result) {
-        if (result.value) {
-          _this.delete(item.id).then(function () {
-            _this.$swal.fire({
-              title: 'Equipo eliminado con éxito',
-              type: 'success'
-            });
-          });
-        }
-      });
-    }
-  })
+  }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436& ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/Equipos.vue?vue&type=template&id=7a69fbc6&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/Equipos.vue?vue&type=template&id=7a69fbc6& ***!
+  \************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -228,49 +67,29 @@ var render = function() {
     "div",
     [
       _c(
-        "div",
-        { staticClass: "bottom-shadow" },
+        "v-tabs",
+        {
+          attrs: {
+            color: "deep-orange darken-1",
+            centered: "",
+            "icons-and-text": "",
+            dark: "",
+            "slider-color": "deep-orange lighten-1"
+          },
+          model: {
+            value: _vm.active,
+            callback: function($$v) {
+              _vm.active = $$v
+            },
+            expression: "active"
+          }
+        },
         [
           _c(
-            "v-toolbar",
-            {
-              attrs: {
-                color: "deep-orange darken-1",
-                dark: "",
-                dense: "",
-                flat: ""
-              }
-            },
+            "v-tab",
             [
-              _c("v-toolbar-title", [
-                _vm._v(" " + _vm._s(_vm.counter) + " equipos registrados ")
-              ]),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-toolbar-items",
-                [
-                  _c("v-text-field", {
-                    attrs: {
-                      dark: "",
-                      flat: "",
-                      solo: "",
-                      "background-color": "transparent",
-                      "append-icon": "search",
-                      placeholder: "Búsqueda de equipos"
-                    },
-                    model: {
-                      value: _vm.keyword,
-                      callback: function($$v) {
-                        _vm.keyword = $$v
-                      },
-                      expression: "keyword"
-                    }
-                  })
-                ],
-                1
-              )
+              _vm._v("\n      Lista de equipos\n      "),
+              _c("v-icon", [_vm._v("devices_other")])
             ],
             1
           )
@@ -279,436 +98,17 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "v-container",
-        { attrs: { "align-center": "" } },
-        [
-          _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
-            _vm._l(_vm.equipos, function(item) {
-              return _c(
-                "v-flex",
-                { key: item.equipo + item.id, attrs: { xs12: "", sm6: "" } },
-                [
-                  _c(
-                    "v-card",
-                    { staticClass: "ma-2 pa-2 elevation-24" },
-                    [
-                      _c(
-                        "v-toolbar",
-                        {
-                          attrs: { dense: "", color: "transparent", flat: "" }
-                        },
-                        [
-                          _c("v-toolbar-title", [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(item.equipo) +
-                                "\n              "
-                            ),
-                            _c(
-                              "small",
-                              { staticClass: "grey--text text--darken-2" },
-                              [
-                                _vm._v(
-                                  "\n                " +
-                                    _vm._s(item.modelo) +
-                                    "\n              "
-                                )
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c(
-                            "v-toolbar-items",
-                            [
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: {
-                                    flat: "",
-                                    small: "",
-                                    fab: "",
-                                    color: "error"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.eliminar(item)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("v-icon", [
-                                    _vm._v(
-                                      "\n                  clear\n                "
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-responsive",
-                        { attrs: { "min-height": "220" } },
-                        [
-                          _c(
-                            "v-card-title",
-                            [
-                              _c(
-                                "v-layout",
-                                { attrs: { row: "", wrap: "" } },
-                                [
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c(
-                                        "v-list",
-                                        {
-                                          attrs: {
-                                            "three-line": "",
-                                            subheader: ""
-                                          }
-                                        },
-                                        [
-                                          _c("v-subheader", [
-                                            _vm._v(
-                                              "\n                      Información del equipo\n                    "
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-container",
-                                            { attrs: { "grid-list-xs": "" } },
-                                            [
-                                              _c(
-                                                "v-layout",
-                                                {
-                                                  attrs: { row: "", wrap: "" }
-                                                },
-                                                [
-                                                  _c(
-                                                    "v-flex",
-                                                    { attrs: { xs6: "" } },
-                                                    [
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _c(
-                                                                "v-list-tile-title",
-                                                                [
-                                                                  _vm._v(
-                                                                    "Propietario"
-                                                                  )
-                                                                ]
-                                                              ),
-                                                              _vm._v(" "),
-                                                              _c(
-                                                                "v-list-tile-sub-title",
-                                                                [
-                                                                  _vm._v(
-                                                                    "\n                                " +
-                                                                      _vm._s(
-                                                                        item
-                                                                          .cliente
-                                                                          .nombre
-                                                                      ) +
-                                                                      " " +
-                                                                      _vm._s(
-                                                                        item
-                                                                          .cliente
-                                                                          .apellido
-                                                                      ) +
-                                                                      "\n                              "
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        ],
-                                                        1
-                                                      )
-                                                    ],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-flex",
-                                                    { attrs: { xs6: "" } },
-                                                    [
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _c(
-                                                                "v-list-tile-title",
-                                                                [
-                                                                  _vm._v(
-                                                                    "Estado"
-                                                                  )
-                                                                ]
-                                                              ),
-                                                              _vm._v(" "),
-                                                              _c(
-                                                                "v-list-tile-sub-title",
-                                                                [
-                                                                  _vm._v(
-                                                                    "\n                                " +
-                                                                      _vm._s(
-                                                                        item.estado
-                                                                      ) +
-                                                                      "\n                              "
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        ],
-                                                        1
-                                                      )
-                                                    ],
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-layout",
-                                                {
-                                                  attrs: { row: "", wrap: "" }
-                                                },
-                                                [
-                                                  _c(
-                                                    "v-flex",
-                                                    { attrs: { xs6: "" } },
-                                                    [
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _c(
-                                                                "v-list-tile-title",
-                                                                [
-                                                                  _vm._v(
-                                                                    "Recibido"
-                                                                  )
-                                                                ]
-                                                              ),
-                                                              _vm._v(" "),
-                                                              _c(
-                                                                "v-list-tile-sub-title",
-                                                                [
-                                                                  _vm._v(
-                                                                    "\n                                " +
-                                                                      _vm._s(
-                                                                        _vm._f(
-                                                                          "date"
-                                                                        )(
-                                                                          item.created_at
-                                                                        )
-                                                                      ) +
-                                                                      "\n                              "
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        ],
-                                                        1
-                                                      )
-                                                    ],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-flex",
-                                                    { attrs: { xs12: "" } },
-                                                    [
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _c(
-                                                                "v-list-tile-title",
-                                                                [
-                                                                  _vm._v(
-                                                                    "Diagnóstico"
-                                                                  )
-                                                                ]
-                                                              ),
-                                                              _vm._v(" "),
-                                                              _c(
-                                                                "v-list-tile-sub-title",
-                                                                [
-                                                                  _vm._v(
-                                                                    "\n                                " +
-                                                                      _vm._s(
-                                                                        item.diagnostico
-                                                                      ) +
-                                                                      "\n                              "
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        ],
-                                                        1
-                                                      )
-                                                    ],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-flex",
-                                                    { attrs: { xs12: "" } },
-                                                    [
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _c(
-                                                                "v-list-tile-title",
-                                                                [
-                                                                  _vm._v(
-                                                                    "Descripción"
-                                                                  )
-                                                                ]
-                                                              ),
-                                                              _vm._v(" "),
-                                                              _c(
-                                                                "v-list-tile-sub-title",
-                                                                [
-                                                                  _vm._v(
-                                                                    "\n                                " +
-                                                                      _vm._s(
-                                                                        item.descripcion
-                                                                      ) +
-                                                                      "\n                              "
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        ],
-                                                        1
-                                                      )
-                                                    ],
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        [
-                          _c(
-                            "v-container",
-                            [
-                              _c(
-                                "v-layout",
-                                {
-                                  attrs: {
-                                    "justify-center": "",
-                                    row: "",
-                                    wrap: ""
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs8: "" } },
-                                    [
-                                      _c("BotonEstado", {
-                                        key: item.id + item.estado,
-                                        attrs: {
-                                          id: item.id,
-                                          estado: item.estado
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  item.estado === "Despachado"
-                                    ? _c(
-                                        "v-flex",
-                                        { attrs: { xs8: "" } },
-                                        [
-                                          _c("RetirarEquipo", {
-                                            key: item.id + item.descripcion,
-                                            attrs: {
-                                              clienteId: item.cliente.id,
-                                              equipoId: item.id
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    : _vm._e()
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            }),
-            1
-          )
-        ],
+        "v-tabs-items",
+        {
+          model: {
+            value: _vm.active,
+            callback: function($$v) {
+              _vm.active = $$v
+            },
+            expression: "active"
+          }
+        },
+        [_c("v-tab-item", [_c("index-equipos")], 1)],
         1
       )
     ],
@@ -722,17 +122,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquiposIndex.vue":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquiposIndex.vue ***!
-  \****************************************************************/
+/***/ "./resources/js/components/views/equipos/Equipos.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/views/equipos/Equipos.vue ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EquiposIndex.vue?vue&type=template&id=724e4436& */ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&");
-/* harmony import */ var _EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EquiposIndex.vue?vue&type=script&lang=js& */ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Equipos_vue_vue_type_template_id_7a69fbc6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Equipos.vue?vue&type=template&id=7a69fbc6& */ "./resources/js/components/views/equipos/Equipos.vue?vue&type=template&id=7a69fbc6&");
+/* harmony import */ var _Equipos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Equipos.vue?vue&type=script&lang=js& */ "./resources/js/components/views/equipos/Equipos.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -742,9 +142,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Equipos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Equipos_vue_vue_type_template_id_7a69fbc6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Equipos_vue_vue_type_template_id_7a69fbc6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -754,38 +154,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/views/equipos/EquiposIndex.vue"
+component.options.__file = "resources/js/components/views/equipos/Equipos.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************/
+/***/ "./resources/js/components/views/equipos/Equipos.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/views/equipos/Equipos.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquiposIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Equipos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Equipos.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/Equipos.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Equipos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436& ***!
-  \***********************************************************************************************/
+/***/ "./resources/js/components/views/equipos/Equipos.vue?vue&type=template&id=7a69fbc6&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/views/equipos/Equipos.vue?vue&type=template&id=7a69fbc6& ***!
+  \******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquiposIndex.vue?vue&type=template&id=724e4436& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Equipos_vue_vue_type_template_id_7a69fbc6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Equipos.vue?vue&type=template&id=7a69fbc6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/Equipos.vue?vue&type=template&id=7a69fbc6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Equipos_vue_vue_type_template_id_7a69fbc6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Equipos_vue_vue_type_template_id_7a69fbc6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

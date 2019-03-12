@@ -34,18 +34,15 @@ export const mutations = {
   SET_CLIENTES_COUNT(state, count) {
     state.count = count
   },
-  ADD_CLIENTE(state, cliente) {
-    state.clientes.push(cliente)
-  },
   DELETE_CLIENTE(state, id) {
     removeByAttr(state.clientes, 'id', id)
   }
 }
 
 export const actions = {
-  createCliente({ commit }, cliente) {
+  createCliente({ dispatch }, cliente) {
     return ClienteService.store(cliente).then(response => {
-      commit('ADD_CLIENTE', response.data)
+      dispatch('fetchAll')
       return response.data
     })
     // .catch(error => console.log(`Hubo un error: ${error.message}`))

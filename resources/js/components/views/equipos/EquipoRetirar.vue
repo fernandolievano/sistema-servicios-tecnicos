@@ -13,8 +13,13 @@
             <v-btn dark flat @click="generarTicket">Save</v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        <div v-if="success" class="success--text">
-          Creado con éxito
+        <div v-if="success">
+          <div class="success--text">
+            Creado con éxito
+          </div>
+          <v-btn color="primary" :to="{ name: 'factura', params: { id: ticket.id } }">
+            Ver Ticket
+          </v-btn>
         </div>
         <v-form v-if="!success" ref="retirarequipo" v-model="valid" lazy-validation>
           <h1 class="display-2">Generar ticket de pago</h1>
@@ -78,6 +83,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import axios from 'axios'
 
 export default {
   props: {
@@ -97,10 +103,14 @@ export default {
       dialog: false,
       valid: false,
       success: false,
-      detail: null,
+      detail: {
+        servicios: [],
+        repuestos: []
+      },
       serviciosRequeridos: [],
       repuestosUsados: [],
-      repuestosUsadosCantidad: []
+      repuestosUsadosCantidad: [],
+      ticket: null
     }
   },
   computed: {
@@ -114,9 +124,11 @@ export default {
     ...mapActions({
       fetchRepuestos: 'repuesto/fetchAll',
       fetchServicios: 'servicio/fetchAll',
-      createFinal: 'ticket/createFinal'
+      createFinal: 'ticket/createFinal',
+      setDetails: 'ticket/sendDetails'
     }),
     generarTicket() {
+      const self = this
       let pagoTotal = 0
 
       // eslint-disable-next-line no-plusplus
@@ -124,12 +136,30 @@ export default {
         const precio = this.repuestosUsados[i].precio_unitario_venta
         const cantidad = this.repuestosUsadosCantidad[i]
         pagoTotal += precio * cantidad
+
+        // para detalle en la factura
+        const repuestoDetail = {
+          repuesto: this.repuestosUsados[i].repuesto,
+          cantidad: this.repuestosUsadosCantidad[i],
+          precio_unitario: this.repuestosUsados[i].precio_unitario_venta
+        }
+
+        this.detail.repuestos.push(repuestoDetail)
       }
 
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < this.serviciosRequeridos.length; i++) {
         pagoTotal += this.serviciosRequeridos[i].valor
+
+        const servicioDetail = {
+          servicio: this.serviciosRequeridos[i].titulo,
+          precio: this.serviciosRequeridos.valor
+        }
+
+        this.detail.servicios.push(servicioDetail)
       }
+
+      this.setDetails(this.detail)
 
       const servicios = this.serviciosRequeridos
       const joinedServicios = servicios.map(serv => serv.titulo).join(', ')
@@ -148,16 +178,18 @@ export default {
       }
 
       const formulario = {
-        cliente_id: this.clienteId,
-        equipo_id: this.equipoId,
+        cliente_id: self.clienteId,
+        equipo_id: self.equipoId,
         total: pagoTotal,
         mensaje: message
       }
 
-      const params = Object.assign({}, formulario)
+      const request = Object.assign({}, formulario)
+      const url = '/api/v1/tickets/store/final'
 
-      this.createFinal(params).then(() => {
+      axios.post(url, request).then(response => {
         this.success = true
+        this.ticket = response.data
       })
     }
   }

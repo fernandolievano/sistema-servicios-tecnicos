@@ -11,14 +11,14 @@ class EquipoController extends Controller
 {
     public function equipos()
     {
-        $equipos = Equipo::with(['ticket_inicial', 'cliente'])->get();
+        $equipos = Equipo::with(['ticket_inicial', 'cliente', 'ticket_final'])->get();
 
         return response()->json($equipos);
     }
 
     public function cliente_equipos($id)
     {
-        $equipos = Equipo::with('ticket_inicial')->where('cliente_id', $id)->get();
+        $equipos = Equipo::with(['ticket_inicial', 'ticket_final'])->where('cliente_id', $id)->get();
 
         return response()->json($equipos);
     }

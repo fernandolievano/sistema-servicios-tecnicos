@@ -110,5 +110,11 @@ export const getters = {
   },
   filteredEquipos: state => keyword => {
     return state.equipos.filter(eq => eq.equipo.toLowerCase().indexOf(keyword.toLowerCase()) > -1)
+  },
+  equiposByEstado: state => estado => {
+    return state.equipos.filter(equipo => equipo.estado === estado)
+  },
+  countEquiposByEstado: (state, getters) => estado => {
+    return getters.equiposByEstado(estado).length
   }
 }

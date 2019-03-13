@@ -68,7 +68,15 @@
           </tbody>
         </table>
       </v-flex>
-      <v-flex xs12>
+    </v-layout>
+    <v-layout row wrap>
+      <v-flex :disabled="success">
+        <v-btn block to="/">
+          <v-icon>arrow_back</v-icon>
+          Volver a la página principal</v-btn
+        >
+      </v-flex>
+      <v-flex :disabled="!success">
         <v-btn color="primary" block @click="imprimir(ticket.id + 'ticket_final')"
           >Imprimir Ticket</v-btn
         >
@@ -78,8 +86,10 @@
 </template>
 
 <script>
+import axios from 'axios'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'TicketFinal',
@@ -89,28 +99,56 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      success: false
+    }
+  },
   computed: {
+    ...mapActions({
+      cambiarEstado: 'equipo/estadoEquipo'
+    }),
     details() {
       return this.$store.state.ticket.details
     }
   },
   methods: {
-    imprimir(id) {
+    async imprimir(id) {
       const filename = `ticket_final${this.ticket.id}`
 
-      html2canvas(document.getElementById(id)).then(canvas => {
+      await html2canvas(document.getElementById(id)).then(canvas => {
         // eslint-disable-next-line new-cap
         const pdf = new jsPDF('p', 'mm', 'a4')
         pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 5, 5)
         pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 5, 148)
         pdf.save(filename)
       })
+
+      this.despachar(this.ticket.equipo_id)
+    },
+    async despachar(id) {
+      const url = `/api/v1/equipos/estado/${id}`
+      const nuevoEstado = {
+        estado: 'Despachado'
+      }
+      const params = Object.assign({}, nuevoEstado)
+
+      const response = await axios.put(url, params)
+
+      const msg = `${response.data.equipo} ${response.data.modelo} fue despachado`
+
+      this.$swal.fire({
+        title: msg,
+        type: 'success'
+      })
+
+      this.success = true
     }
   }
 }
 </script>
 
-<style lang="css" media="print" scoped>
+<style lang="css" scoped>
 @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
 
 .table th {

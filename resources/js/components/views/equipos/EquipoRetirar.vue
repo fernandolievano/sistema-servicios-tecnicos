@@ -13,11 +13,11 @@
             <v-btn dark flat @click="generarTicket">Save</v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        <div v-if="success">
-          <div class="success--text">
+        <div v-if="success" class="text-xs-center">
+          <h1 class="success--text display-2">
             Creado con éxito
-          </div>
-          <v-btn color="primary" :to="{ name: 'factura', params: { id: ticket.id } }">
+          </h1>
+          <v-btn color="primary" block :to="{ name: 'factura', params: { id: ticket.id } }">
             Ver Ticket
           </v-btn>
         </div>

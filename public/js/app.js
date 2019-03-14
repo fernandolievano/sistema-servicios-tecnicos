@@ -74158,8 +74158,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
         // eslint-disable-next-line no-param-reassign
         routeTo.params.ticket = ticket;
         next();
-      }).catch(function (error) {
-        console.log(error);
+      }).catch(function (error) {//
       });
     }
   }, {

@@ -254,7 +254,7 @@ var render = function() {
                   attrs: { disabled: _vm.show, block: "", flat: "" },
                   on: { click: _vm.mostrarTicket }
                 },
-                [_vm._v("\n        Ver ticket\n      ")]
+                [_vm._v("\n        Generar ticket\n      ")]
               )
             ],
             1

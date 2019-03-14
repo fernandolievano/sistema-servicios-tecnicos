@@ -463,7 +463,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("Imprimir Ticket")]
+                [_vm._v("Generar Ticket")]
               )
             ],
             1

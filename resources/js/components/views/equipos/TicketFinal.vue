@@ -78,7 +78,7 @@
       </v-flex>
       <v-flex :disabled="!success">
         <v-btn color="primary" block @click="imprimir(ticket.id + 'ticket_final')"
-          >Imprimir Ticket</v-btn
+          >Generar Ticket</v-btn
         >
       </v-flex>
     </v-layout>

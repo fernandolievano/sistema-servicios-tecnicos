@@ -8,7 +8,7 @@
       </v-flex>
       <v-flex xs6>
         <v-btn :disabled="show" block flat @click="mostrarTicket">
-          Ver ticket
+          Generar ticket
         </v-btn>
       </v-flex>
     </v-layout>

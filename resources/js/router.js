@@ -44,7 +44,7 @@ const router = new Router({
             next()
           })
           .catch(error => {
-            console.log(error)
+            //
           })
       }
     },

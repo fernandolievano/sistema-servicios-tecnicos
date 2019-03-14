@@ -1,11 +1,5 @@
 <template>
-  <v-dialog
-    :key="id"
-    v-model="dialog"
-    fullscreen
-    hide-overlay
-    transition="dialog-bottom-transition"
-  >
+  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
     <v-btn slot="activator" small flat color="warning">
       Editar información
       <v-icon>edit</v-icon>
@@ -100,12 +94,10 @@ export default {
     actualizar(id) {
       const url = `/api/v1/repuestos/update/${id}`
       const params = Object.assign({}, this.formulario)
-      axios
-        .put(url, params)
-        .then(() => {
-          this.success = true
-        })
-        .catch(error => console.log(error))
+      axios.put(url, params).then(() => {
+        this.success = true
+      })
+      // .catch(error => console.log(error))
     }
   }
 }

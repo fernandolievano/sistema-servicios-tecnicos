@@ -341,7 +341,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("tr", { staticClass: "border-bottom tex-muted" }, [
+                  _c("tr", { staticClass: "border-bottom text-muted" }, [
                     _c("th", { attrs: { colspan: "3" } }, [
                       _vm._v("Ticket: TF-" + _vm._s(_vm.ticket.id))
                     ])

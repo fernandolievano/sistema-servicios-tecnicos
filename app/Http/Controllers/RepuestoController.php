@@ -69,10 +69,28 @@ class RepuestoController extends Controller
 
     public function stock(Request $request, $id)
     {
-      $repuesto = Repuesto::find($id);
-      $repuesto->cantidad = $request->get('cantidad');
-      $repuesto->update();
+        $precio_compra  = $request->precio_unitario_compra;
+        $cantidad       = $request->cantidad;
 
-      return response(Response::HTTP_OK);
+        $repuesto = Repuesto::find($id);
+        $repuesto->cantidad                 = $cantidad;
+        $repuesto->precio_unitario_compra   = $precio_compra;
+        $repuesto->update();
+
+        $precio_compra *= $cantidad;
+        $precio_compra *= -1;
+
+        $caja = Caja::first();
+        $caja->total += $precio_compra;
+        $caja->save();
+
+        $ingreso_retiro = new IngresosRetiros;
+        $ingreso_retiro->descripcion = 'Compra de '.$cantidad.' unidades del siguiente repuesto: '.$repuesto->repuesto;
+        $ingreso_retiro->ingreso     = false;
+        $ingreso_retiro->cantidad    = $precio_compra;
+        $ingreso_retiro->caja_id     = $caja->id;
+        $ingreso_retiro->save();
+
+        return response(Response::HTTP_OK);
     }
 }

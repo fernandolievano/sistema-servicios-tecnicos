@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[21],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -82,16 +82,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'NuevoRepuesto',
   data: function data() {
     return {
       valid: false,
       success: false,
       formulario: {
-        titulo: '',
-        descripcion: '',
-        valor: ''
+        repuesto: null,
+        descripcion: null,
+        cantidad: null,
+        precio_unitario_compra: null,
+        precio_unitario_venta: null
       },
       generales: [function (v) {
         return !!v || 'Este campo es requerido';
@@ -99,7 +118,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    create: 'servicio/createServicio'
+    create: 'repuesto/createRepuesto'
   }), {
     store: function store() {
       var _this = this;
@@ -110,7 +129,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     another: function another() {
-      this.$refs.formservicio.reset();
+      this.$refs.formrepuesto.reset();
       this.success = false;
     }
   })
@@ -118,9 +137,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=template&id=3b749553&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=template&id=088c9b3d&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=template&id=3b749553& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=template&id=088c9b3d& ***!
   \********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -136,7 +155,7 @@ var render = function() {
   return _c(
     "v-form",
     {
-      ref: "formservicio",
+      ref: "formrepuesto",
       attrs: { "lazy-validation": "" },
       on: {
         submit: function($event) {
@@ -177,7 +196,6 @@ var render = function() {
                     [
                       _c(
                         "v-card-title",
-                        { attrs: { "primary-title": "" } },
                         [
                           _c(
                             "v-layout",
@@ -185,7 +203,7 @@ var render = function() {
                             [
                               _c("v-flex", { attrs: { xs12: "" } }, [
                                 _c("h2", { staticClass: "display-3" }, [
-                                  _vm._v("Nuevo Servicio")
+                                  _vm._v("Nuevo Repuesto")
                                 ])
                               ]),
                               _vm._v(" "),
@@ -211,7 +229,7 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                  Nuevo servicio añadido exitosamente\n                "
+                                        "\n                  Nuevo repuesto añadido exitosamente\n                "
                                       )
                                     ]
                                   )
@@ -242,20 +260,20 @@ var render = function() {
                                     [
                                       _c("v-text-field", {
                                         attrs: {
-                                          label: "Título del servicio",
-                                          required: "",
+                                          name: "repuesto",
+                                          label: "Repuesto",
                                           rules: _vm.generales
                                         },
                                         model: {
-                                          value: _vm.formulario.titulo,
+                                          value: _vm.formulario.repuesto,
                                           callback: function($$v) {
                                             _vm.$set(
                                               _vm.formulario,
-                                              "titulo",
+                                              "repuesto",
                                               $$v
                                             )
                                           },
-                                          expression: "formulario.titulo"
+                                          expression: "formulario.repuesto"
                                         }
                                       })
                                     ],
@@ -268,8 +286,8 @@ var render = function() {
                                     [
                                       _c("v-text-field", {
                                         attrs: {
-                                          label: "Descripción del servicio",
-                                          required: "",
+                                          name: "descripcion",
+                                          label: "Descripción",
                                           rules: _vm.generales
                                         },
                                         model: {
@@ -294,20 +312,78 @@ var render = function() {
                                     [
                                       _c("v-text-field", {
                                         attrs: {
-                                          label: "Valor que tendrá el servicio",
-                                          required: "",
+                                          name: "cantidad",
+                                          label: "Stock Inicial",
                                           rules: _vm.generales
                                         },
                                         model: {
-                                          value: _vm.formulario.valor,
+                                          value: _vm.formulario.cantidad,
                                           callback: function($$v) {
                                             _vm.$set(
                                               _vm.formulario,
-                                              "valor",
+                                              "cantidad",
                                               _vm._n($$v)
                                             )
                                           },
-                                          expression: "formulario.valor"
+                                          expression: "formulario.cantidad"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          name: "precio_unitario",
+                                          label: "Precio unitario de compra",
+                                          rules: _vm.generales
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.formulario
+                                              .precio_unitario_compra,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.formulario,
+                                              "precio_unitario_compra",
+                                              _vm._n($$v)
+                                            )
+                                          },
+                                          expression:
+                                            "formulario.precio_unitario_compra"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          name: "precio_unitario",
+                                          label: "Precio unitario de venta",
+                                          rules: _vm.generales
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.formulario
+                                              .precio_unitario_venta,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.formulario,
+                                              "precio_unitario_venta",
+                                              _vm._n($$v)
+                                            )
+                                          },
+                                          expression:
+                                            "formulario.precio_unitario_venta"
                                         }
                                       })
                                     ],
@@ -395,17 +471,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/views/servicios/ServicioNuevo.vue":
+/***/ "./resources/js/components/views/repuestos/RepuestoNuevo.vue":
 /*!*******************************************************************!*\
-  !*** ./resources/js/components/views/servicios/ServicioNuevo.vue ***!
+  !*** ./resources/js/components/views/repuestos/RepuestoNuevo.vue ***!
   \*******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ServicioNuevo_vue_vue_type_template_id_3b749553___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ServicioNuevo.vue?vue&type=template&id=3b749553& */ "./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=template&id=3b749553&");
-/* harmony import */ var _ServicioNuevo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ServicioNuevo.vue?vue&type=script&lang=js& */ "./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=script&lang=js&");
+/* harmony import */ var _RepuestoNuevo_vue_vue_type_template_id_088c9b3d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RepuestoNuevo.vue?vue&type=template&id=088c9b3d& */ "./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=template&id=088c9b3d&");
+/* harmony import */ var _RepuestoNuevo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RepuestoNuevo.vue?vue&type=script&lang=js& */ "./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -415,9 +491,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ServicioNuevo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ServicioNuevo_vue_vue_type_template_id_3b749553___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ServicioNuevo_vue_vue_type_template_id_3b749553___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _RepuestoNuevo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RepuestoNuevo_vue_vue_type_template_id_088c9b3d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RepuestoNuevo_vue_vue_type_template_id_088c9b3d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -427,38 +503,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/views/servicios/ServicioNuevo.vue"
+component.options.__file = "resources/js/components/views/repuestos/RepuestoNuevo.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************!*\
-  !*** ./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ServicioNuevo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ServicioNuevo.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ServicioNuevo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoNuevo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepuestoNuevo.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoNuevo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=template&id=3b749553&":
+/***/ "./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=template&id=088c9b3d&":
 /*!**************************************************************************************************!*\
-  !*** ./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=template&id=3b749553& ***!
+  !*** ./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=template&id=088c9b3d& ***!
   \**************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServicioNuevo_vue_vue_type_template_id_3b749553___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ServicioNuevo.vue?vue&type=template&id=3b749553& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServicioNuevo.vue?vue&type=template&id=3b749553&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServicioNuevo_vue_vue_type_template_id_3b749553___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoNuevo_vue_vue_type_template_id_088c9b3d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepuestoNuevo.vue?vue&type=template&id=088c9b3d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoNuevo.vue?vue&type=template&id=088c9b3d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoNuevo_vue_vue_type_template_id_088c9b3d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServicioNuevo_vue_vue_type_template_id_3b749553___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoNuevo_vue_vue_type_template_id_088c9b3d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

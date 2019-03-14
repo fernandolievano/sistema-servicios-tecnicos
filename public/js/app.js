@@ -74126,31 +74126,31 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/clientes',
     name: 'clientes',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/views/clientes/Clientes.vue */ "./resources/js/components/views/clientes/Clientes.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./components/views/clientes/Clientes.vue */ "./resources/js/components/views/clientes/Clientes.vue"));
     }
   }, {
     path: '/servicios',
     name: 'servicios',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
+      return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.bind(null, /*! ./components/views/servicios/Servicios.vue */ "./resources/js/components/views/servicios/Servicios.vue"));
     }
   }, {
     path: '/repuestos',
     name: 'repuestos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
+      return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ./components/views/repuestos/Repuestos.vue */ "./resources/js/components/views/repuestos/Repuestos.vue"));
     }
   }, {
     path: '/equipos',
     name: 'equipos',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
+      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
     }
   }, {
     path: '/descargar/ticket_final/:id',
     name: 'factura',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(25), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./components/views/equipos/TicketFinal.vue */ "./resources/js/components/views/equipos/TicketFinal.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./components/views/equipos/TicketFinal.vue */ "./resources/js/components/views/equipos/TicketFinal.vue"));
     },
     props: true,
     beforeEnter: function beforeEnter(routeTo, routeFrom, next) {
@@ -74165,7 +74165,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/descargar/ticket_inicial/:id',
     name: 'ticket_inicial',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(25), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! ./components/views/clientes/TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./components/views/clientes/TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
     },
     props: true,
     beforeEnter: function beforeEnter(routeTo, routeFrom, next) {
@@ -74180,7 +74180,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/caja',
     name: 'caja',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/views/caja/Caja.vue */ "./resources/js/components/views/caja/Caja.vue"));
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./components/views/caja/Caja.vue */ "./resources/js/components/views/caja/Caja.vue"));
     }
   }]
 });

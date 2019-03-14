@@ -66,9 +66,9 @@ export default {
       valid: false,
       success: false,
       formulario: {
-        ingreso: true,
-        cantidad: 0,
-        descripcion: '',
+        ingreso: null,
+        cantidad: null,
+        descripcion: null,
         caja_id: 1
       },
       generales: [v => !!v || 'Este campo es requerido']
@@ -78,16 +78,18 @@ export default {
     ...mapActions({
       create: 'caja/nuevaOperacion'
     }),
-    nuevaOperacion() {
-      if (!this.formulario.ingreso) {
-        this.formulario.cantidad *= -1
-      }
+    async nuevaOperacion() {
+      if (!this.formulario.ingreso) this.formulario.cantidad *= -1
 
       const params = Object.assign({}, this.formulario)
 
-      this.create(params).then(() => {
-        this.success = true
-        this.$refs.reset()
+      await this.create(params)
+
+      this.$refs.ingresoretiro.reset()
+
+      this.$swal.fire({
+        title: 'Operación realizada con éxito',
+        type: 'success'
       })
     }
   }

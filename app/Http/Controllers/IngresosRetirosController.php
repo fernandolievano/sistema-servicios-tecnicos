@@ -17,7 +17,7 @@ class IngresosRetirosController extends Controller
 
     public function ingresos_y_retiros()
     {
-      $ingresos_retiros = IngresosRetiros::all();
+      $ingresos_retiros = IngresosRetiros::orderBy('created_at', 'desc')->get();
 
       return response()->json($ingresos_retiros);
     }

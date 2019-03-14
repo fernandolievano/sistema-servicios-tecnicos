@@ -6,7 +6,7 @@
         Ingresos y Retiros
         <v-icon>attach_money</v-icon>
       </v-tab>
-      <v-tab disabled>
+      <v-tab>
         Nuevo ingreso/retiro
         <v-icon>add</v-icon>
       </v-tab>

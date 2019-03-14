@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[6],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/caja/Caja.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/caja/Caja.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -52,70 +52,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'NuevoIngresoRetiro',
+  name: 'Caja',
+  components: {
+    IngresosRetiros: function IngresosRetiros() {
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./IngresosRetiros.vue */ "./resources/js/components/views/caja/IngresosRetiros.vue"));
+    },
+    NuevoIngresoRetiro: function NuevoIngresoRetiro() {
+      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(28)]).then(__webpack_require__.bind(null, /*! ./IngresarRetirar.vue */ "./resources/js/components/views/caja/IngresarRetirar.vue"));
+    }
+  },
   data: function data() {
     return {
-      valid: false,
-      success: false,
-      formulario: {
-        ingreso: true,
-        cantidad: 0,
-        descripcion: '',
-        caja_id: 1
-      },
-      generales: [function (v) {
-        return !!v || 'Este campo es requerido';
-      }]
+      active: 0
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['caja']), {
+    totalCaja: function totalCaja() {
+      return this.caja.caja.total;
+    }
+  }),
+  created: function created() {
+    this.fetchCaja();
+    this.fetchIngresosYRetiros();
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    create: 'caja/nuevaOperacion'
+    fetchCaja: 'caja/fetchCaja',
+    fetchIngresosYRetiros: 'caja/fetchIngresosYRetiros'
   }), {
-    nuevaOperacion: function nuevaOperacion() {
-      var _this = this;
-
-      if (!this.formulario.ingreso) {
-        this.formulario.cantidad *= -1;
-      }
-
-      var params = Object.assign({}, this.formulario);
-      this.create(params).then(function () {
-        _this.success = true;
-
-        _this.$refs.reset();
-      });
+    formatoDinero: function formatoDinero(precio) {
+      var formato = precio.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+      formato = "".concat(formato, " ARS");
+      return formato;
     }
   })
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=template&id=41a8dbfe&scoped=true&":
-/*!*****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=template&id=41a8dbfe&scoped=true& ***!
-  \*****************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/caja/Caja.vue?vue&type=template&id=405075da&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/caja/Caja.vue?vue&type=template&id=405075da&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -128,226 +107,105 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-form",
-    {
-      ref: "ingresoretiro",
-      attrs: { "lazy-validation": "" },
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.nuevaOperacion($event)
-        }
-      },
-      model: {
-        value: _vm.valid,
-        callback: function($$v) {
-          _vm.valid = $$v
-        },
-        expression: "valid"
-      }
-    },
+    "div",
     [
       _c(
-        "v-container",
+        "v-tabs",
+        {
+          attrs: {
+            color: "blue-grey darken-3",
+            dark: "",
+            centered: "",
+            flat: "",
+            "icons-and-text": ""
+          },
+          model: {
+            value: _vm.active,
+            callback: function($$v) {
+              _vm.active = $$v
+            },
+            expression: "active"
+          }
+        },
         [
+          _c("v-tabs-slider", { attrs: { color: "light-green darken-1" } }),
+          _vm._v(" "),
           _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
+            "v-tab",
             [
-              _c(
-                "v-flex",
-                {
-                  attrs: {
-                    sm10: "",
-                    "offset-sm1": "",
-                    "offset-md2": "",
-                    md8: "",
-                    xs12: ""
-                  }
-                },
-                [
-                  _c(
-                    "v-card",
-                    [
-                      _c(
-                        "v-card-title",
-                        { attrs: { "primary-title": "" } },
-                        [
-                          _c(
-                            "v-layout",
-                            { attrs: { row: "", wrap: "" } },
-                            [
-                              _c("v-flex", [
-                                _c("h1", { staticClass: "display-3" }, [
-                                  _vm._v("Nueva operación")
-                                ])
-                              ])
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _vm.success
-                            ? _c(
-                                "v-layout",
-                                { attrs: { row: "", wrap: "" } },
-                                [
-                                  _c("v-flex", [
-                                    _vm._v(
-                                      "\n                Operación realizada con éxito, la caja ha sido actualizada\n              "
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
-                            : _vm._e()
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-responsive",
-                        [
-                          _c(
-                            "v-container",
-                            [
-                              _c(
-                                "v-layout",
-                                { attrs: { row: "", wrap: "" } },
-                                [
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c(
-                                        "v-radio-group",
-                                        {
-                                          attrs: {
-                                            name: "ingreso",
-                                            required: "",
-                                            row: ""
-                                          },
-                                          model: {
-                                            value: _vm.formulario.ingreso,
-                                            callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.formulario,
-                                                "ingreso",
-                                                $$v
-                                              )
-                                            },
-                                            expression: "formulario.ingreso"
-                                          }
-                                        },
-                                        [
-                                          _c("v-radio", {
-                                            attrs: {
-                                              label: "Ingreso",
-                                              value: true
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c("v-radio", {
-                                            attrs: {
-                                              label: "Retiro",
-                                              value: false
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          name: "cantidad",
-                                          label: "Cantidad",
-                                          required: "",
-                                          rules: _vm.generales
-                                        },
-                                        model: {
-                                          value: _vm.formulario.cantidad,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.formulario,
-                                              "cantidad",
-                                              _vm._n($$v)
-                                            )
-                                          },
-                                          expression: "formulario.cantidad"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("v-textarea", {
-                                        attrs: {
-                                          name: "descripcion",
-                                          label: "Detalle",
-                                          required: "",
-                                          rules: _vm.generales
-                                        },
-                                        model: {
-                                          value: _vm.formulario.descripcion,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.formulario,
-                                              "descripcion",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "formulario.descripcion"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c(
-                                        "v-btn",
-                                        {
-                                          attrs: {
-                                            color: "success",
-                                            type: "submit"
-                                          }
-                                        },
-                                        [_vm._v("Nueva operación")]
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
+              _vm._v("\n      Ingresos y Retiros\n      "),
+              _c("v-icon", [_vm._v("attach_money")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-tab",
+            [
+              _vm._v("\n      Nuevo ingreso/retiro\n      "),
+              _c("v-icon", [_vm._v("add")])
             ],
             1
           )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "bottom-shadow" },
+        [
+          _c(
+            "v-toolbar",
+            {
+              attrs: {
+                color: "blue-grey darken-3",
+                dense: "",
+                dark: "",
+                flat: ""
+              }
+            },
+            [
+              _c("v-toolbar-title", { staticClass: "display-1" }, [
+                _vm._v("\n        Caja:\n        "),
+                _vm.totalCaja > 0
+                  ? _c(
+                      "span",
+                      { staticClass: "light-green--text text--lighten-2" },
+                      [_vm._v(_vm._s(_vm.formatoDinero(_vm.totalCaja)))]
+                    )
+                  : _vm.totalCaja < 0
+                  ? _c("span", { staticClass: "red--text text--lighten-1" }, [
+                      _vm._v(_vm._s(_vm.formatoDinero(_vm.totalCaja)))
+                    ])
+                  : _vm.totalCaja === 0
+                  ? _c("span", { staticClass: "gray--text" }, [
+                      _vm._v(_vm._s(_vm.formatoDinero(_vm.totalCaja)))
+                    ])
+                  : _vm._e()
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-tabs-items",
+        {
+          model: {
+            value: _vm.active,
+            callback: function($$v) {
+              _vm.active = $$v
+            },
+            expression: "active"
+          }
+        },
+        [
+          _c("v-tab-item", [_c("IngresosRetiros")], 1),
+          _vm._v(" "),
+          _c("v-tab-item", [_c("NuevoIngresoRetiro")], 1)
         ],
         1
       )
@@ -362,17 +220,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/views/caja/IngresarRetirar.vue":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/views/caja/IngresarRetirar.vue ***!
-  \****************************************************************/
+/***/ "./resources/js/components/views/caja/Caja.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/views/caja/Caja.vue ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _IngresarRetirar_vue_vue_type_template_id_41a8dbfe_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IngresarRetirar.vue?vue&type=template&id=41a8dbfe&scoped=true& */ "./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=template&id=41a8dbfe&scoped=true&");
-/* harmony import */ var _IngresarRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IngresarRetirar.vue?vue&type=script&lang=js& */ "./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Caja_vue_vue_type_template_id_405075da_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Caja.vue?vue&type=template&id=405075da&scoped=true& */ "./resources/js/components/views/caja/Caja.vue?vue&type=template&id=405075da&scoped=true&");
+/* harmony import */ var _Caja_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Caja.vue?vue&type=script&lang=js& */ "./resources/js/components/views/caja/Caja.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -382,50 +240,50 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _IngresarRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _IngresarRetirar_vue_vue_type_template_id_41a8dbfe_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _IngresarRetirar_vue_vue_type_template_id_41a8dbfe_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Caja_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Caja_vue_vue_type_template_id_405075da_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Caja_vue_vue_type_template_id_405075da_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "41a8dbfe",
+  "405075da",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/views/caja/IngresarRetirar.vue"
+component.options.__file = "resources/js/components/views/caja/Caja.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************/
+/***/ "./resources/js/components/views/caja/Caja.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/views/caja/Caja.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IngresarRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IngresarRetirar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IngresarRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Caja_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Caja.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/caja/Caja.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Caja_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=template&id=41a8dbfe&scoped=true&":
-/*!***********************************************************************************************************!*\
-  !*** ./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=template&id=41a8dbfe&scoped=true& ***!
-  \***********************************************************************************************************/
+/***/ "./resources/js/components/views/caja/Caja.vue?vue&type=template&id=405075da&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/views/caja/Caja.vue?vue&type=template&id=405075da&scoped=true& ***!
+  \************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IngresarRetirar_vue_vue_type_template_id_41a8dbfe_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IngresarRetirar.vue?vue&type=template&id=41a8dbfe&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/caja/IngresarRetirar.vue?vue&type=template&id=41a8dbfe&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IngresarRetirar_vue_vue_type_template_id_41a8dbfe_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Caja_vue_vue_type_template_id_405075da_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Caja.vue?vue&type=template&id=405075da&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/caja/Caja.vue?vue&type=template&id=405075da&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Caja_vue_vue_type_template_id_405075da_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IngresarRetirar_vue_vue_type_template_id_41a8dbfe_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Caja_vue_vue_type_template_id_405075da_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

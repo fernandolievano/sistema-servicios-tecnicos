@@ -18,15 +18,15 @@
               </th>
             </tr>
             <tr>
-              <th colspan="3">Av. Mac Lean 333, Las Breñas, Chaco</th>
+              <th class="text-muted" colspan="3">Av. Mac Lean 333, Las Breñas, Chaco</th>
             </tr>
             <tr>
-              <th colspan="3">
+              <th class="text-muted" colspan="3">
                 {{ new Date() | date }}
               </th>
             </tr>
-            <tr class="border-bottom">
-              <th colspan="3">Ticket n° {{ ticket.id }}</th>
+            <tr class="border-bottom text-muted">
+              <th colspan="3">Ticket: TF-{{ ticket.id }}</th>
             </tr>
           </thead>
           <tbody>

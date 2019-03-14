@@ -31,13 +31,31 @@ const router = new Router({
       component: () => import('./components/views/equipos/Equipos.vue')
     },
     {
-      path: '/imprimir/ticket_final/:id',
+      path: '/descargar/ticket_final/:id',
       name: 'factura',
       component: () => import('./components/views/equipos/TicketFinal.vue'),
       props: true,
       beforeEnter(routeTo, routeFrom, next) {
         store
           .dispatch('ticket/fetchFinal', routeTo.params.id)
+          .then(ticket => {
+            // eslint-disable-next-line no-param-reassign
+            routeTo.params.ticket = ticket
+            next()
+          })
+          .catch(error => {
+            //
+          })
+      }
+    },
+    {
+      path: '/descargar/ticket_inicial/:id',
+      name: 'ticket_inicial',
+      component: () => import('./components/views/clientes/TicketInicial.vue'),
+      props: true,
+      beforeEnter(routeTo, routeFrom, next) {
+        store
+          .dispatch('ticket/fetchInicial', routeTo.params.id)
           .then(ticket => {
             // eslint-disable-next-line no-param-reassign
             routeTo.params.ticket = ticket

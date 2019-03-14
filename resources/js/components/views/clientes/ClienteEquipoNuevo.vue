@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" fullscreen hide-overlay lazy transition="dialog-bottom-transition">
-    <v-btn slot="activator" block small color="success">
-      Añadir nuevo equipo
+    <v-btn slot="activator" block small color="success"
+      >Añadir nuevo equipo
       <v-icon right>add</v-icon>
     </v-btn>
     <v-card>
@@ -24,12 +24,12 @@
                   <h2 class="display-3">Nuevo equipo de {{ cliente }}</h2>
                 </v-flex>
                 <v-flex xs12>
-                  <v-alert v-model="success" type="success">
-                    Equipo registrado con éxito
-                  </v-alert>
+                  <v-alert v-model="success" type="success">Equipo registrado con éxito</v-alert>
                 </v-flex>
                 <v-flex v-if="success" xs12>
-                  <TicketInicial :ticket-id="ticketId"></TicketInicial>
+                  <v-btn :to="{ name: 'ticket_inicial', params: { id: ticketId } }" color="primary"
+                    >Ver ticket</v-btn
+                  >
                 </v-flex>
               </v-layout>
             </v-container>
@@ -86,9 +86,6 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'NuevoEquipoCliente',
-  components: {
-    TicketInicial: () => import('./TicketInicial.vue')
-  },
   props: {
     cliente: {
       type: String,

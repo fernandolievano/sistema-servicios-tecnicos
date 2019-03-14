@@ -102,11 +102,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'NuevoEquipoCliente',
-  components: {
-    TicketInicial: function TicketInicial() {
-      return Promise.all(/*! import() */[__webpack_require__.e(26), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
-    }
-  },
   props: {
     cliente: {
       type: String,
@@ -204,7 +199,7 @@ var render = function() {
           slot: "activator"
         },
         [
-          _vm._v("\n    Añadir nuevo equipo\n    "),
+          _vm._v("Añadir nuevo equipo\n    "),
           _c("v-icon", { attrs: { right: "" } }, [_vm._v("add")])
         ],
         1
@@ -304,11 +299,7 @@ var render = function() {
                                         expression: "success"
                                       }
                                     },
-                                    [
-                                      _vm._v(
-                                        "\n                  Equipo registrado con éxito\n                "
-                                      )
-                                    ]
+                                    [_vm._v("Equipo registrado con éxito")]
                                   )
                                 ],
                                 1
@@ -319,9 +310,19 @@ var render = function() {
                                     "v-flex",
                                     { attrs: { xs12: "" } },
                                     [
-                                      _c("TicketInicial", {
-                                        attrs: { "ticket-id": _vm.ticketId }
-                                      })
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            to: {
+                                              name: "ticket_inicial",
+                                              params: { id: _vm.ticketId }
+                                            },
+                                            color: "primary"
+                                          }
+                                        },
+                                        [_vm._v("Ver ticket")]
+                                      )
                                     ],
                                     1
                                   )

@@ -2,147 +2,136 @@
   <v-container>
     <v-layout row wrap align-center justify-center>
       <v-flex xs6>
-        <v-btn :disabled="!show" color="primary" block @click="imprimir">
-          Descargar ticket
-        </v-btn>
-      </v-flex>
-      <v-flex xs6>
-        <v-btn :disabled="show" block flat @click="mostrarTicket">
-          Generar ticket
-        </v-btn>
+        <table
+          :id="'ticketInicial' + ticket.id"
+          class="table table-light table-sm table-borderless text-center"
+        >
+          <thead>
+            <tr>
+              <th colspan="3">
+                <h3>Ciber X-Gamer</h3>
+              </th>
+            </tr>
+            <tr>
+              <th colspan="3">
+                <img src="/images/xg-icon.png" alt="icon" class="icon-ticket mx-auto" />
+              </th>
+            </tr>
+            <tr>
+              <th class="text-muted" colspan="3">Av. Mac Lean 333, Las Breñas, Chaco</th>
+            </tr>
+            <tr class="border-bottom text-muted">
+              <th colspan="3">Ticket: T-{{ ticket.id }}</th>
+            </tr>
+          </thead>
+          <tbody class="text-left body-table">
+            <tr>
+              <td class="center-td">
+                <h4>Cliente</h4>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b> {{ ticket.cliente.nombre }} {{ ticket.cliente.apellido }}</b>
+              </td>
+            </tr>
+            <tr>
+              <td><b class="text-muted">Dirección:</b> {{ ticket.cliente.direccion }}</td>
+            </tr>
+            <tr>
+              <td><b class="text-muted">Teléfono:</b> {{ ticket.cliente.telefono }}</td>
+            </tr>
+            <br />
+            <tr>
+              <td class="center-td">
+                <h4>Equipo</h4>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>{{ ticket.equipo.equipo }} {{ ticket.equipo.modelo }} </b>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b class="text-muted">Descripción del equipo:</b> {{ ticket.equipo.descripcion }}
+              </td>
+            </tr>
+            <tr class="border-bottom">
+              <td>
+                <b class="text-muted">Diagnóstico del equipo:</b> {{ ticket.equipo.diagnostico }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-muted center-td">
+                Equipo recibido el {{ ticket.created_at | date }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </v-flex>
     </v-layout>
-    <v-layout v-if="show" row wrap align-center justify-center>
-      <v-flex :id="'ticketInicial' + ticketId" class="ticket" xs6>
-        <v-card>
-          <v-toolbar flat dense>
-            <v-toolbar-title>
-              <img src="/images/xg-icon.png" alt="icon" class="icon-ticket" />
-            </v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-toolbar-items>
-              <v-btn flat> N° {{ ticketInicial.id }} </v-btn>
-            </v-toolbar-items>
-          </v-toolbar>
-          <v-divider></v-divider>
-          <v-card-title primary-title>
-            <v-container>
-              <v-layout row wrap>
-                <v-flex xs4>
-                  <div class="display-1 grey--text text--darken--2">Cliente</div>
-                </v-flex>
-                <v-flex xs8>
-                  <v-card-text>
-                    <h1 class="title">
-                      {{ ticketInicial.cliente.nombre }} {{ ticketInicial.cliente.apellido }}
-                    </h1>
-                  </v-card-text>
-                  <v-card-text>
-                    <h4>Dirección</h4>
-                    <p>{{ ticketInicial.cliente.direccion }}</p>
-                  </v-card-text>
-                  <v-card-text>
-                    <h4>Teléfono</h4>
-                    <p>{{ ticketInicial.cliente.telefono }}</p>
-                  </v-card-text>
-                </v-flex>
-              </v-layout>
-              <v-layout row wrap>
-                <v-flex xs4>
-                  <div class="display-1 grey--text text--darken--2">
-                    Equipo
-                  </div>
-                </v-flex>
-                <v-flex xs8>
-                  <v-card-text>
-                    <h1 class="title">{{ ticketInicial.equipo.equipo }}</h1>
-                    <p>{{ ticketInicial.equipo.modelo }}</p>
-                  </v-card-text>
-                  <v-card-text>
-                    <h4>Descripción del equipo al ser entregado</h4>
-                    <p>
-                      {{ ticketInicial.equipo.descripcion }}
-                    </p>
-                  </v-card-text>
-                  <v-card-text>
-                    <h4>Diagnóstico</h4>
-                    <p>{{ ticketInicial.equipo.diagnostico }}</p>
-                  </v-card-text>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-actions class="pa-3">
-            <b>Equipo recibido el {{ ticket.ticketInicial.created_at | date }}</b>
-          </v-card-actions>
-        </v-card>
+    <v-layout row wrap align-center justify-center>
+      <v-flex xs6>
+        <v-btn color="primary" block @click="imprimir">Descargar ticket</v-btn>
+      </v-flex>
+      <v-flex xs6>
+        <v-btn :disabled="!success" color="success" block to="/"
+          >Volver a la página principal</v-btn
+        >
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 
 export default {
   props: {
-    ticketId: {
-      type: Number,
-      required: true,
-      default: 0
+    ticket: {
+      type: Object,
+      required: true
     }
   },
   data() {
     return {
-      show: false
-    }
-  },
-  computed: {
-    ...mapState(['ticket']),
-    ticketInicial() {
-      return this.ticket.ticketInicial
-    },
-    cliente() {
-      return this.ticketInicial.cliente
-    },
-    equipo() {
-      return this.ticketInicial.equipo
+      success: false
     }
   },
   methods: {
-    ...mapActions({
-      fetch: 'ticket/fetchInicial'
-    }),
-    imprimir() {
-      this.fetch(this.ticketId)
+    async imprimir() {
+      const filename = `ticket_inicial${this.ticket.id}`
 
-      const filename = `ticket_inicial${this.ticketId}`
-
-      html2canvas(document.querySelector(`#ticketInicial${this.ticketId}`)).then(canvas => {
+      await html2canvas(document.querySelector(`#ticketInicial${this.ticket.id}`)).then(canvas => {
         // eslint-disable-next-line new-cap
         const pdf = new jsPDF('p', 'mm', 'a4')
-        pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 3, 5, 100, 180)
-        pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 107, 5, 100, 180)
+        pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 5, 5)
+        pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 5, 148)
         pdf.save(filename)
       })
-    },
-    mostrarTicket() {
-      this.fetch(this.ticketId).then(() => {
-        this.show = true
-      })
+
+      this.success = true
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="css" scoped>
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+
+.table th {
+  text-align: center
+}
+table td {
+  text-align: justify
+}
+.center-td {
+  text-align: center
+}
 .icon-ticket {
   width: 10%;
-}
-.ticket {
-  border: 1px solid gray;
+  top:0;
 }
 </style>

@@ -39,6 +39,7 @@ export const actions = {
   fetchInicial({ commit }, id) {
     return TicketsService.ticketInicial(id).then(response => {
       commit('SET_TICKET_INICIAL', response.data)
+      return response.data
     })
   },
   fetchFinal({ commit }, id) {

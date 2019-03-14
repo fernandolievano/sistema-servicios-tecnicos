@@ -74147,14 +74147,29 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./components/views/equipos/Equipos.vue */ "./resources/js/components/views/equipos/Equipos.vue"));
     }
   }, {
-    path: '/imprimir/ticket_final/:id',
+    path: '/descargar/ticket_final/:id',
     name: 'factura',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(26), __webpack_require__.e(25), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./components/views/equipos/TicketFinal.vue */ "./resources/js/components/views/equipos/TicketFinal.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(25)]).then(__webpack_require__.bind(null, /*! ./components/views/equipos/TicketFinal.vue */ "./resources/js/components/views/equipos/TicketFinal.vue"));
     },
     props: true,
     beforeEnter: function beforeEnter(routeTo, routeFrom, next) {
       _store_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch('ticket/fetchFinal', routeTo.params.id).then(function (ticket) {
+        // eslint-disable-next-line no-param-reassign
+        routeTo.params.ticket = ticket;
+        next();
+      }).catch(function (error) {//
+      });
+    }
+  }, {
+    path: '/descargar/ticket_inicial/:id',
+    name: 'ticket_inicial',
+    component: function component() {
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./components/views/clientes/TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
+    },
+    props: true,
+    beforeEnter: function beforeEnter(routeTo, routeFrom, next) {
+      _store_store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch('ticket/fetchInicial', routeTo.params.id).then(function (ticket) {
         // eslint-disable-next-line no-param-reassign
         routeTo.params.ticket = ticket;
         next();
@@ -75037,6 +75052,7 @@ var actions = {
     var commit = _ref.commit;
     return _services_TicketsService__WEBPACK_IMPORTED_MODULE_0__["default"].ticketInicial(id).then(function (response) {
       commit('SET_TICKET_INICIAL', response.data);
+      return response.data;
     });
   },
   fetchFinal: function fetchFinal(_ref2, id) {

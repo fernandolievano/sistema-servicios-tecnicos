@@ -320,24 +320,30 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("tr", [
-                    _c("th", { attrs: { colspan: "3" } }, [
-                      _vm._v("Av. Mac Lean 333, Las Breñas, Chaco")
-                    ])
+                    _c(
+                      "th",
+                      { staticClass: "text-muted", attrs: { colspan: "3" } },
+                      [_vm._v("Av. Mac Lean 333, Las Breñas, Chaco")]
+                    )
                   ]),
                   _vm._v(" "),
                   _c("tr", [
-                    _c("th", { attrs: { colspan: "3" } }, [
-                      _vm._v(
-                        "\n              " +
-                          _vm._s(_vm._f("date")(new Date())) +
-                          "\n            "
-                      )
-                    ])
+                    _c(
+                      "th",
+                      { staticClass: "text-muted", attrs: { colspan: "3" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("date")(new Date())) +
+                            "\n            "
+                        )
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
-                  _c("tr", { staticClass: "border-bottom" }, [
+                  _c("tr", { staticClass: "border-bottom tex-muted" }, [
                     _c("th", { attrs: { colspan: "3" } }, [
-                      _vm._v("Ticket n° " + _vm._s(_vm.ticket.id))
+                      _vm._v("Ticket: TF-" + _vm._s(_vm.ticket.id))
                     ])
                   ])
                 ]),

@@ -74150,7 +74150,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/descargar/ticket_final/:id',
     name: 'factura',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./components/views/equipos/TicketFinal.vue */ "./resources/js/components/views/equipos/TicketFinal.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./components/views/equipos/TicketFinal.vue */ "./resources/js/components/views/equipos/TicketFinal.vue"));
     },
     props: true,
     beforeEnter: function beforeEnter(routeTo, routeFrom, next) {
@@ -74165,7 +74165,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/descargar/ticket_inicial/:id',
     name: 'ticket_inicial',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./components/views/clientes/TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./components/views/clientes/TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
     },
     props: true,
     beforeEnter: function beforeEnter(routeTo, routeFrom, next) {

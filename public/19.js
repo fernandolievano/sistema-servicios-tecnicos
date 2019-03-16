@@ -80,7 +80,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ./RepuestoEditar.vue */ "./resources/js/components/views/repuestos/RepuestoEditar.vue"));
     },
     IncrementarStock: function IncrementarStock() {
-      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, /*! ./AñadirStock.vue */ "./resources/js/components/views/repuestos/AñadirStock.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, /*! ./AñadirStock.vue */ "./resources/js/components/views/repuestos/AñadirStock.vue"));
     }
   },
   props: {

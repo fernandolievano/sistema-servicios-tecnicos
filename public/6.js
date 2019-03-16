@@ -60,7 +60,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./IngresosRetiros.vue */ "./resources/js/components/views/caja/IngresosRetiros.vue"));
     },
     NuevoIngresoRetiro: function NuevoIngresoRetiro() {
-      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(28)]).then(__webpack_require__.bind(null, /*! ./IngresarRetirar.vue */ "./resources/js/components/views/caja/IngresarRetirar.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ./IngresarRetirar.vue */ "./resources/js/components/views/caja/IngresarRetirar.vue"));
     }
   },
   data: function data() {

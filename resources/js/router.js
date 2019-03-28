@@ -4,12 +4,18 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import NProgress from 'nprogress'
 import store from './store/store'
+import Index from './components/views/Index.vue'
 
 Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/',
+      name: 'index',
+      component: Index
+    },
     {
       path: '/clientes',
       name: 'clientes',

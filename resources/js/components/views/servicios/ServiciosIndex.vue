@@ -13,12 +13,13 @@
             background-color="transparent"
             append-icon="search"
             placeholder="Búsqueda de servicios"
+            @input="show = true"
           ></v-text-field>
         </v-toolbar-items>
       </v-toolbar>
     </div>
     <v-container grid-list-xs>
-      <v-layout row wrap>
+      <v-layout v-if="show" row wrap>
         <v-flex v-for="item in servicios" :key="item.id + item.titulo" xs12 sm6 md4>
           <v-card class="ma-2 pa-2 elevation-24">
             <v-toolbar color="transparent" dense flat>
@@ -70,6 +71,11 @@
           </v-card>
         </v-flex>
       </v-layout>
+      <v-layout v-else>
+        <v-flex class="text-xs-center" xs12>
+          <v-icon style="font-size: 20em; cursor: pointer;" @click="show = true">build</v-icon>
+        </v-flex>
+      </v-layout>
     </v-container>
   </div>
 </template>
@@ -83,7 +89,8 @@ export default {
   },
   data() {
     return {
-      keyword: ''
+      keyword: '',
+      show: false
     }
   },
   computed: {

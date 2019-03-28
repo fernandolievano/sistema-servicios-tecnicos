@@ -99,6 +99,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -147,26 +151,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var pagoTotal = 0; // eslint-disable-next-line no-plusplus
 
       for (var i = 0; i < this.repuestosUsados.length; i++) {
-        var precio = this.repuestosUsados[i].precio_unitario_venta;
-        var cantidad = this.repuestosUsadosCantidad[i];
-        pagoTotal += precio * cantidad; // para detalle en la factura
+        if (this.repuestosUsados !== null && this.repuestosUsados !== undefined) {
+          var precio = this.repuestosUsados[i].precio_unitario_venta;
+          var cantidad = this.repuestosUsadosCantidad[i];
+          pagoTotal += precio * cantidad; // para detalle en la factura
 
-        var repuestoDetail = {
-          repuesto: this.repuestosUsados[i].repuesto,
-          cantidad: this.repuestosUsadosCantidad[i],
-          precio_unitario: this.repuestosUsados[i].precio_unitario_venta
-        };
-        this.detail.repuestos.push(repuestoDetail);
+          var repuestoDetail = {
+            repuesto: this.repuestosUsados[i].repuesto,
+            cantidad: this.repuestosUsadosCantidad[i],
+            precio_unitario: this.repuestosUsados[i].precio_unitario_venta
+          };
+          this.detail.repuestos.push(repuestoDetail);
+        }
       } // eslint-disable-next-line no-plusplus
 
 
       for (var _i = 0; _i < this.serviciosRequeridos.length; _i++) {
-        pagoTotal += this.serviciosRequeridos[_i].valor;
-        var servicioDetail = {
-          servicio: this.serviciosRequeridos[_i].titulo,
-          precio: this.serviciosRequeridos.valor
-        };
-        this.detail.servicios.push(servicioDetail);
+        if (this.serviciosRequeridos[_i] !== null && this.serviciosRequeridos[_i] !== undefined) {
+          pagoTotal += this.serviciosRequeridos[_i].valor;
+          var servicioDetail = {
+            servicio: this.serviciosRequeridos[_i].titulo,
+            precio: this.serviciosRequeridos[_i].valor
+          };
+          this.detail.servicios.push(servicioDetail);
+        }
       }
 
       this.setDetails(this.detail);
@@ -200,6 +208,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.success = true;
         _this.ticket = response.data;
       });
+    },
+    servicioInfo: function servicioInfo(titulo, valor) {
+      return "".concat(titulo, " - ").concat(valor, " ARS");
+    },
+    repuestoInfo: function repuestoInfo(repuesto, precio) {
+      return "".concat(repuesto, " - ").concat(precio, " ARS");
     }
   })
 });
@@ -285,7 +299,7 @@ var render = function() {
                           attrs: { dark: "", flat: "" },
                           on: { click: _vm.generarTicket }
                         },
-                        [_vm._v("Save")]
+                        [_vm._v("Listo")]
                       )
                     ],
                     1
@@ -384,8 +398,10 @@ var render = function() {
                                                           key:
                                                             repuesto.repuesto,
                                                           attrs: {
-                                                            label:
+                                                            label: _vm.repuestoInfo(
                                                               repuesto.repuesto,
+                                                              repuesto.precio_unitario_venta
+                                                            ),
                                                             value: repuesto
                                                           },
                                                           model: {
@@ -488,7 +504,10 @@ var render = function() {
                                                 _c("v-checkbox", {
                                                   key: servicio.titulo,
                                                   attrs: {
-                                                    label: servicio.titulo,
+                                                    label: _vm.servicioInfo(
+                                                      servicio.titulo,
+                                                      servicio.valor
+                                                    ),
                                                     value: servicio
                                                   },
                                                   model: {
@@ -509,11 +528,27 @@ var render = function() {
                                                 })
                                               ],
                                               1
-                                            )
+                                            ),
+                                            _vm._v(" "),
+                                            _c("v-list-tile-content", [
+                                              _c(
+                                                "span",
+                                                { staticClass: "caption" },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(servicio.descripcion)
+                                                  )
+                                                ]
+                                              )
+                                            ])
                                           ],
                                           1
                                         )
-                                      })
+                                      }),
+                                      _vm._v(" "),
+                                      _c("span", [
+                                        _vm._v(_vm._s(_vm.serviciosRequeridos))
+                                      ])
                                     ],
                                     2
                                   )

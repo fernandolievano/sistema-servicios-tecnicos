@@ -19,28 +19,21 @@
             background-color="transparent"
             append-icon="search"
             placeholder="Búsqueda de equipos"
+            @input="show = true"
           ></v-text-field>
         </v-toolbar-items>
       </v-toolbar>
     </div>
     <v-container align-center>
-      <v-layout row wrap class="my-4">
-        <v-flex xs12>
-          <h1 v-if="section === 'Index'" class="display-3 text-xs-center">Todos los equipos</h1>
-          <h1 v-else-if="section === 'En Reparación'" class="display-3 text-xs-center">
-            Equipos en Reparación
-          </h1>
-          <h1 v-else-if="section === 'Reparado'" class="display-3 text-xs-center">
-            Equipos Reparados
-          </h1>
-          <h1 v-else-if="section === 'Despachado'" class="display-3 text-xs-center">
-            Equipos Despachados
-          </h1>
-        </v-flex>
-      </v-layout>
-      <v-spacer></v-spacer>
-      <v-layout row wrap>
+      <v-layout v-if="show" row wrap>
         <EquipoCard v-for="item in equipos" :key="item.equipo + item.id + section" :item="item" />
+      </v-layout>
+      <v-layout v-else>
+        <v-flex class="text-xs-center" xs12>
+          <v-icon style="font-size: 20em; cursor: pointer;" @click="show = true"
+            >devices_other</v-icon
+          >
+        </v-flex>
       </v-layout>
     </v-container>
   </div>
@@ -63,7 +56,8 @@ export default {
   },
   data() {
     return {
-      keyword: ''
+      keyword: '',
+      show: false
     }
   },
   computed: {

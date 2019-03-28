@@ -65,7 +65,7 @@
                     <v-text-field v-model="formulario.email" label="E-mail"></v-text-field>
                   </v-flex>
                   <v-flex xs12>
-                    <v-btn type="submit" block large color="success">Registar</v-btn>
+                    <v-btn type="submit" block large color="success">Registrar</v-btn>
                   </v-flex>
                 </v-layout>
               </v-container>

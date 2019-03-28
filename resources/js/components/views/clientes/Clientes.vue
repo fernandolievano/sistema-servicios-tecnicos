@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style media="screen" scoped>
-  .border-cliente {
-    border-top: 2px solid #1E88E5;
-  }
+.border-cliente {
+  border-top: 2px solid #1e88e5;
+}
 </style>

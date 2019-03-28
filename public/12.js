@@ -96,6 +96,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -111,7 +117,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      keyword: ''
+      keyword: '',
+      show: false
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
@@ -200,6 +207,11 @@ var render = function() {
                       "append-icon": "search",
                       placeholder: "Búsqueda de clientes"
                     },
+                    on: {
+                      input: function($event) {
+                        _vm.show = true
+                      }
+                    },
                     model: {
                       value: _vm.keyword,
                       callback: function($$v) {
@@ -222,135 +234,154 @@ var render = function() {
         "v-container",
         { attrs: { "grid-list-xs": "" } },
         [
-          _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
-            _vm._l(_vm.clientes, function(cliente, index) {
-              return _c(
-                "v-flex",
-                { key: index + cliente.nombre, attrs: { xs12: "", sm4: "" } },
-                [
-                  _c(
-                    "v-card",
-                    { staticClass: "ma-2 pa-2 elevation-24" },
+          _vm.show
+            ? _c(
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
+                _vm._l(_vm.clientes, function(cliente, index) {
+                  return _c(
+                    "v-flex",
+                    {
+                      key: index + cliente.nombre,
+                      attrs: { xs12: "", sm4: "" }
+                    },
                     [
                       _c(
-                        "v-toolbar",
-                        {
-                          attrs: { color: "transparent", dense: "", flat: "" }
-                        },
+                        "v-card",
+                        { staticClass: "ma-2 pa-2 elevation-24" },
                         [
-                          _c("v-toolbar-title", [
-                            _vm._v(
-                              " " +
-                                _vm._s(cliente.nombre) +
-                                " " +
-                                _vm._s(cliente.apellido) +
-                                " "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("v-spacer"),
-                          _vm._v(" "),
                           _c(
-                            "v-toolbar-items",
+                            "v-toolbar",
+                            {
+                              attrs: {
+                                color: "transparent",
+                                dense: "",
+                                flat: ""
+                              }
+                            },
                             [
+                              _c("v-toolbar-title", [
+                                _vm._v(
+                                  " " +
+                                    _vm._s(cliente.nombre) +
+                                    " " +
+                                    _vm._s(cliente.apellido) +
+                                    " "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-spacer"),
+                              _vm._v(" "),
                               _c(
-                                "v-btn",
-                                {
-                                  attrs: {
-                                    color: "error",
-                                    flat: "",
-                                    fab: "",
-                                    small: ""
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.eliminar(cliente)
-                                    }
-                                  }
-                                },
-                                [_c("v-icon", [_vm._v("clear")])],
+                                "v-toolbar-items",
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "error",
+                                        flat: "",
+                                        fab: "",
+                                        small: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.eliminar(cliente)
+                                        }
+                                      }
+                                    },
+                                    [_c("v-icon", [_vm._v("clear")])],
+                                    1
+                                  )
+                                ],
                                 1
                               )
                             ],
                             1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-responsive",
-                        { attrs: { "min-height": "220" } },
-                        [
+                          ),
+                          _vm._v(" "),
                           _c(
-                            "v-card-title",
-                            { attrs: { "primary-title": "" } },
+                            "v-responsive",
+                            { attrs: { "min-height": "220" } },
                             [
                               _c(
-                                "v-layout",
-                                { attrs: { row: "", wrap: "" } },
+                                "v-card-title",
+                                { attrs: { "primary-title": "" } },
                                 [
                                   _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
+                                    "v-layout",
+                                    { attrs: { row: "", wrap: "" } },
                                     [
                                       _c(
-                                        "v-list",
-                                        {
-                                          attrs: {
-                                            "three-line": "",
-                                            subheader: ""
-                                          }
-                                        },
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
                                         [
-                                          _c("v-subheader", [
-                                            _vm._v("Información de contacto")
-                                          ]),
-                                          _vm._v(" "),
                                           _c(
-                                            "v-list-tile",
+                                            "v-list",
+                                            {
+                                              attrs: {
+                                                "three-line": "",
+                                                subheader: ""
+                                              }
+                                            },
                                             [
+                                              _c("v-subheader", [
+                                                _vm._v(
+                                                  "Información de contacto"
+                                                )
+                                              ]),
+                                              _vm._v(" "),
                                               _c(
-                                                "v-list-tile-content",
+                                                "v-list-tile",
                                                 [
-                                                  _c("v-list-tile-title", [
-                                                    _vm._v("Teléfono")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("v-list-tile-sub-title", {
-                                                    domProps: {
-                                                      textContent: _vm._s(
-                                                        cliente.telefono
+                                                  _c(
+                                                    "v-list-tile-content",
+                                                    [
+                                                      _c("v-list-tile-title", [
+                                                        _vm._v("Teléfono")
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-list-tile-sub-title",
+                                                        {
+                                                          domProps: {
+                                                            textContent: _vm._s(
+                                                              cliente.telefono
+                                                            )
+                                                          }
+                                                        }
                                                       )
-                                                    }
-                                                  })
+                                                    ],
+                                                    1
+                                                  )
                                                 ],
                                                 1
-                                              )
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile",
-                                            [
+                                              ),
+                                              _vm._v(" "),
                                               _c(
-                                                "v-list-tile-content",
+                                                "v-list-tile",
                                                 [
-                                                  _c("v-list-tile-title", [
-                                                    _vm._v("Dirección")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("v-list-tile-sub-title", {
-                                                    domProps: {
-                                                      textContent: _vm._s(
-                                                        cliente.direccion
+                                                  _c(
+                                                    "v-list-tile-content",
+                                                    [
+                                                      _c("v-list-tile-title", [
+                                                        _vm._v("Dirección")
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-list-tile-sub-title",
+                                                        {
+                                                          domProps: {
+                                                            textContent: _vm._s(
+                                                              cliente.direccion
+                                                            )
+                                                          }
+                                                        }
                                                       )
-                                                    }
-                                                  })
+                                                    ],
+                                                    1
+                                                  )
                                                 ],
                                                 1
                                               )
@@ -368,57 +399,57 @@ var render = function() {
                               )
                             ],
                             1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        [
+                          ),
+                          _vm._v(" "),
                           _c(
-                            "v-container",
-                            { attrs: { "grid-list-xs": "" } },
+                            "v-card-actions",
                             [
                               _c(
-                                "v-layout",
-                                { attrs: { row: "", wrap: "" } },
+                                "v-container",
+                                { attrs: { "grid-list-xs": "" } },
                                 [
                                   _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
+                                    "v-layout",
+                                    { attrs: { row: "", wrap: "" } },
                                     [
-                                      _c("equipos-cliente", {
-                                        attrs: {
-                                          cliente: cliente.nombre,
-                                          equipos: cliente.equipos
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("editar-cliente", {
-                                        attrs: { id: cliente.id }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("nuevo-equipo-cliente", {
-                                        attrs: {
-                                          "id-cliente": cliente.id,
-                                          cliente: cliente.nombre
-                                        }
-                                      })
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("equipos-cliente", {
+                                            attrs: {
+                                              cliente: cliente.nombre,
+                                              equipos: cliente.equipos
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("editar-cliente", {
+                                            attrs: { id: cliente.id }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("nuevo-equipo-cliente", {
+                                            attrs: {
+                                              "id-cliente": cliente.id,
+                                              cliente: cliente.nombre
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   )
@@ -434,12 +465,37 @@ var render = function() {
                     ],
                     1
                   )
+                }),
+                1
+              )
+            : _c(
+                "v-layout",
+                [
+                  _c(
+                    "v-flex",
+                    { staticClass: "text-xs-center", attrs: { xs12: "" } },
+                    [
+                      _c(
+                        "v-icon",
+                        {
+                          staticStyle: {
+                            "font-size": "20em",
+                            cursor: "pointer"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.show = true
+                            }
+                          }
+                        },
+                        [_vm._v("people")]
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
-            }),
-            1
-          )
         ],
         1
       )

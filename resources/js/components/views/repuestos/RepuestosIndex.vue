@@ -13,13 +13,19 @@
             background-color="transparent"
             solo
             placeholder="Búsqueda de repuestos"
+            @input="show = true"
           ></v-text-field>
         </v-toolbar-items>
       </v-toolbar>
     </div>
     <v-container grid-list-xs>
-      <v-layout row wrap>
+      <v-layout v-if="show" row wrap>
         <RepuestoCard v-for="item in repuestos" :key="item.id + item.repuesto" :item="item" />
+      </v-layout>
+      <v-layout v-else>
+        <v-flex class="text-xs-center" xs12>
+          <v-icon style="font-size: 20em; cursor: pointer;" @click="show = true">memory</v-icon>
+        </v-flex>
       </v-layout>
     </v-container>
   </div>
@@ -35,7 +41,8 @@ export default {
   },
   data() {
     return {
-      keyword: ''
+      keyword: '',
+      show: false
     }
   },
   computed: {

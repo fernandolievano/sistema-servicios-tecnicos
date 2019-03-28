@@ -414,7 +414,7 @@ var render = function() {
                                                 color: "success"
                                               }
                                             },
-                                            [_vm._v("Registar")]
+                                            [_vm._v("Registrar")]
                                           )
                                         ],
                                         1

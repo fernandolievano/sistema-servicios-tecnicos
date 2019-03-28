@@ -55,13 +55,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* eslint-disable react/no-this-in-sfc */
 
@@ -80,7 +73,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      keyword: ''
+      keyword: '',
+      show: false
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
@@ -167,6 +161,11 @@ var render = function() {
                           "append-icon": "search",
                           placeholder: "Búsqueda de equipos"
                         },
+                        on: {
+                          input: function($event) {
+                            _vm.show = true
+                          }
+                        },
                         model: {
                           value: _vm.keyword,
                           callback: function($$v) {
@@ -190,46 +189,46 @@ var render = function() {
         "v-container",
         { attrs: { "align-center": "" } },
         [
-          _c(
-            "v-layout",
-            { staticClass: "my-4", attrs: { row: "", wrap: "" } },
-            [
-              _c("v-flex", { attrs: { xs12: "" } }, [
-                _vm.section === "Index"
-                  ? _c("h1", { staticClass: "display-3 text-xs-center" }, [
-                      _vm._v("Todos los equipos")
-                    ])
-                  : _vm.section === "En Reparación"
-                  ? _c("h1", { staticClass: "display-3 text-xs-center" }, [
-                      _vm._v("\n          Equipos en Reparación\n        ")
-                    ])
-                  : _vm.section === "Reparado"
-                  ? _c("h1", { staticClass: "display-3 text-xs-center" }, [
-                      _vm._v("\n          Equipos Reparados\n        ")
-                    ])
-                  : _vm.section === "Despachado"
-                  ? _c("h1", { staticClass: "display-3 text-xs-center" }, [
-                      _vm._v("\n          Equipos Despachados\n        ")
-                    ])
-                  : _vm._e()
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("v-spacer"),
-          _vm._v(" "),
-          _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
-            _vm._l(_vm.equipos, function(item) {
-              return _c("EquipoCard", {
-                key: item.equipo + item.id + _vm.section,
-                attrs: { item: item }
-              })
-            }),
-            1
-          )
+          _vm.show
+            ? _c(
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
+                _vm._l(_vm.equipos, function(item) {
+                  return _c("EquipoCard", {
+                    key: item.equipo + item.id + _vm.section,
+                    attrs: { item: item }
+                  })
+                }),
+                1
+              )
+            : _c(
+                "v-layout",
+                [
+                  _c(
+                    "v-flex",
+                    { staticClass: "text-xs-center", attrs: { xs12: "" } },
+                    [
+                      _c(
+                        "v-icon",
+                        {
+                          staticStyle: {
+                            "font-size": "20em",
+                            cursor: "pointer"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.show = true
+                            }
+                          }
+                        },
+                        [_vm._v("devices_other")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
         ],
         1
       )

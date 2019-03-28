@@ -41,6 +41,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'IndexRepuestos',
@@ -51,7 +57,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      keyword: ''
+      keyword: '',
+      show: false
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
@@ -122,6 +129,11 @@ var render = function() {
                       solo: "",
                       placeholder: "Búsqueda de repuestos"
                     },
+                    on: {
+                      input: function($event) {
+                        _vm.show = true
+                      }
+                    },
                     model: {
                       value: _vm.keyword,
                       callback: function($$v) {
@@ -144,17 +156,46 @@ var render = function() {
         "v-container",
         { attrs: { "grid-list-xs": "" } },
         [
-          _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
-            _vm._l(_vm.repuestos, function(item) {
-              return _c("RepuestoCard", {
-                key: item.id + item.repuesto,
-                attrs: { item: item }
-              })
-            }),
-            1
-          )
+          _vm.show
+            ? _c(
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
+                _vm._l(_vm.repuestos, function(item) {
+                  return _c("RepuestoCard", {
+                    key: item.id + item.repuesto,
+                    attrs: { item: item }
+                  })
+                }),
+                1
+              )
+            : _c(
+                "v-layout",
+                [
+                  _c(
+                    "v-flex",
+                    { staticClass: "text-xs-center", attrs: { xs12: "" } },
+                    [
+                      _c(
+                        "v-icon",
+                        {
+                          staticStyle: {
+                            "font-size": "20em",
+                            cursor: "pointer"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.show = true
+                            }
+                          }
+                        },
+                        [_vm._v("memory")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
         ],
         1
       )

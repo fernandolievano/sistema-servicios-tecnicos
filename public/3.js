@@ -63,7 +63,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.border-cliente[data-v-704f1493] {\n  border-top: 2px solid #1E88E5;\n}\n", ""]);
+exports.push([module.i, "\n.border-cliente[data-v-704f1493] {\n  border-top: 2px solid #1e88e5;\n}\n", ""]);
 
 // exports
 

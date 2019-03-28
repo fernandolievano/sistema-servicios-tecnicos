@@ -10,7 +10,7 @@
           <v-toolbar-title>Retirar equipo</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark flat @click="generarTicket">Save</v-btn>
+            <v-btn dark flat @click="generarTicket">Listo</v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <div v-if="success" class="text-xs-center">
@@ -38,7 +38,7 @@
                           <v-checkbox
                             :key="repuesto.repuesto"
                             v-model="repuestosUsados[index]"
-                            :label="repuesto.repuesto"
+                            :label="repuestoInfo(repuesto.repuesto, repuesto.precio_unitario_venta)"
                             :value="repuesto"
                           ></v-checkbox>
                         </v-list-tile-content>
@@ -66,11 +66,15 @@
                       <v-checkbox
                         :key="servicio.titulo"
                         v-model="serviciosRequeridos[index]"
-                        :label="servicio.titulo"
+                        :label="servicioInfo(servicio.titulo, servicio.valor)"
                         :value="servicio"
                       ></v-checkbox>
                     </v-list-tile-content>
+                    <v-list-tile-content>
+                      <span class="caption">{{ servicio.descripcion }}</span>
+                    </v-list-tile-content>
                   </v-list-tile>
+                  <span>{{ serviciosRequeridos }}</span>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -133,30 +137,34 @@ export default {
 
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < this.repuestosUsados.length; i++) {
-        const precio = this.repuestosUsados[i].precio_unitario_venta
-        const cantidad = this.repuestosUsadosCantidad[i]
-        pagoTotal += precio * cantidad
+        if (this.repuestosUsados !== null && this.repuestosUsados !== undefined) {
+          const precio = this.repuestosUsados[i].precio_unitario_venta
+          const cantidad = this.repuestosUsadosCantidad[i]
+          pagoTotal += precio * cantidad
 
-        // para detalle en la factura
-        const repuestoDetail = {
-          repuesto: this.repuestosUsados[i].repuesto,
-          cantidad: this.repuestosUsadosCantidad[i],
-          precio_unitario: this.repuestosUsados[i].precio_unitario_venta
+          // para detalle en la factura
+          const repuestoDetail = {
+            repuesto: this.repuestosUsados[i].repuesto,
+            cantidad: this.repuestosUsadosCantidad[i],
+            precio_unitario: this.repuestosUsados[i].precio_unitario_venta
+          }
+
+          this.detail.repuestos.push(repuestoDetail)
         }
-
-        this.detail.repuestos.push(repuestoDetail)
       }
 
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < this.serviciosRequeridos.length; i++) {
-        pagoTotal += this.serviciosRequeridos[i].valor
+        if (this.serviciosRequeridos[i] !== null && this.serviciosRequeridos[i] !== undefined) {
+          pagoTotal += this.serviciosRequeridos[i].valor
 
-        const servicioDetail = {
-          servicio: this.serviciosRequeridos[i].titulo,
-          precio: this.serviciosRequeridos.valor
+          const servicioDetail = {
+            servicio: this.serviciosRequeridos[i].titulo,
+            precio: this.serviciosRequeridos[i].valor
+          }
+
+          this.detail.servicios.push(servicioDetail)
         }
-
-        this.detail.servicios.push(servicioDetail)
       }
 
       this.setDetails(this.detail)
@@ -191,6 +199,12 @@ export default {
         this.success = true
         this.ticket = response.data
       })
+    },
+    servicioInfo(titulo, valor) {
+      return `${titulo} - ${valor} ARS`
+    },
+    repuestoInfo(repuesto, precio) {
+      return `${repuesto} - ${precio} ARS`
     }
   }
 }

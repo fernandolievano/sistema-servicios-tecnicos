@@ -74,7 +74,6 @@
                       <span class="caption">{{ servicio.descripcion }}</span>
                     </v-list-tile-content>
                   </v-list-tile>
-                  <span>{{ serviciosRequeridos }}</span>
                 </v-flex>
               </v-layout>
             </v-container>

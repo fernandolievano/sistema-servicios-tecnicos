@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoCard.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquipoCard.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -55,130 +55,50 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+/* eslint-disable react/no-this-in-sfc */
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'IndexEquipos',
   components: {
-    BotonEstado: function BotonEstado() {
-      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./Estado.vue */ "./resources/js/components/views/equipos/Estado.vue"));
-    },
-    RetirarEquipo: function RetirarEquipo() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./EquipoRetirar.vue */ "./resources/js/components/views/equipos/EquipoRetirar.vue"));
+    EquipoCard: function EquipoCard() {
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ./EquipoCard.vue */ "./resources/js/components/views/equipos/EquipoCard.vue"));
     }
   },
   props: {
-    item: {
-      type: Object,
-      required: true
+    section: {
+      type: String,
+      default: 'Index'
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    fetch: 'equipo/fetchAll',
-    delete: 'equipo/deleteEquipo'
+  data: function data() {
+    return {
+      keyword: '',
+      show: false
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    filteredEquipos: 'equipo/filteredEquipos',
+    equiposByEstado: 'equipo/equiposByEstado',
+    counter: 'equipo/equiposCount',
+    estadoCounter: 'equipo/countEquiposByEstado'
   }), {
-    eliminar: function eliminar(item) {
-      var _this = this;
+    equipos: function equipos() {
+      if (this.section === 'Index') {
+        return this.filteredEquipos(this.keyword);
+      }
 
-      var message = "\xBFEst\xE1s seguro de eliminar ".concat(item.equipo, " ").concat(item.modelo, " de la lista de equipos?");
-      this.$swal.fire({
-        title: message,
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, estoy seguro',
-        cancelButtonText: 'Cancelar'
-      }).then(function (result) {
-        if (result.value) {
-          _this.delete(item.id).then(function () {
-            _this.$swal.fire({
-              title: 'Equipo eliminado con éxito',
-              type: 'success'
-            });
-          });
-        }
-      });
+      return this.equiposByEstado(this.section);
     }
   })
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoCard.vue?vue&type=template&id=4e1627f6&":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquipoCard.vue?vue&type=template&id=4e1627f6& ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -191,275 +111,117 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-flex",
-    { attrs: { xs12: "", sm6: "" } },
+    "div",
     [
       _c(
-        "v-card",
-        { staticClass: "ma-2 pa-2 elevation-24" },
+        "div",
+        { staticClass: "bottom-shadow" },
         [
           _c(
             "v-toolbar",
-            { attrs: { dense: "", color: "transparent", flat: "" } },
+            {
+              attrs: {
+                color: "deep-orange darken-1",
+                dark: "",
+                dense: "",
+                flat: ""
+              }
+            },
             [
               _c("v-toolbar-title", [
-                _vm._v("\n        " + _vm._s(_vm.item.equipo) + "\n        "),
-                _c("small", { staticClass: "grey--text text--darken-2" }, [
-                  _vm._v(
-                    "\n          " + _vm._s(_vm.item.modelo) + "\n        "
-                  )
-                ])
+                _vm._v(
+                  "\n        " +
+                    _vm._s(_vm.counter) +
+                    " equipos registrados\n        "
+                ),
+                _vm.section !== "Index"
+                  ? _c("span", [
+                      _vm._v(
+                        "\n          | " +
+                          _vm._s(_vm.estadoCounter(_vm.section)) +
+                          " equipos en estado " +
+                          _vm._s(_vm.section)
+                      )
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
-              _c(
-                "v-toolbar-items",
-                [
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { flat: "", small: "", fab: "", color: "error" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.eliminar(_vm.item)
+              _vm.section === "Index"
+                ? _c(
+                    "v-toolbar-items",
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          dark: "",
+                          flat: "",
+                          solo: "",
+                          "background-color": "transparent",
+                          "append-icon": "search",
+                          placeholder: "Búsqueda de equipos"
+                        },
+                        on: {
+                          input: function($event) {
+                            _vm.show = true
+                          }
+                        },
+                        model: {
+                          value: _vm.keyword,
+                          callback: function($$v) {
+                            _vm.keyword = $$v
+                          },
+                          expression: "keyword"
                         }
-                      }
-                    },
-                    [_c("v-icon", [_vm._v("\n            clear\n          ")])],
+                      })
+                    ],
                     1
                   )
-                ],
-                1
-              )
+                : _vm._e()
             ],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-responsive",
-            { attrs: { "min-height": "220" } },
-            [
-              _c(
-                "v-card-title",
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-container",
+        { attrs: { "align-center": "" } },
+        [
+          _vm.show
+            ? _c(
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
+                _vm._l(_vm.equipos, function(item) {
+                  return _c("EquipoCard", {
+                    key: item.equipo + item.id + _vm.section,
+                    attrs: { item: item }
+                  })
+                }),
+                1
+              )
+            : _c(
+                "v-layout",
                 [
                   _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
+                    "v-flex",
+                    { staticClass: "text-xs-center", attrs: { xs12: "" } },
                     [
                       _c(
-                        "v-flex",
-                        { attrs: { xs12: "" } },
-                        [
-                          _c(
-                            "v-list",
-                            { attrs: { "three-line": "", subheader: "" } },
-                            [
-                              _c("v-subheader", [
-                                _vm._v(
-                                  "\n                Información del equipo\n              "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "v-container",
-                                { attrs: { "grid-list-xs": "" } },
-                                [
-                                  _c(
-                                    "v-layout",
-                                    { attrs: { row: "", wrap: "" } },
-                                    [
-                                      _c(
-                                        "v-flex",
-                                        { attrs: { xs6: "" } },
-                                        [
-                                          _c(
-                                            "v-list-tile",
-                                            [
-                                              _c(
-                                                "v-list-tile-content",
-                                                [
-                                                  _c("v-list-tile-title", [
-                                                    _vm._v("Propietario")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("v-list-tile-sub-title", [
-                                                    _vm._v(
-                                                      "\n                          " +
-                                                        _vm._s(
-                                                          _vm.item.cliente
-                                                            .nombre
-                                                        ) +
-                                                        " " +
-                                                        _vm._s(
-                                                          _vm.item.cliente
-                                                            .apellido
-                                                        ) +
-                                                        "\n                        "
-                                                    )
-                                                  ])
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-flex",
-                                        { attrs: { xs6: "" } },
-                                        [
-                                          _c(
-                                            "v-list-tile",
-                                            [
-                                              _c(
-                                                "v-list-tile-content",
-                                                [
-                                                  _c("v-list-tile-title", [
-                                                    _vm._v("Estado")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("v-list-tile-sub-title", [
-                                                    _vm._v(
-                                                      "\n                          " +
-                                                        _vm._s(
-                                                          _vm.item.estado
-                                                        ) +
-                                                        "\n                        "
-                                                    )
-                                                  ])
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-layout",
-                                    { attrs: { row: "", wrap: "" } },
-                                    [
-                                      _c(
-                                        "v-flex",
-                                        { attrs: { xs6: "" } },
-                                        [
-                                          _c(
-                                            "v-list-tile",
-                                            [
-                                              _c(
-                                                "v-list-tile-content",
-                                                [
-                                                  _c("v-list-tile-title", [
-                                                    _vm._v("Recibido")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("v-list-tile-sub-title", [
-                                                    _vm._v(
-                                                      "\n                          " +
-                                                        _vm._s(
-                                                          _vm._f("date")(
-                                                            _vm.item.created_at
-                                                          )
-                                                        ) +
-                                                        "\n                        "
-                                                    )
-                                                  ])
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-flex",
-                                        { attrs: { xs12: "" } },
-                                        [
-                                          _c(
-                                            "v-list-tile",
-                                            [
-                                              _c(
-                                                "v-list-tile-content",
-                                                [
-                                                  _c("v-list-tile-title", [
-                                                    _vm._v("Diagnóstico")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("v-list-tile-sub-title", [
-                                                    _vm._v(
-                                                      "\n                          " +
-                                                        _vm._s(
-                                                          _vm.item.diagnostico
-                                                        ) +
-                                                        "\n                        "
-                                                    )
-                                                  ])
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-flex",
-                                        { attrs: { xs12: "" } },
-                                        [
-                                          _c(
-                                            "v-list-tile",
-                                            [
-                                              _c(
-                                                "v-list-tile-content",
-                                                [
-                                                  _c("v-list-tile-title", [
-                                                    _vm._v("Descripción")
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("v-list-tile-sub-title", [
-                                                    _vm._v(
-                                                      "\n                          " +
-                                                        _vm._s(
-                                                          _vm.item.descripcion
-                                                        ) +
-                                                        "\n                        "
-                                                    )
-                                                  ])
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
+                        "v-icon",
+                        {
+                          staticStyle: {
+                            "font-size": "20em",
+                            cursor: "pointer"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.show = true
+                            }
+                          }
+                        },
+                        [_vm._v("devices_other")]
                       )
                     ],
                     1
@@ -467,57 +229,6 @@ var render = function() {
                 ],
                 1
               )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card-actions",
-            [
-              _c(
-                "v-container",
-                [
-                  _c(
-                    "v-layout",
-                    { attrs: { "justify-center": "", row: "", wrap: "" } },
-                    [
-                      _c(
-                        "v-flex",
-                        { attrs: { xs8: "" } },
-                        [
-                          _c("BotonEstado", {
-                            key: _vm.item.id + _vm.item.estado,
-                            attrs: { id: _vm.item.id, estado: _vm.item.estado }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _vm.item.estado === "Reparado"
-                        ? _c(
-                            "v-flex",
-                            { attrs: { xs8: "" } },
-                            [
-                              _c("RetirarEquipo", {
-                                key: _vm.item.id + _vm.item.descripcion,
-                                attrs: {
-                                  "cliente-id": _vm.item.cliente.id,
-                                  "equipo-id": _vm.item.id
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
         ],
         1
       )
@@ -532,17 +243,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquipoCard.vue":
-/*!**************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquipoCard.vue ***!
-  \**************************************************************/
+/***/ "./resources/js/components/views/equipos/EquiposIndex.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/views/equipos/EquiposIndex.vue ***!
+  \****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _EquipoCard_vue_vue_type_template_id_4e1627f6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EquipoCard.vue?vue&type=template&id=4e1627f6& */ "./resources/js/components/views/equipos/EquipoCard.vue?vue&type=template&id=4e1627f6&");
-/* harmony import */ var _EquipoCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EquipoCard.vue?vue&type=script&lang=js& */ "./resources/js/components/views/equipos/EquipoCard.vue?vue&type=script&lang=js&");
+/* harmony import */ var _EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EquiposIndex.vue?vue&type=template&id=724e4436& */ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&");
+/* harmony import */ var _EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EquiposIndex.vue?vue&type=script&lang=js& */ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -552,9 +263,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _EquipoCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _EquipoCard_vue_vue_type_template_id_4e1627f6___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _EquipoCard_vue_vue_type_template_id_4e1627f6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -564,38 +275,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/views/equipos/EquipoCard.vue"
+component.options.__file = "resources/js/components/views/equipos/EquiposIndex.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquipoCard.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquipoCard.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquipoCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoCard.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquiposIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquipoCard.vue?vue&type=template&id=4e1627f6&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquipoCard.vue?vue&type=template&id=4e1627f6& ***!
-  \*********************************************************************************************/
+/***/ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436& ***!
+  \***********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoCard_vue_vue_type_template_id_4e1627f6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquipoCard.vue?vue&type=template&id=4e1627f6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoCard.vue?vue&type=template&id=4e1627f6&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoCard_vue_vue_type_template_id_4e1627f6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquiposIndex.vue?vue&type=template&id=724e4436& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoCard_vue_vue_type_template_id_4e1627f6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

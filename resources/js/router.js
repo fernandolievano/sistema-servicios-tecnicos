@@ -5,6 +5,11 @@ import Router from 'vue-router'
 import NProgress from 'nprogress'
 import store from './store/store'
 import Index from './components/views/Index.vue'
+import Caja from './components/views/caja/Caja.vue'
+import Clientes from './components/views/clientes/Clientes.vue'
+import Equipos from './components/views/equipos/Equipos.vue'
+import Servicios from './components/views/servicios/Servicios.vue'
+import Repuestos from './components/views/repuestos/Repuestos.vue'
 
 Vue.use(Router)
 
@@ -19,22 +24,22 @@ const router = new Router({
     {
       path: '/clientes',
       name: 'clientes',
-      component: () => import('./components/views/clientes/Clientes.vue')
+      component: Clientes
     },
     {
       path: '/servicios',
       name: 'servicios',
-      component: () => import('./components/views/servicios/Servicios.vue')
+      component: Servicios
     },
     {
       path: '/repuestos',
       name: 'repuestos',
-      component: () => import('./components/views/repuestos/Repuestos.vue')
+      component: Repuestos
     },
     {
       path: '/equipos',
       name: 'equipos',
-      component: () => import('./components/views/equipos/Equipos.vue')
+      component: Equipos
     },
     {
       path: '/descargar/ticket_final/:id',
@@ -75,7 +80,7 @@ const router = new Router({
     {
       path: '/caja',
       name: 'caja',
-      component: () => import('./components/views/caja/Caja.vue')
+      component: Caja
     }
   ]
 })

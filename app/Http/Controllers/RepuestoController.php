@@ -26,24 +26,24 @@ class RepuestoController extends Controller
 
     public function store(Request $request)
     {
-       $NuevoRepuesto = Repuesto::create($request->all());
+        $NuevoRepuesto = Repuesto::create($request->all());
 
-       $repuesto      = $request->get('repuesto') ;
-       $precio_compra = $request->get('precio_unitario_compra');
-       $stock_inicial = $request->get('cantidad');
-       $precio_compra *= $stock_inicial;
-       $precio_compra *= -1;
+        $repuesto      = $request->get('repuesto') ;
+        $precio_compra = $request->get('precio_unitario_compra');
+        $stock_inicial = $request->get('cantidad');
+        $precio_compra *= $stock_inicial;
+        $precio_compra *= -1;
 
-       $caja = Caja::first();
-       $caja->total += $precio_compra;
-       $caja->save();
+        $caja = Caja::first();
+        $caja->total += $precio_compra;
+        $caja->save();
 
-       $ingreso_retiro = new IngresosRetiros;
-       $ingreso_retiro->descripcion = 'Compra de '.$stock_inicial.' unidades del siguiente repuesto: '.$repuesto;
-       $ingreso_retiro->ingreso     = false;
-       $ingreso_retiro->cantidad    = $precio_compra;
-       $ingreso_retiro->caja_id     = $caja->id;
-       $ingreso_retiro->save();
+        $ingreso_retiro = new IngresosRetiros;
+        $ingreso_retiro->descripcion = 'Compra de '.$stock_inicial.' unidades del siguiente repuesto: '.$repuesto;
+        $ingreso_retiro->ingreso     = false;
+        $ingreso_retiro->cantidad    = $precio_compra;
+        $ingreso_retiro->caja_id     = $caja->id;
+        $ingreso_retiro->save();
 
         return response()->json($NuevoRepuesto);
     }
@@ -71,25 +71,37 @@ class RepuestoController extends Controller
     {
         $precio_compra  = $request->precio_unitario_compra;
         $cantidad       = $request->cantidad;
+        $nueva_cantidad = $request->nueva_cantidad;
 
         $repuesto = Repuesto::find($id);
-        $repuesto->cantidad                 = $cantidad;
+        $repuesto->cantidad                 = $cantidad + $nueva_cantidad;
         $repuesto->precio_unitario_compra   = $precio_compra;
         $repuesto->update();
 
-        $precio_compra *= $cantidad;
+        $precio_compra *= $nueva_cantidad;
         $precio_compra *= -1;
 
         $caja = Caja::first();
         $caja->total += $precio_compra;
         $caja->save();
 
-        $ingreso_retiro = new IngresosRetiros;
-        $ingreso_retiro->descripcion = 'Compra de '.$cantidad.' unidades del siguiente repuesto: '.$repuesto->repuesto;
-        $ingreso_retiro->ingreso     = false;
-        $ingreso_retiro->cantidad    = $precio_compra;
-        $ingreso_retiro->caja_id     = $caja->id;
-        $ingreso_retiro->save();
+        if ($nueva_cantidad < 0) {
+            $ingreso_retiro = new IngresosRetiros;
+            $ingreso_retiro->descripcion = 'Venta de '.$nueva_cantidad * (-1).' unidades del siguiente repuesto: '.$repuesto->repuesto;
+            $ingreso_retiro->ingreso     = true;
+            $ingreso_retiro->cantidad    = $precio_compra;
+            $ingreso_retiro->caja_id     = $caja->id;
+            $ingreso_retiro->save();
+        }
+
+        else {
+            $ingreso_retiro = new IngresosRetiros;
+            $ingreso_retiro->descripcion = 'Compra de '.$nueva_cantidad.' unidades del siguiente repuesto: '.$repuesto->repuesto;
+            $ingreso_retiro->ingreso     = false;
+            $ingreso_retiro->cantidad    = $precio_compra;
+            $ingreso_retiro->caja_id     = $caja->id;
+            $ingreso_retiro->save();
+        }
 
         return response(Response::HTTP_OK);
     }

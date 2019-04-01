@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/Estado.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/Estado.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -24,205 +24,58 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'BotonEstado',
   props: {
-    clienteId: {
-      type: Number,
-      required: true,
-      default: 0
+    estado: {
+      type: String,
+      default: null
     },
-    equipoId: {
+    id: {
       type: Number,
-      required: true,
-      default: 0
+      required: true
     }
   },
-  data: function data() {
-    return {
-      dialog: false,
-      valid: false,
-      success: false,
-      detail: {
-        servicios: [],
-        repuestos: []
-      },
-      serviciosRequeridos: [],
-      repuestosUsados: [],
-      repuestosUsadosCantidad: [],
-      ticket: null
-    };
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['repuesto', 'servicio'])),
-  mounted: function mounted() {
-    this.fetchRepuestos();
-    this.fetchServicios();
-  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    fetchRepuestos: 'repuesto/fetchAll',
-    fetchServicios: 'servicio/fetchAll',
-    createFinal: 'ticket/createFinal',
-    setDetails: 'ticket/sendDetails'
+    cambiarEstado: 'equipo/estadoEquipo',
+    fetch: 'equipo/fetchAll'
   }), {
-    generarTicket: function generarTicket() {
+    // PENDIENTE OPTIMIZAR Y MIGRAR EL CÓDIGO A VUEX
+    marcarComo: function marcarComo(estado, id) {
       var _this = this;
 
-      var self = this;
-      var pagoTotal = 0; // eslint-disable-next-line no-plusplus
+      var url = "/api/v1/equipos/estado/".concat(id);
 
-      for (var i = 0; i < this.repuestosUsados.length; i++) {
-        if (this.repuestosUsados !== null && this.repuestosUsados !== undefined) {
-          var precio = this.repuestosUsados[i].precio_unitario_venta;
-          var cantidad = this.repuestosUsadosCantidad[i];
-          pagoTotal += precio * cantidad; // para detalle en la factura
+      if (estado === 'En Reparación') {
+        var nuevoEstado = {
+          estado: 'Reparado'
+        };
+        var params = Object.assign({}, nuevoEstado);
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(url, params).then(function (response) {
+          var msg = "".concat(response.data.equipo, " ").concat(response.data.modelo, " fue reparado");
 
-          var repuestoDetail = {
-            repuesto: this.repuestosUsados[i].repuesto,
-            cantidad: this.repuestosUsadosCantidad[i],
-            precio_unitario: this.repuestosUsados[i].precio_unitario_venta
-          };
-          this.detail.repuestos.push(repuestoDetail);
-        }
-      } // eslint-disable-next-line no-plusplus
+          _this.cambiarEstado(id, 'Reparado').then(function () {
+            _this.fetch();
 
-
-      for (var _i = 0; _i < this.serviciosRequeridos.length; _i++) {
-        if (this.serviciosRequeridos[_i] !== null && this.serviciosRequeridos[_i] !== undefined) {
-          pagoTotal += this.serviciosRequeridos[_i].valor;
-          var servicioDetail = {
-            servicio: this.serviciosRequeridos[_i].titulo,
-            precio: this.serviciosRequeridos[_i].valor
-          };
-          this.detail.servicios.push(servicioDetail);
-        }
+            _this.$swal.fire({
+              title: msg,
+              type: 'success'
+            });
+          });
+        });
       }
-
-      this.setDetails(this.detail);
-      var servicios = this.serviciosRequeridos;
-      var joinedServicios = servicios.map(function (serv) {
-        return serv.titulo;
-      }).join(', ');
-      var repuestos = this.repuestosUsados;
-      var joinedRepuestos = repuestos.map(function (rep) {
-        return rep.repuesto;
-      }).join(', ');
-      var message = '';
-
-      if (servicios.length < 1) {
-        message = "Ingresos por la venta de los siguientes repuestos: ".concat(joinedRepuestos, ".");
-      } else if (repuestos.length < 1) {
-        message = "Ingresos por servicios t\xE9cnicos: ".concat(joinedServicios, ".");
-      } else {
-        message = "Ingresos por por la venta de los siguientes repuestos: ".concat(joinedRepuestos, " y por servicios t\xE9cnicos: ").concat(joinedServicios, ".");
-      }
-
-      var formulario = {
-        cliente_id: self.clienteId,
-        equipo_id: self.equipoId,
-        total: pagoTotal,
-        mensaje: message
-      };
-      var request = Object.assign({}, formulario);
-      var url = '/api/v1/tickets/store/final';
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, request).then(function (response) {
-        _this.success = true;
-        _this.ticket = response.data;
-      });
-    },
-    servicioInfo: function servicioInfo(titulo, valor) {
-      return "".concat(titulo, " - ").concat(valor, " ARS");
-    },
-    repuestoInfo: function repuestoInfo(repuesto, precio) {
-      return "".concat(repuesto, " - ").concat(precio, " ARS");
     }
   })
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976&":
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976& ***!
-  \******************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/Estado.vue?vue&type=template&id=9f617126&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/Estado.vue?vue&type=template&id=9f617126&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -237,335 +90,20 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "v-dialog",
-        {
-          attrs: {
-            lazy: "",
-            fullscreen: "",
-            "hide-overlay": "",
-            transition: "dialog-bottom-transition"
-          },
-          model: {
-            value: _vm.dialog,
-            callback: function($$v) {
-              _vm.dialog = $$v
-            },
-            expression: "dialog"
-          }
-        },
-        [
-          _c(
+      _vm.estado === "En Reparación"
+        ? _c(
             "v-btn",
             {
-              attrs: { slot: "activator", color: "primary", dark: "" },
-              slot: "activator"
+              attrs: { color: "primary" },
+              on: {
+                click: function($event) {
+                  return _vm.marcarComo(_vm.estado, _vm.id)
+                }
+              }
             },
-            [_vm._v("Generar ticket de pago")]
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card",
-            [
-              _c(
-                "v-toolbar",
-                { attrs: { dark: "", color: "brown darken-4" } },
-                [
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { icon: "", dark: "" },
-                      on: {
-                        click: function($event) {
-                          _vm.dialog = false
-                        }
-                      }
-                    },
-                    [_c("v-icon", [_vm._v("close")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("v-toolbar-title", [_vm._v("Retirar equipo")]),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-toolbar-items",
-                    [
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: { dark: "", flat: "" },
-                          on: { click: _vm.generarTicket }
-                        },
-                        [_vm._v("Listo")]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm.success
-                ? _c(
-                    "div",
-                    { staticClass: "text-xs-center" },
-                    [
-                      _c("h1", { staticClass: "success--text display-2" }, [
-                        _vm._v("\n          Creado con éxito\n        ")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            color: "primary",
-                            block: "",
-                            to: {
-                              name: "factura",
-                              params: { id: _vm.ticket.id }
-                            }
-                          }
-                        },
-                        [_vm._v("\n          Ver Ticket\n        ")]
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.success
-                ? _c(
-                    "v-form",
-                    {
-                      ref: "retirarequipo",
-                      attrs: { "lazy-validation": "" },
-                      model: {
-                        value: _vm.valid,
-                        callback: function($$v) {
-                          _vm.valid = $$v
-                        },
-                        expression: "valid"
-                      }
-                    },
-                    [
-                      _c("h1", { staticClass: "display-2" }, [
-                        _vm._v("Generar ticket de pago")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "v-list",
-                        [
-                          _c(
-                            "v-container",
-                            [
-                              _c(
-                                "v-layout",
-                                { attrs: { row: "", wrap: "" } },
-                                [
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("h3", [
-                                        _vm._v("Repuestos utilizados")
-                                      ]),
-                                      _vm._v(" "),
-                                      _vm._l(_vm.repuesto.repuestos, function(
-                                        repuesto,
-                                        index
-                                      ) {
-                                        return _c(
-                                          "v-list-tile",
-                                          { key: repuesto.repuesto },
-                                          [
-                                            _c(
-                                              "v-layout",
-                                              { attrs: { row: "", wrap: "" } },
-                                              [
-                                                _c(
-                                                  "v-flex",
-                                                  {
-                                                    attrs: { xs12: "", sm6: "" }
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "v-list-tile-content",
-                                                      [
-                                                        _c("v-checkbox", {
-                                                          key:
-                                                            repuesto.repuesto,
-                                                          attrs: {
-                                                            label: _vm.repuestoInfo(
-                                                              repuesto.repuesto,
-                                                              repuesto.precio_unitario_venta
-                                                            ),
-                                                            value: repuesto
-                                                          },
-                                                          model: {
-                                                            value:
-                                                              _vm
-                                                                .repuestosUsados[
-                                                                index
-                                                              ],
-                                                            callback: function(
-                                                              $$v
-                                                            ) {
-                                                              _vm.$set(
-                                                                _vm.repuestosUsados,
-                                                                index,
-                                                                $$v
-                                                              )
-                                                            },
-                                                            expression:
-                                                              "repuestosUsados[index]"
-                                                          }
-                                                        })
-                                                      ],
-                                                      1
-                                                    )
-                                                  ],
-                                                  1
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "v-flex",
-                                                  {
-                                                    attrs: { xs12: "", sm6: "" }
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "v-list-tile-content",
-                                                      [
-                                                        _c("v-text-field", {
-                                                          key:
-                                                            repuesto.precio_unitario_venta,
-                                                          attrs: {
-                                                            placeholder:
-                                                              "Cantidad"
-                                                          },
-                                                          model: {
-                                                            value:
-                                                              _vm
-                                                                .repuestosUsadosCantidad[
-                                                                index
-                                                              ],
-                                                            callback: function(
-                                                              $$v
-                                                            ) {
-                                                              _vm.$set(
-                                                                _vm.repuestosUsadosCantidad,
-                                                                index,
-                                                                $$v
-                                                              )
-                                                            },
-                                                            expression:
-                                                              "repuestosUsadosCantidad[index]"
-                                                          }
-                                                        })
-                                                      ],
-                                                      1
-                                                    )
-                                                  ],
-                                                  1
-                                                )
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("h3", [
-                                        _vm._v("Servicios requeridos")
-                                      ]),
-                                      _vm._v(" "),
-                                      _vm._l(_vm.servicio.servicios, function(
-                                        servicio,
-                                        index
-                                      ) {
-                                        return _c(
-                                          "v-list-tile",
-                                          { key: servicio.servicio },
-                                          [
-                                            _c(
-                                              "v-list-tile-content",
-                                              [
-                                                _c("v-checkbox", {
-                                                  key: servicio.titulo,
-                                                  attrs: {
-                                                    label: _vm.servicioInfo(
-                                                      servicio.titulo,
-                                                      servicio.valor
-                                                    ),
-                                                    value: servicio
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      _vm.serviciosRequeridos[
-                                                        index
-                                                      ],
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        _vm.serviciosRequeridos,
-                                                        index,
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "serviciosRequeridos[index]"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            ),
-                                            _vm._v(" "),
-                                            _c("v-list-tile-content", [
-                                              _c(
-                                                "span",
-                                                { staticClass: "caption" },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(servicio.descripcion)
-                                                  )
-                                                ]
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ],
-            1
+            [_vm._v("\n    Marcar como Reparado\n  ")]
           )
-        ],
-        1
-      )
+        : _vm._e()
     ],
     1
   )
@@ -577,17 +115,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquipoRetirar.vue":
-/*!*****************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquipoRetirar.vue ***!
-  \*****************************************************************/
+/***/ "./resources/js/components/views/equipos/Estado.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/views/equipos/Estado.vue ***!
+  \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EquipoRetirar.vue?vue&type=template&id=b0407976& */ "./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976&");
-/* harmony import */ var _EquipoRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EquipoRetirar.vue?vue&type=script&lang=js& */ "./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Estado_vue_vue_type_template_id_9f617126_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Estado.vue?vue&type=template&id=9f617126&scoped=true& */ "./resources/js/components/views/equipos/Estado.vue?vue&type=template&id=9f617126&scoped=true&");
+/* harmony import */ var _Estado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Estado.vue?vue&type=script&lang=js& */ "./resources/js/components/views/equipos/Estado.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -597,50 +135,50 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _EquipoRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Estado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Estado_vue_vue_type_template_id_9f617126_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Estado_vue_vue_type_template_id_9f617126_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "9f617126",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/views/equipos/EquipoRetirar.vue"
+component.options.__file = "resources/js/components/views/equipos/Estado.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************/
+/***/ "./resources/js/components/views/equipos/Estado.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/views/equipos/Estado.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquipoRetirar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Estado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Estado.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/Estado.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Estado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976&":
-/*!************************************************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976& ***!
-  \************************************************************************************************/
+/***/ "./resources/js/components/views/equipos/Estado.vue?vue&type=template&id=9f617126&scoped=true&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/views/equipos/Estado.vue?vue&type=template&id=9f617126&scoped=true& ***!
+  \*****************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquipoRetirar.vue?vue&type=template&id=b0407976& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Estado_vue_vue_type_template_id_9f617126_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Estado.vue?vue&type=template&id=9f617126&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/Estado.vue?vue&type=template&id=9f617126&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Estado_vue_vue_type_template_id_9f617126_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Estado_vue_vue_type_template_id_9f617126_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

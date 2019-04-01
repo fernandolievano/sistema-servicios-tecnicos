@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -55,50 +55,81 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
-/* eslint-disable react/no-this-in-sfc */
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'IndexEquipos',
   components: {
-    EquipoCard: function EquipoCard() {
-      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./EquipoCard.vue */ "./resources/js/components/views/equipos/EquipoCard.vue"));
+    EditarRepuesto: function EditarRepuesto() {
+      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./RepuestoEditar.vue */ "./resources/js/components/views/repuestos/RepuestoEditar.vue"));
+    },
+    IncrementarStock: function IncrementarStock() {
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! ./AñadirStock.vue */ "./resources/js/components/views/repuestos/AñadirStock.vue"));
     }
   },
   props: {
-    section: {
-      type: String,
-      default: 'Index'
+    item: {
+      type: Object,
+      required: true
     }
   },
-  data: function data() {
-    return {
-      keyword: '',
-      show: false
-    };
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    filteredEquipos: 'equipo/filteredEquipos',
-    equiposByEstado: 'equipo/equiposByEstado',
-    counter: 'equipo/equiposCount',
-    estadoCounter: 'equipo/countEquiposByEstado'
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    fetch: 'repuesto/fetchAll',
+    eliminarRepuesto: 'repuesto/deleteRepuesto'
   }), {
-    equipos: function equipos() {
-      if (this.section === 'Index') {
-        return this.filteredEquipos(this.keyword);
-      }
+    eliminar: function eliminar(repuesto) {
+      var _this = this;
 
-      return this.equiposByEstado(this.section);
+      var message = "\xBFEst\xE1s seguro de quitar el repuesto ".concat(repuesto.repuesto, " de la lista?");
+      this.$swal.fire({
+        title: message,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, estoy seguro',
+        cancelButtonText: 'Cancelar'
+      }).then(function (result) {
+        if (result.value) {
+          _this.eliminarRepuesto(repuesto.id).then(function () {
+            _this.$swal.fire({
+              title: 'Repuesto eliminado con éxito',
+              type: 'success'
+            });
+          }).catch(function () {
+            _this.$swal.fire({
+              title: 'Error al eliminar repuesto',
+              type: 'error'
+            });
+          });
+        }
+      });
     }
   })
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436& ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=template&id=f618130c&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=template&id=f618130c& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -111,117 +142,146 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "v-flex",
+    { attrs: { xs12: "", sm6: "", md5: "" } },
     [
       _c(
-        "div",
-        { staticClass: "bottom-shadow" },
+        "v-card",
+        { staticClass: "ma-2 pa-2 elevation-24" },
         [
           _c(
             "v-toolbar",
-            {
-              attrs: {
-                color: "deep-orange darken-1",
-                dark: "",
-                dense: "",
-                flat: ""
-              }
-            },
+            { attrs: { color: "transparent", dense: "", flat: "" } },
             [
               _c("v-toolbar-title", [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(_vm.counter) +
-                    " equipos registrados\n        "
-                ),
-                _vm.section !== "Index"
-                  ? _c("span", [
-                      _vm._v(
-                        "\n          | " +
-                          _vm._s(_vm.estadoCounter(_vm.section)) +
-                          " equipos en estado " +
-                          _vm._s(_vm.section)
-                      )
-                    ])
-                  : _vm._e()
+                _vm._v(" " + _vm._s(_vm.item.repuesto) + " ")
               ]),
               _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
-              _vm.section === "Index"
-                ? _c(
-                    "v-toolbar-items",
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          dark: "",
-                          flat: "",
-                          solo: "",
-                          "background-color": "transparent",
-                          "append-icon": "search",
-                          placeholder: "Búsqueda de equipos"
-                        },
-                        on: {
-                          input: function($event) {
-                            _vm.show = true
-                          }
-                        },
-                        model: {
-                          value: _vm.keyword,
-                          callback: function($$v) {
-                            _vm.keyword = $$v
-                          },
-                          expression: "keyword"
+              _c(
+                "v-toolbar-items",
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { fab: "", small: "", flat: "", color: "error" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.eliminar(_vm.item)
                         }
-                      })
-                    ],
+                      }
+                    },
+                    [_c("v-icon", [_vm._v("clear")])],
                     1
                   )
-                : _vm._e()
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-container",
-        { attrs: { "align-center": "" } },
-        [
-          _vm.show
-            ? _c(
-                "v-layout",
-                { attrs: { row: "", wrap: "" } },
-                _vm._l(_vm.equipos, function(item) {
-                  return _c("EquipoCard", {
-                    key: item.equipo + item.id + _vm.section,
-                    attrs: { item: item }
-                  })
-                }),
+                ],
                 1
               )
-            : _c(
-                "v-layout",
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-responsive",
+            { attrs: { "min-height": "150" } },
+            [
+              _c(
+                "v-card-title",
+                { attrs: { "primary-title": "" } },
                 [
                   _c(
                     "v-flex",
-                    { staticClass: "text-xs-center", attrs: { xs12: "" } },
+                    { attrs: { xs12: "" } },
                     [
                       _c(
-                        "v-icon",
-                        {
-                          staticStyle: {
-                            "font-size": "20em",
-                            cursor: "pointer"
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.show = true
+                        "v-list",
+                        { attrs: { "three-line": "", subheader: "" } },
+                        [
+                          _c("v-subheader", {
+                            domProps: {
+                              textContent: _vm._s(_vm.item.descripcion)
                             }
-                          }
-                        },
-                        [_vm._v("devices_other")]
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-tile",
+                            [
+                              _c(
+                                "v-list-tile-content",
+                                [
+                                  _c("v-list-tile-title", [_vm._v("Stock")]),
+                                  _vm._v(" "),
+                                  _c("v-list-tile-sub-title", {
+                                    domProps: {
+                                      textContent: _vm._s(_vm.item.cantidad)
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-tile",
+                            [
+                              _c(
+                                "v-list-tile-content",
+                                [
+                                  _c("v-list-tile-title", [
+                                    _vm._v("Precio unitario de compra")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-tile-sub-title", [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(
+                                          _vm._f("price")(
+                                            _vm.item.precio_unitario_compra
+                                          )
+                                        ) +
+                                        "\n                "
+                                    )
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-tile",
+                            [
+                              _c(
+                                "v-list-tile-content",
+                                [
+                                  _c("v-list-tile-title", [
+                                    _vm._v("Precio unitario de venta")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-list-tile-sub-title", [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(
+                                          _vm._f("price")(
+                                            _vm.item.precio_unitario_venta
+                                          )
+                                        ) +
+                                        "\n                "
+                                    )
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
                       )
                     ],
                     1
@@ -229,6 +289,50 @@ var render = function() {
                 ],
                 1
               )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card-actions",
+            [
+              _c(
+                "v-container",
+                {
+                  staticClass: "text-xs-center",
+                  attrs: { "grid-list-xs": "" }
+                },
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [_c("editar-repuesto", { attrs: { id: _vm.item.id } })],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c("incrementar-stock", {
+                            attrs: { id: _vm.item.id }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         ],
         1
       )
@@ -243,17 +347,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquiposIndex.vue":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquiposIndex.vue ***!
-  \****************************************************************/
+/***/ "./resources/js/components/views/repuestos/RepuestoCard.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/views/repuestos/RepuestoCard.vue ***!
+  \******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EquiposIndex.vue?vue&type=template&id=724e4436& */ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&");
-/* harmony import */ var _EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EquiposIndex.vue?vue&type=script&lang=js& */ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&");
+/* harmony import */ var _RepuestoCard_vue_vue_type_template_id_f618130c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RepuestoCard.vue?vue&type=template&id=f618130c& */ "./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=template&id=f618130c&");
+/* harmony import */ var _RepuestoCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RepuestoCard.vue?vue&type=script&lang=js& */ "./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -263,9 +367,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _RepuestoCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RepuestoCard_vue_vue_type_template_id_f618130c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RepuestoCard_vue_vue_type_template_id_f618130c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -275,38 +379,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/views/equipos/EquiposIndex.vue"
+component.options.__file = "resources/js/components/views/repuestos/RepuestoCard.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************/
+/***/ "./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquiposIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepuestoCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436& ***!
-  \***********************************************************************************************/
+/***/ "./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=template&id=f618130c&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=template&id=f618130c& ***!
+  \*************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquiposIndex.vue?vue&type=template&id=724e4436& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquiposIndex.vue?vue&type=template&id=724e4436&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoCard_vue_vue_type_template_id_f618130c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepuestoCard.vue?vue&type=template&id=f618130c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoCard.vue?vue&type=template&id=f618130c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoCard_vue_vue_type_template_id_f618130c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquiposIndex_vue_vue_type_template_id_724e4436___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoCard_vue_vue_type_template_id_f618130c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -11,7 +11,7 @@
             close
           </v-icon>
         </v-btn>
-        <v-toolbar-title> Incrementar stock de {{ repuesto.repuesto }} </v-toolbar-title>
+        <v-toolbar-title> Actualizar stock de {{ repuesto.repuesto }} </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn dark flat @click="actualizar">
@@ -24,7 +24,7 @@
           <v-container grid-list-xs>
             <v-layout row wrap>
               <v-flex xs12>
-                <h1>Stock {{ repuesto.repuesto }}: {{ repuesto.cantidad }}</h1>
+                <h1>Stock {{ repuesto.repuesto }}: {{ repuesto.cantidad + nuevaCantidad }}</h1>
               </v-flex>
               <v-flex xs12>
                 <v-text-field
@@ -37,9 +37,9 @@
               </v-flex>
               <v-flex xs12>
                 <v-text-field
-                  v-model.number="repuesto.cantidad"
+                  v-model.number="nuevaCantidad"
                   name="cantidad"
-                  label="Nueva cantidad"
+                  label="Cantidad a añadir"
                   :rules="generales"
                 ></v-text-field>
               </v-flex>
@@ -66,7 +66,8 @@ export default {
     return {
       dialog: false,
       valid: false,
-      generales: [v => !!v || 'Este campo es requerido']
+      generales: [v => !!v || 'Este campo es requerido'],
+      nuevaCantidad: 0
     }
   },
   computed: {
@@ -78,6 +79,7 @@ export default {
     async actualizar() {
       const url = `/api/v1/repuestos/update/stock/${this.id}`
       const params = Object.assign({}, this.repuesto)
+      params.nueva_cantidad = this.nuevaCantidad
 
       await axios.put(url, params)
 

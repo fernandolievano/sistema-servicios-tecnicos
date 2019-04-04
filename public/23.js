@@ -1,15 +1,25 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[23],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -47,42 +57,297 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'IndexRepuestos',
-  components: {
-    RepuestoCard: function RepuestoCard() {
-      return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ./RepuestoCard.vue */ "./resources/js/components/views/repuestos/RepuestoCard.vue"));
+  props: {
+    clienteId: {
+      type: Number,
+      required: true,
+      default: 0
+    },
+    equipoId: {
+      type: Number,
+      required: true,
+      default: 0
     }
   },
   data: function data() {
     return {
-      keyword: '',
-      show: false
+      autoUpdate: true,
+      isUpdatingR: false,
+      isUpdatingS: false,
+      dialog: false,
+      valid: false,
+      success: false,
+      serviciosRequeridos: [],
+      repuestosUsados: [],
+      detail: {
+        servicios: [],
+        repuestos: []
+      },
+      ticket: null
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    counter: 'repuesto/repuestosCount',
-    filteredRepuestos: 'repuesto/filteredRepuestos'
-  }), {
-    repuestos: function repuestos() {
-      return this.filteredRepuestos(this.keyword);
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['repuesto', 'servicio'])),
+  watch: {
+    isUpdatingR: function isUpdatingR(val) {
+      var _this = this;
+
+      if (val) {
+        // eslint-disable-next-line no-return-assign
+        setTimeout(function () {
+          return _this.isUpdatingR = false;
+        }, 3000);
+      }
+    },
+    isUpdatingS: function isUpdatingS(val) {
+      var _this2 = this;
+
+      if (val) {
+        // eslint-disable-next-line no-return-assign
+        setTimeout(function () {
+          return _this2.isUpdatingS = false;
+        }, 3000);
+      }
     }
-  }),
-  mounted: function mounted() {
-    this.fetch();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    fetch: 'repuesto/fetchAll'
-  }))
+  mounted: function mounted() {
+    this.fetchRepuestos();
+    this.fetchServicios();
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
+    fetchRepuestos: 'repuesto/fetchAll',
+    fetchServicios: 'servicio/fetchAll',
+    createFinal: 'ticket/createFinal',
+    setDetails: 'ticket/sendDetails'
+  }), {
+    generarTicket: function () {
+      var _generarTicket = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var self, pagoTotal, i, precio, cantidad, repuestoDetail, _i, _precio, _cantidad, servicioDetail, servicios, joinedServicios, repuestos, joinedRepuestos, message, formulario, request, url, response;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                self = this;
+                pagoTotal = 0; // eslint-disable-next-line no-plusplus
+
+                for (i = 0; i < self.repuestosUsados.length; i++) {
+                  if (self.repuestosUsados !== null && self.repuestosUsados !== undefined) {
+                    precio = self.repuestosUsados[i].precio_unitario_venta;
+                    cantidad = self.self.repuestosUsados[i].cantidad_utilizada;
+                    pagoTotal += precio * cantidad; // para detalle en la factura
+
+                    repuestoDetail = {
+                      repuesto: self.repuestosUsados[i].repuesto,
+                      cantidad: self.repuestosUsados[i].cantidad_utilizada,
+                      precio_unitario: self.repuestosUsados[i].precio_unitario_venta
+                    };
+                    self.detail.repuestos.push(repuestoDetail);
+                  }
+                } // eslint-disable-next-line no-plusplus
+
+
+                for (_i = 0; _i < self.serviciosRequeridos.length; _i++) {
+                  if (self.serviciosRequeridos[_i] !== null && self.serviciosRequeridos[_i] !== undefined) {
+                    _precio = self.serviciosRequeridos[_i].valor;
+                    _cantidad = self.serviciosRequeridos[_i].cantidad_requerida;
+                    pagoTotal += _precio * _cantidad;
+                    servicioDetail = {
+                      servicio: self.serviciosRequeridos[_i].titulo,
+                      precio: self.serviciosRequeridos[_i].valor,
+                      cantidad: self.serviciosRequeridos[_i].cantidad_requerida
+                    };
+                    self.detail.servicios.push(servicioDetail);
+                  }
+                }
+
+                self.setDetails(self.detail);
+                servicios = self.serviciosRequeridos;
+                joinedServicios = servicios.map(function (serv) {
+                  return serv.titulo;
+                }).join(', ');
+                repuestos = self.repuestosUsados;
+                joinedRepuestos = repuestos.map(function (rep) {
+                  return rep.repuesto;
+                }).join(', ');
+                message = '';
+
+                if (servicios.length < 1) {
+                  message = "Ingresos por la venta de los siguientes repuestos: ".concat(joinedRepuestos, ".");
+                } else if (repuestos.length < 1) {
+                  message = "Ingresos por servicios t\xE9cnicos: ".concat(joinedServicios, ".");
+                } else {
+                  message = "Ingresos por por la venta de los siguientes repuestos: ".concat(joinedRepuestos, " y por servicios t\xE9cnicos: ").concat(joinedServicios, ".");
+                }
+
+                formulario = {
+                  cliente_id: self.clienteId,
+                  equipo_id: self.equipoId,
+                  total: pagoTotal,
+                  mensaje: message
+                };
+                request = Object.assign({}, formulario);
+                url = '/api/v1/tickets/store/final';
+                _context.next = 16;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(url, request);
+
+              case 16:
+                response = _context.sent;
+                self.success = true;
+                self.ticket = response.data;
+
+              case 19:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function generarTicket() {
+        return _generarTicket.apply(this, arguments);
+      }
+
+      return generarTicket;
+    }()
+  })
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e&":
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e& ***!
-  \*********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976& ***!
+  \******************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -98,104 +363,551 @@ var render = function() {
     "div",
     [
       _c(
-        "div",
-        { staticClass: "bottom-shadow" },
+        "v-dialog",
+        {
+          attrs: {
+            lazy: "",
+            fullscreen: "",
+            "hide-overlay": "",
+            transition: "dialog-bottom-transition"
+          },
+          model: {
+            value: _vm.dialog,
+            callback: function($$v) {
+              _vm.dialog = $$v
+            },
+            expression: "dialog"
+          }
+        },
         [
           _c(
-            "v-toolbar",
+            "v-btn",
             {
-              attrs: { color: "green darken-2", dark: "", dense: "", flat: "" }
+              attrs: { slot: "activator", color: "primary", dark: "" },
+              slot: "activator"
             },
+            [_vm._v("Generar ticket de pago")]
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card",
             [
-              _c("v-toolbar-title", [
-                _vm._v(
-                  " " +
-                    _vm._s(_vm.counter) +
-                    " repuestos diferentes disponibles"
-                )
-              ]),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
               _c(
-                "v-toolbar-items",
-                [
-                  _c("v-text-field", {
-                    attrs: {
-                      "append-icon": "search",
-                      flat: "",
-                      dark: "",
-                      "background-color": "transparent",
-                      solo: "",
-                      placeholder: "Búsqueda de repuestos"
-                    },
-                    on: {
-                      input: function($event) {
-                        _vm.show = true
-                      }
-                    },
-                    model: {
-                      value: _vm.keyword,
-                      callback: function($$v) {
-                        _vm.keyword = $$v
-                      },
-                      expression: "keyword"
-                    }
-                  })
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-container",
-        { attrs: { "grid-list-xs": "" } },
-        [
-          _vm.show
-            ? _c(
-                "v-layout",
-                { attrs: { row: "", wrap: "" } },
-                _vm._l(_vm.repuestos, function(item) {
-                  return _c("RepuestoCard", {
-                    key: item.id + item.repuesto,
-                    attrs: { item: item }
-                  })
-                }),
-                1
-              )
-            : _c(
-                "v-layout",
+                "v-toolbar",
+                { attrs: { dark: "", color: "brown darken-4" } },
                 [
                   _c(
-                    "v-flex",
-                    { staticClass: "text-xs-center", attrs: { xs12: "" } },
+                    "v-btn",
+                    {
+                      attrs: { icon: "", dark: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog = false
+                        }
+                      }
+                    },
+                    [_c("v-icon", [_vm._v("close")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-toolbar-title", [_vm._v("Retirar equipo")]),
+                  _vm._v(" "),
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-toolbar-items",
                     [
                       _c(
-                        "v-icon",
+                        "v-btn",
                         {
-                          staticStyle: {
-                            "font-size": "20em",
-                            cursor: "pointer"
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.show = true
-                            }
-                          }
+                          attrs: { dark: "", flat: "" },
+                          on: { click: _vm.generarTicket }
                         },
-                        [_vm._v("memory")]
+                        [_vm._v("Listo")]
                       )
                     ],
                     1
                   )
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _vm.success
+                ? _c(
+                    "div",
+                    { staticClass: "text-xs-center" },
+                    [
+                      _c("h1", { staticClass: "success--text display-2" }, [
+                        _vm._v("\n          Creado con éxito\n        ")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            color: "primary",
+                            block: "",
+                            to: {
+                              name: "factura",
+                              params: { id: _vm.ticket.id }
+                            }
+                          }
+                        },
+                        [_vm._v("\n          Ver Ticket\n        ")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.success
+                ? _c(
+                    "v-form",
+                    {
+                      ref: "retirarequipo",
+                      attrs: { "lazy-validation": "" },
+                      model: {
+                        value: _vm.valid,
+                        callback: function($$v) {
+                          _vm.valid = $$v
+                        },
+                        expression: "valid"
+                      }
+                    },
+                    [
+                      _c("h1", { staticClass: "display-2" }, [
+                        _vm._v("Generar ticket de pago")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-list",
+                        [
+                          _c(
+                            "v-container",
+                            [
+                              _c(
+                                "v-layout",
+                                { attrs: { row: "", wrap: "" } },
+                                [
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-autocomplete", {
+                                        attrs: {
+                                          items: _vm.repuesto.repuestos,
+                                          disabled: _vm.isUpdatingR,
+                                          chips: "",
+                                          color: "blue-grey lighten-2",
+                                          label: "Repuestos utilizados",
+                                          "item-text": "repuesto",
+                                          "return-object": "",
+                                          multiple: ""
+                                        },
+                                        scopedSlots: _vm._u([
+                                          {
+                                            key: "selection",
+                                            fn: function(data) {
+                                              return [
+                                                _c(
+                                                  "v-chip",
+                                                  {
+                                                    staticClass:
+                                                      "chip--select-multi",
+                                                    attrs: {
+                                                      selected: data.selected,
+                                                      close: ""
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        return data.parent.selectItem(
+                                                          data.item
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                      " +
+                                                        _vm._s(
+                                                          data.item.repuesto
+                                                        ) +
+                                                        "\n                    "
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            key: "item",
+                                            fn: function(data) {
+                                              return [
+                                                typeof data.item !== "object"
+                                                  ? [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        {
+                                                          domProps: {
+                                                            textContent: _vm._s(
+                                                              data.item
+                                                            )
+                                                          }
+                                                        }
+                                                      )
+                                                    ]
+                                                  : [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-title",
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  data.item
+                                                                    .repuesto
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-sub-title",
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  data.item
+                                                                    .precio_unitario_venta
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ]
+                                              ]
+                                            }
+                                          }
+                                        ]),
+                                        model: {
+                                          value: _vm.repuestosUsados,
+                                          callback: function($$v) {
+                                            _vm.repuestosUsados = $$v
+                                          },
+                                          expression: "repuestosUsados"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("h4", [_vm._v("Repuestos")]),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.repuestosUsados, function(
+                                        repuesto
+                                      ) {
+                                        return _c(
+                                          "v-layout",
+                                          {
+                                            key: repuesto.id,
+                                            attrs: { row: "", wrap: "" }
+                                          },
+                                          [
+                                            _c(
+                                              "v-flex",
+                                              { attrs: { xs12: "" } },
+                                              [
+                                                _c("h5", [
+                                                  _vm._v(
+                                                    _vm._s(repuesto.repuesto)
+                                                  )
+                                                ])
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-flex",
+                                              { attrs: { xs12: "", md6: "" } },
+                                              [
+                                                _c("v-text-field", {
+                                                  attrs: {
+                                                    label: "Precio",
+                                                    required: ""
+                                                  },
+                                                  model: {
+                                                    value:
+                                                      repuesto.precio_unitario_venta,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        repuesto,
+                                                        "precio_unitario_venta",
+                                                        _vm._n($$v)
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "repuesto.precio_unitario_venta"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-flex",
+                                              { attrs: { xs12: "", md6: "" } },
+                                              [
+                                                _c("v-text-field", {
+                                                  attrs: {
+                                                    label: "Cantidad requerida",
+                                                    required: ""
+                                                  },
+                                                  model: {
+                                                    value:
+                                                      repuesto.cantidad_utilizada,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        repuesto,
+                                                        "cantidad_utilizada",
+                                                        _vm._n($$v)
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "repuesto.cantidad_utilizada"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-autocomplete", {
+                                        attrs: {
+                                          items: _vm.servicio.servicios,
+                                          disabled: _vm.isUpdatingS,
+                                          chips: "",
+                                          color: "blue-grey lighten-2",
+                                          label: "Servicios Requeridos",
+                                          "item-text": "titulo",
+                                          "return-object": "",
+                                          multiple: ""
+                                        },
+                                        scopedSlots: _vm._u([
+                                          {
+                                            key: "selection",
+                                            fn: function(data) {
+                                              return [
+                                                _c(
+                                                  "v-chip",
+                                                  {
+                                                    staticClass:
+                                                      "chip--select-multi",
+                                                    attrs: {
+                                                      selected: data.selected,
+                                                      close: ""
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        return data.parent.selectItem(
+                                                          data.item
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                      " +
+                                                        _vm._s(
+                                                          data.item.titulo
+                                                        ) +
+                                                        "\n                    "
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            key: "item",
+                                            fn: function(data) {
+                                              return [
+                                                typeof data.item !== "object"
+                                                  ? [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        {
+                                                          domProps: {
+                                                            textContent: _vm._s(
+                                                              data.item
+                                                            )
+                                                          }
+                                                        }
+                                                      )
+                                                    ]
+                                                  : [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-title",
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  data.item
+                                                                    .titulo
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-sub-title",
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  data.item
+                                                                    .valor
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ]
+                                              ]
+                                            }
+                                          }
+                                        ]),
+                                        model: {
+                                          value: _vm.serviciosRequeridos,
+                                          callback: function($$v) {
+                                            _vm.serviciosRequeridos = $$v
+                                          },
+                                          expression: "serviciosRequeridos"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("h4", [_vm._v("Servicios")]),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.serviciosRequeridos, function(
+                                        servicio
+                                      ) {
+                                        return _c(
+                                          "v-layout",
+                                          {
+                                            key: servicio.id + servicio.titulo,
+                                            attrs: { row: "", wrap: "" }
+                                          },
+                                          [
+                                            _c(
+                                              "v-flex",
+                                              { attrs: { xs12: "" } },
+                                              [
+                                                _c("h5", [
+                                                  _vm._v(
+                                                    _vm._s(servicio.titulo)
+                                                  )
+                                                ])
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-flex",
+                                              { attrs: { xs12: "", md6: "" } },
+                                              [
+                                                _c("v-text-field", {
+                                                  attrs: {
+                                                    label: "Costo",
+                                                    required: ""
+                                                  },
+                                                  model: {
+                                                    value: servicio.valor,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        servicio,
+                                                        "valor",
+                                                        _vm._n($$v)
+                                                      )
+                                                    },
+                                                    expression: "servicio.valor"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-flex",
+                                              { attrs: { xs12: "", md6: "" } },
+                                              [
+                                                _c("v-text-field", {
+                                                  attrs: {
+                                                    label: "Cantidad requerida",
+                                                    required: ""
+                                                  },
+                                                  model: {
+                                                    value:
+                                                      servicio.cantidad_requerida,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        servicio,
+                                                        "cantidad_requerida",
+                                                        _vm._n($$v)
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "servicio.cantidad_requerida"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
         ],
         1
       )
@@ -210,17 +922,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/views/repuestos/RepuestosIndex.vue":
-/*!********************************************************************!*\
-  !*** ./resources/js/components/views/repuestos/RepuestosIndex.vue ***!
-  \********************************************************************/
+/***/ "./resources/js/components/views/equipos/EquipoRetirar.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/views/equipos/EquipoRetirar.vue ***!
+  \*****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RepuestosIndex.vue?vue&type=template&id=8505c92e& */ "./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e&");
-/* harmony import */ var _RepuestosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RepuestosIndex.vue?vue&type=script&lang=js& */ "./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js&");
+/* harmony import */ var _EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EquipoRetirar.vue?vue&type=template&id=b0407976& */ "./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976&");
+/* harmony import */ var _EquipoRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EquipoRetirar.vue?vue&type=script&lang=js& */ "./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -230,9 +942,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _RepuestosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _EquipoRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -242,38 +954,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/views/repuestos/RepuestosIndex.vue"
+component.options.__file = "resources/js/components/views/equipos/EquipoRetirar.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************/
+/***/ "./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepuestosIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestosIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquipoRetirar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoRetirar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e& ***!
-  \***************************************************************************************************/
+/***/ "./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976& ***!
+  \************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepuestosIndex.vue?vue&type=template&id=8505c92e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestosIndex.vue?vue&type=template&id=8505c92e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EquipoRetirar.vue?vue&type=template&id=b0407976& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/equipos/EquipoRetirar.vue?vue&type=template&id=b0407976&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestosIndex_vue_vue_type_template_id_8505c92e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EquipoRetirar_vue_vue_type_template_id_b0407976___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

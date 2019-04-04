@@ -102,6 +102,78 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -119,20 +191,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
+      autoUpdate: true,
+      isUpdatingR: false,
+      isUpdatingS: false,
       dialog: false,
       valid: false,
       success: false,
+      serviciosRequeridos: [],
+      repuestosUsados: [],
       detail: {
         servicios: [],
         repuestos: []
       },
-      serviciosRequeridos: [],
-      repuestosUsados: [],
-      repuestosUsadosCantidad: [],
       ticket: null
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['repuesto', 'servicio'])),
+  watch: {
+    isUpdatingR: function isUpdatingR(val) {
+      var _this = this;
+
+      if (val) {
+        // eslint-disable-next-line no-return-assign
+        setTimeout(function () {
+          return _this.isUpdatingR = false;
+        }, 1500);
+      }
+    },
+    isUpdatingS: function isUpdatingS(val) {
+      var _this2 = this;
+
+      if (val) {
+        // eslint-disable-next-line no-return-assign
+        setTimeout(function () {
+          return _this2.isUpdatingS = false;
+        }, 1500);
+      }
+    }
+  },
   mounted: function mounted() {
     this.fetchRepuestos();
     this.fetchServicios();
@@ -144,44 +240,45 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     setDetails: 'ticket/sendDetails'
   }), {
     generarTicket: function generarTicket() {
-      var _this = this;
-
       var self = this;
       var pagoTotal = 0; // eslint-disable-next-line no-plusplus
 
-      for (var i = 0; i < this.repuestosUsados.length; i++) {
-        if (this.repuestosUsados !== null && this.repuestosUsados !== undefined) {
-          var precio = this.repuestosUsados[i].precio_unitario_venta;
-          var cantidad = this.repuestosUsadosCantidad[i];
+      for (var i = 0; i <= self.repuestosUsados.length; i++) {
+        if (self.repuestosUsados !== null && self.repuestosUsados !== undefined) {
+          var precio = self.repuestosUsados[i].precio_unitario_venta;
+          var cantidad = self.self.repuestosUsados[i].cantidad_utilizada;
           pagoTotal += precio * cantidad; // para detalle en la factura
 
           var repuestoDetail = {
-            repuesto: this.repuestosUsados[i].repuesto,
-            cantidad: this.repuestosUsadosCantidad[i],
-            precio_unitario: this.repuestosUsados[i].precio_unitario_venta
+            repuesto: self.repuestosUsados[i].repuesto,
+            cantidad: self.repuestosUsados[i].cantidad_utilizada,
+            precio_unitario: self.repuestosUsados[i].precio_unitario_venta
           };
-          this.detail.repuestos.push(repuestoDetail);
+          self.detail.repuestos.push(repuestoDetail);
         }
       } // eslint-disable-next-line no-plusplus
 
 
-      for (var _i = 0; _i < this.serviciosRequeridos.length; _i++) {
-        if (this.serviciosRequeridos[_i] !== null && this.serviciosRequeridos[_i] !== undefined) {
-          pagoTotal += this.serviciosRequeridos[_i].valor;
+      for (var _i = 0; _i <= self.serviciosRequeridos.length; _i++) {
+        if (self.serviciosRequeridos[_i] !== null && self.serviciosRequeridos[_i] !== undefined) {
+          var _precio = self.serviciosRequeridos[_i].valor;
+          var _cantidad = self.serviciosRequeridos[_i].cantidad_requerida;
+          pagoTotal += _precio * _cantidad;
           var servicioDetail = {
-            servicio: this.serviciosRequeridos[_i].titulo,
-            precio: this.serviciosRequeridos[_i].valor
+            servicio: self.serviciosRequeridos[_i].titulo,
+            precio: self.serviciosRequeridos[_i].valor,
+            cantidad: self.serviciosRequeridos[_i].cantidad_requerida
           };
-          this.detail.servicios.push(servicioDetail);
+          self.detail.servicios.push(servicioDetail);
         }
       }
 
-      this.setDetails(this.detail);
-      var servicios = this.serviciosRequeridos;
+      self.setDetails(self.detail);
+      var servicios = self.serviciosRequeridos;
       var joinedServicios = servicios.map(function (serv) {
         return serv.titulo;
       }).join(', ');
-      var repuestos = this.repuestosUsados;
+      var repuestos = self.repuestosUsados;
       var joinedRepuestos = repuestos.map(function (rep) {
         return rep.repuesto;
       }).join(', ');
@@ -204,15 +301,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var request = Object.assign({}, formulario);
       var url = '/api/v1/tickets/store/final';
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, request).then(function (response) {
-        _this.success = true;
-        _this.ticket = response.data;
+        self.success = true;
+        self.ticket = response.data;
       });
-    },
-    servicioInfo: function servicioInfo(titulo, valor) {
-      return "".concat(titulo, " - ").concat(valor, " ARS");
-    },
-    repuestoInfo: function repuestoInfo(repuesto, precio) {
-      return "".concat(repuesto, " - ").concat(precio, " ARS");
     }
   })
 });
@@ -368,63 +459,181 @@ var render = function() {
                                     "v-flex",
                                     { attrs: { xs12: "" } },
                                     [
-                                      _c("h3", [
-                                        _vm._v("Repuestos utilizados")
-                                      ]),
-                                      _vm._v(" "),
-                                      _vm._l(_vm.repuesto.repuestos, function(
-                                        repuesto,
-                                        index
-                                      ) {
-                                        return _c(
-                                          "v-list-tile",
-                                          { key: repuesto.repuesto },
-                                          [
-                                            _c(
+                                      _c("v-autocomplete", {
+                                        attrs: {
+                                          items: _vm.repuesto.repuestos,
+                                          disabled: _vm.isUpdatingR,
+                                          chips: "",
+                                          color: "blue-grey lighten-2",
+                                          label: "Repuestos utilizados",
+                                          "item-text": "repuesto",
+                                          "return-object": "",
+                                          multiple: ""
+                                        },
+                                        scopedSlots: _vm._u([
+                                          {
+                                            key: "selection",
+                                            fn: function(data) {
+                                              return [
+                                                _c(
+                                                  "v-chip",
+                                                  {
+                                                    staticClass:
+                                                      "chip--select-multi",
+                                                    attrs: {
+                                                      selected: data.selected,
+                                                      close: ""
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        return data.parent.selectItem(
+                                                          data.item
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                      " +
+                                                        _vm._s(
+                                                          data.item.repuesto
+                                                        ) +
+                                                        "\n                    "
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            key: "item",
+                                            fn: function(data) {
+                                              return [
+                                                typeof data.item !== "object"
+                                                  ? [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        {
+                                                          domProps: {
+                                                            textContent: _vm._s(
+                                                              data.item
+                                                            )
+                                                          }
+                                                        }
+                                                      )
+                                                    ]
+                                                  : [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-title",
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  data.item
+                                                                    .repuesto
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-sub-title",
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  data.item
+                                                                    .precio_unitario_venta
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ]
+                                              ]
+                                            }
+                                          }
+                                        ]),
+                                        model: {
+                                          value: _vm.repuestosUsados,
+                                          callback: function($$v) {
+                                            _vm.repuestosUsados = $$v
+                                          },
+                                          expression: "repuestosUsados"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _vm.repuestosUsados.length > 0
+                                    ? _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("h4", [_vm._v("Repuestos")]),
+                                          _vm._v(" "),
+                                          _vm._l(_vm.repuestosUsados, function(
+                                            repuesto
+                                          ) {
+                                            return _c(
                                               "v-layout",
-                                              { attrs: { row: "", wrap: "" } },
+                                              {
+                                                key: repuesto.id,
+                                                attrs: { row: "", wrap: "" }
+                                              },
                                               [
                                                 _c(
                                                   "v-flex",
-                                                  {
-                                                    attrs: { xs12: "", sm6: "" }
-                                                  },
+                                                  { attrs: { xs12: "" } },
                                                   [
                                                     _c(
-                                                      "v-list-tile-content",
+                                                      "h5",
+                                                      {
+                                                        staticClass:
+                                                          "primary--text"
+                                                      },
                                                       [
-                                                        _c("v-checkbox", {
-                                                          key:
-                                                            repuesto.repuesto,
-                                                          attrs: {
-                                                            label: _vm.repuestoInfo(
-                                                              repuesto.repuesto,
-                                                              repuesto.precio_unitario_venta
-                                                            ),
-                                                            value: repuesto
-                                                          },
-                                                          model: {
-                                                            value:
-                                                              _vm
-                                                                .repuestosUsados[
-                                                                index
-                                                              ],
-                                                            callback: function(
-                                                              $$v
-                                                            ) {
-                                                              _vm.$set(
-                                                                _vm.repuestosUsados,
-                                                                index,
-                                                                $$v
-                                                              )
-                                                            },
-                                                            expression:
-                                                              "repuestosUsados[index]"
-                                                          }
-                                                        })
-                                                      ],
-                                                      1
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            repuesto.repuesto
+                                                          )
+                                                        )
+                                                      ]
                                                     )
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-flex",
+                                                  {
+                                                    attrs: { xs12: "", md6: "" }
+                                                  },
+                                                  [
+                                                    _c("v-text-field", {
+                                                      attrs: {
+                                                        label: "Precio",
+                                                        required: ""
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          repuesto.precio_unitario_venta,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            repuesto,
+                                                            "precio_unitario_venta",
+                                                            _vm._n($$v)
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "repuesto.precio_unitario_venta"
+                                                      }
+                                                    })
                                                   ],
                                                   1
                                                 ),
@@ -432,121 +641,273 @@ var render = function() {
                                                 _c(
                                                   "v-flex",
                                                   {
-                                                    attrs: { xs12: "", sm6: "" }
+                                                    attrs: { xs12: "", md6: "" }
                                                   },
                                                   [
-                                                    _c(
-                                                      "v-list-tile-content",
-                                                      [
-                                                        _c("v-text-field", {
-                                                          key:
-                                                            repuesto.precio_unitario_venta,
-                                                          attrs: {
-                                                            placeholder:
-                                                              "Cantidad"
-                                                          },
-                                                          model: {
-                                                            value:
-                                                              _vm
-                                                                .repuestosUsadosCantidad[
-                                                                index
-                                                              ],
-                                                            callback: function(
-                                                              $$v
-                                                            ) {
-                                                              _vm.$set(
-                                                                _vm.repuestosUsadosCantidad,
-                                                                index,
-                                                                $$v
-                                                              )
-                                                            },
-                                                            expression:
-                                                              "repuestosUsadosCantidad[index]"
-                                                          }
-                                                        })
-                                                      ],
-                                                      1
-                                                    )
+                                                    _c("v-text-field", {
+                                                      attrs: {
+                                                        label:
+                                                          "Cantidad requerida",
+                                                        required: ""
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          repuesto.cantidad_utilizada,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            repuesto,
+                                                            "cantidad_utilizada",
+                                                            _vm._n($$v)
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "repuesto.cantidad_utilizada"
+                                                      }
+                                                    })
                                                   ],
                                                   1
                                                 )
                                               ],
                                               1
                                             )
-                                          ],
-                                          1
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  ),
+                                          })
+                                        ],
+                                        2
+                                      )
+                                    : _vm._e(),
                                   _vm._v(" "),
                                   _c(
                                     "v-flex",
                                     { attrs: { xs12: "" } },
                                     [
-                                      _c("h3", [
-                                        _vm._v("Servicios requeridos")
-                                      ]),
-                                      _vm._v(" "),
-                                      _vm._l(_vm.servicio.servicios, function(
-                                        servicio,
-                                        index
-                                      ) {
-                                        return _c(
-                                          "v-list-tile",
-                                          { key: servicio.servicio },
-                                          [
-                                            _c(
-                                              "v-list-tile-content",
-                                              [
-                                                _c("v-checkbox", {
-                                                  key: servicio.titulo,
-                                                  attrs: {
-                                                    label: _vm.servicioInfo(
-                                                      servicio.titulo,
-                                                      servicio.valor
-                                                    ),
-                                                    value: servicio
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      _vm.serviciosRequeridos[
-                                                        index
-                                                      ],
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        _vm.serviciosRequeridos,
-                                                        index,
-                                                        $$v
-                                                      )
+                                      _c("v-autocomplete", {
+                                        attrs: {
+                                          items: _vm.servicio.servicios,
+                                          disabled: _vm.isUpdatingS,
+                                          chips: "",
+                                          color: "blue-grey lighten-2",
+                                          label: "Servicios Requeridos",
+                                          "item-text": "titulo",
+                                          "return-object": "",
+                                          multiple: ""
+                                        },
+                                        scopedSlots: _vm._u([
+                                          {
+                                            key: "selection",
+                                            fn: function(data) {
+                                              return [
+                                                _c(
+                                                  "v-chip",
+                                                  {
+                                                    staticClass:
+                                                      "chip--select-multi",
+                                                    attrs: {
+                                                      selected: data.selected,
+                                                      close: ""
                                                     },
-                                                    expression:
-                                                      "serviciosRequeridos[index]"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            ),
-                                            _vm._v(" "),
-                                            _c("v-list-tile-content", [
-                                              _c(
-                                                "span",
-                                                { staticClass: "caption" },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(servicio.descripcion)
-                                                  )
-                                                ]
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        )
+                                                    on: {
+                                                      input: function($event) {
+                                                        return data.parent.selectItem(
+                                                          data.item
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                      " +
+                                                        _vm._s(
+                                                          data.item.titulo
+                                                        ) +
+                                                        "\n                    "
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            key: "item",
+                                            fn: function(data) {
+                                              return [
+                                                typeof data.item !== "object"
+                                                  ? [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        {
+                                                          domProps: {
+                                                            textContent: _vm._s(
+                                                              data.item
+                                                            )
+                                                          }
+                                                        }
+                                                      )
+                                                    ]
+                                                  : [
+                                                      _c(
+                                                        "v-list-tile-content",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-title",
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  data.item
+                                                                    .titulo
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-sub-title",
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  data.item
+                                                                    .valor
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ]
+                                              ]
+                                            }
+                                          }
+                                        ]),
+                                        model: {
+                                          value: _vm.serviciosRequeridos,
+                                          callback: function($$v) {
+                                            _vm.serviciosRequeridos = $$v
+                                          },
+                                          expression: "serviciosRequeridos"
+                                        }
                                       })
                                     ],
-                                    2
-                                  )
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _vm.serviciosRequeridos.length > 0
+                                    ? _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("h4", [_vm._v("Servicios")]),
+                                          _vm._v(" "),
+                                          _vm._l(
+                                            _vm.serviciosRequeridos,
+                                            function(servicio) {
+                                              return _c(
+                                                "v-layout",
+                                                {
+                                                  key:
+                                                    servicio.id +
+                                                    servicio.titulo,
+                                                  attrs: { row: "", wrap: "" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "v-flex",
+                                                    { attrs: { xs12: "" } },
+                                                    [
+                                                      _c(
+                                                        "h5",
+                                                        {
+                                                          staticClass:
+                                                            "primary--text"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              servicio.titulo
+                                                            )
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-flex",
+                                                    {
+                                                      attrs: {
+                                                        xs12: "",
+                                                        md6: ""
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("v-text-field", {
+                                                        attrs: {
+                                                          label: "Costo",
+                                                          required: ""
+                                                        },
+                                                        model: {
+                                                          value: servicio.valor,
+                                                          callback: function(
+                                                            $$v
+                                                          ) {
+                                                            _vm.$set(
+                                                              servicio,
+                                                              "valor",
+                                                              _vm._n($$v)
+                                                            )
+                                                          },
+                                                          expression:
+                                                            "servicio.valor"
+                                                        }
+                                                      })
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-flex",
+                                                    {
+                                                      attrs: {
+                                                        xs12: "",
+                                                        md6: ""
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("v-text-field", {
+                                                        attrs: {
+                                                          label:
+                                                            "Cantidad requerida",
+                                                          required: ""
+                                                        },
+                                                        model: {
+                                                          value:
+                                                            servicio.cantidad_requerida,
+                                                          callback: function(
+                                                            $$v
+                                                          ) {
+                                                            _vm.$set(
+                                                              servicio,
+                                                              "cantidad_requerida",
+                                                              _vm._n($$v)
+                                                            )
+                                                          },
+                                                          expression:
+                                                            "servicio.cantidad_requerida"
+                                                        }
+                                                      })
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            }
+                                          )
+                                        ],
+                                        2
+                                      )
+                                    : _vm._e()
                                 ],
                                 1
                               )

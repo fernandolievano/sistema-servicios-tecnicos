@@ -27,53 +27,125 @@
             <v-container>
               <v-layout row wrap>
                 <v-flex xs12>
-                  <h3>Repuestos utilizados</h3>
-                  <v-list-tile
-                    v-for="(repuesto, index) in repuesto.repuestos"
-                    :key="repuesto.repuesto"
+                  <v-autocomplete
+                    v-model="repuestosUsados"
+                    :items="repuesto.repuestos"
+                    :disabled="isUpdatingR"
+                    chips
+                    color="blue-grey lighten-2"
+                    label="Repuestos utilizados"
+                    item-text="repuesto"
+                    return-object
+                    multiple
                   >
-                    <v-layout row wrap>
-                      <v-flex xs12 sm6>
+                    <template slot="selection" slot-scope="data">
+                      <v-chip
+                        :selected="data.selected"
+                        close
+                        class="chip--select-multi"
+                        @input="data.parent.selectItem(data.item)"
+                      >
+                        {{ data.item.repuesto }}
+                      </v-chip>
+                    </template>
+                    <template slot="item" slot-scope="data">
+                      <template v-if="typeof data.item !== 'object'">
+                        <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                      </template>
+                      <template v-else>
                         <v-list-tile-content>
-                          <v-checkbox
-                            :key="repuesto.repuesto"
-                            v-model="repuestosUsados[index]"
-                            :label="repuestoInfo(repuesto.repuesto, repuesto.precio_unitario_venta)"
-                            :value="repuesto"
-                          ></v-checkbox>
+                          <v-list-tile-title>{{ data.item.repuesto }}</v-list-tile-title>
+                          <v-list-tile-sub-title>{{
+                            data.item.precio_unitario_venta
+                          }}</v-list-tile-sub-title>
                         </v-list-tile-content>
-                      </v-flex>
-                      <v-flex xs12 sm6>
-                        <v-list-tile-content>
-                          <v-text-field
-                            :key="repuesto.precio_unitario_venta"
-                            v-model="repuestosUsadosCantidad[index]"
-                            placeholder="Cantidad"
-                          >
-                          </v-text-field>
-                        </v-list-tile-content>
-                      </v-flex>
-                    </v-layout>
-                  </v-list-tile>
+                      </template>
+                    </template>
+                  </v-autocomplete>
+                </v-flex>
+                <v-flex v-if="repuestosUsados.length > 0" xs12>
+                  <h4>Repuestos</h4>
+                  <v-layout v-for="repuesto in repuestosUsados" :key="repuesto.id" row wrap>
+                    <v-flex xs12>
+                      <h5 class="primary--text">{{ repuesto.repuesto }}</h5>
+                    </v-flex>
+                    <v-flex xs12 md6>
+                      <v-text-field
+                        v-model.number="repuesto.precio_unitario_venta"
+                        label="Precio"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 md6>
+                      <v-text-field
+                        v-model.number="repuesto.cantidad_utilizada"
+                        label="Cantidad requerida"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
                 </v-flex>
                 <v-flex xs12>
-                  <h3>Servicios requeridos</h3>
-                  <v-list-tile
-                    v-for="(servicio, index) in servicio.servicios"
-                    :key="servicio.servicio"
+                  <v-autocomplete
+                    v-model="serviciosRequeridos"
+                    :items="servicio.servicios"
+                    :disabled="isUpdatingS"
+                    chips
+                    color="blue-grey lighten-2"
+                    label="Servicios Requeridos"
+                    item-text="titulo"
+                    return-object
+                    multiple
                   >
-                    <v-list-tile-content>
-                      <v-checkbox
-                        :key="servicio.titulo"
-                        v-model="serviciosRequeridos[index]"
-                        :label="servicioInfo(servicio.titulo, servicio.valor)"
-                        :value="servicio"
-                      ></v-checkbox>
-                    </v-list-tile-content>
-                    <v-list-tile-content>
-                      <span class="caption">{{ servicio.descripcion }}</span>
-                    </v-list-tile-content>
-                  </v-list-tile>
+                    <template slot="selection" slot-scope="data">
+                      <v-chip
+                        :selected="data.selected"
+                        close
+                        class="chip--select-multi"
+                        @input="data.parent.selectItem(data.item)"
+                      >
+                        {{ data.item.titulo }}
+                      </v-chip>
+                    </template>
+                    <template slot="item" slot-scope="data">
+                      <template v-if="typeof data.item !== 'object'">
+                        <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                      </template>
+                      <template v-else>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ data.item.titulo }}</v-list-tile-title>
+                          <v-list-tile-sub-title>{{ data.item.valor }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </template>
+                    </template>
+                  </v-autocomplete>
+                </v-flex>
+                <v-flex v-if="serviciosRequeridos.length > 0" xs12>
+                  <h4>Servicios</h4>
+                  <v-layout
+                    v-for="servicio in serviciosRequeridos"
+                    :key="servicio.id + servicio.titulo"
+                    row
+                    wrap
+                  >
+                    <v-flex xs12>
+                      <h5 class="primary--text">{{ servicio.titulo }}</h5>
+                    </v-flex>
+                    <v-flex xs12 md6>
+                      <v-text-field
+                        v-model.number="servicio.valor"
+                        label="Costo"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 md6>
+                      <v-text-field
+                        v-model.number="servicio.cantidad_requerida"
+                        label="Cantidad requerida"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -103,21 +175,37 @@ export default {
   },
   data() {
     return {
+      autoUpdate: true,
+      isUpdatingR: false,
+      isUpdatingS: false,
       dialog: false,
       valid: false,
       success: false,
+      serviciosRequeridos: [],
+      repuestosUsados: [],
       detail: {
         servicios: [],
         repuestos: []
       },
-      serviciosRequeridos: [],
-      repuestosUsados: [],
-      repuestosUsadosCantidad: [],
       ticket: null
     }
   },
   computed: {
     ...mapState(['repuesto', 'servicio'])
+  },
+  watch: {
+    isUpdatingR(val) {
+      if (val) {
+        // eslint-disable-next-line no-return-assign
+        setTimeout(() => (this.isUpdatingR = false), 1500)
+      }
+    },
+    isUpdatingS(val) {
+      if (val) {
+        // eslint-disable-next-line no-return-assign
+        setTimeout(() => (this.isUpdatingS = false), 1500)
+      }
+    }
   },
   mounted() {
     this.fetchRepuestos()
@@ -135,43 +223,46 @@ export default {
       let pagoTotal = 0
 
       // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < this.repuestosUsados.length; i++) {
-        if (this.repuestosUsados !== null && this.repuestosUsados !== undefined) {
-          const precio = this.repuestosUsados[i].precio_unitario_venta
-          const cantidad = this.repuestosUsadosCantidad[i]
+      for (let i = 0; i <= self.repuestosUsados.length; i++) {
+        if (self.repuestosUsados !== null && self.repuestosUsados !== undefined) {
+          const precio = self.repuestosUsados[i].precio_unitario_venta
+          const cantidad = self.self.repuestosUsados[i].cantidad_utilizada
           pagoTotal += precio * cantidad
 
           // para detalle en la factura
           const repuestoDetail = {
-            repuesto: this.repuestosUsados[i].repuesto,
-            cantidad: this.repuestosUsadosCantidad[i],
-            precio_unitario: this.repuestosUsados[i].precio_unitario_venta
+            repuesto: self.repuestosUsados[i].repuesto,
+            cantidad: self.repuestosUsados[i].cantidad_utilizada,
+            precio_unitario: self.repuestosUsados[i].precio_unitario_venta
           }
 
-          this.detail.repuestos.push(repuestoDetail)
+          self.detail.repuestos.push(repuestoDetail)
         }
       }
 
       // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < this.serviciosRequeridos.length; i++) {
-        if (this.serviciosRequeridos[i] !== null && this.serviciosRequeridos[i] !== undefined) {
-          pagoTotal += this.serviciosRequeridos[i].valor
+      for (let i = 0; i <= self.serviciosRequeridos.length; i++) {
+        if (self.serviciosRequeridos[i] !== null && self.serviciosRequeridos[i] !== undefined) {
+          const precio = self.serviciosRequeridos[i].valor
+          const cantidad = self.serviciosRequeridos[i].cantidad_requerida
+          pagoTotal += precio * cantidad
 
           const servicioDetail = {
-            servicio: this.serviciosRequeridos[i].titulo,
-            precio: this.serviciosRequeridos[i].valor
+            servicio: self.serviciosRequeridos[i].titulo,
+            precio: self.serviciosRequeridos[i].valor,
+            cantidad: self.serviciosRequeridos[i].cantidad_requerida
           }
 
-          this.detail.servicios.push(servicioDetail)
+          self.detail.servicios.push(servicioDetail)
         }
       }
 
-      this.setDetails(this.detail)
+      self.setDetails(self.detail)
 
-      const servicios = this.serviciosRequeridos
+      const servicios = self.serviciosRequeridos
       const joinedServicios = servicios.map(serv => serv.titulo).join(', ')
 
-      const repuestos = this.repuestosUsados
+      const repuestos = self.repuestosUsados
       const joinedRepuestos = repuestos.map(rep => rep.repuesto).join(', ')
 
       let message = ''
@@ -195,15 +286,9 @@ export default {
       const url = '/api/v1/tickets/store/final'
 
       axios.post(url, request).then(response => {
-        this.success = true
-        this.ticket = response.data
+        self.success = true
+        self.ticket = response.data
       })
-    },
-    servicioInfo(titulo, valor) {
-      return `${titulo} - ${valor} ARS`
-    },
-    repuestoInfo(repuesto, precio) {
-      return `${repuesto} - ${precio} ARS`
     }
   }
 }

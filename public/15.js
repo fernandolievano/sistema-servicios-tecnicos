@@ -172,10 +172,7 @@ var render = function() {
       _c(
         "v-btn",
         { attrs: { slot: "activator", color: "success" }, slot: "activator" },
-        [
-          _vm._v("\n    Incrementar Stock\n    "),
-          _c("v-icon", [_vm._v("add")])
-        ],
+        [_vm._v("\n    Actualizar Stock\n    "), _c("v-icon", [_vm._v("add")])],
         1
       ),
       _vm._v(" "),

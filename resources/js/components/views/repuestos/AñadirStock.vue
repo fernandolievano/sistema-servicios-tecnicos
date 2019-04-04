@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
     <v-btn slot="activator" color="success">
-      Incrementar Stock
+      Actualizar Stock
       <v-icon>add</v-icon>
     </v-btn>
     <v-card>

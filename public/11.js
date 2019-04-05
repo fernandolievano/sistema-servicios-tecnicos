@@ -134,7 +134,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./Estado.vue */ "./resources/js/components/views/equipos/Estado.vue"));
     },
     RetirarEquipo: function RetirarEquipo() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./EquipoRetirar.vue */ "./resources/js/components/views/equipos/EquipoRetirar.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(23)]).then(__webpack_require__.bind(null, /*! ./EquipoRetirar.vue */ "./resources/js/components/views/equipos/EquipoRetirar.vue"));
     }
   },
   props: {

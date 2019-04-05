@@ -174,6 +174,60 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -199,9 +253,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       success: false,
       serviciosRequeridos: [],
       repuestosUsados: [],
+      otros: [],
+      nuevoItem: {
+        detalle: '',
+        cantidad: 1,
+        costo: 0
+      },
       detail: {
         servicios: [],
-        repuestos: []
+        repuestos: [],
+        otros: []
       },
       ticket: null
     };
@@ -239,40 +300,46 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     createFinal: 'ticket/createFinal',
     setDetails: 'ticket/sendDetails'
   }), {
+    añadirItem: function aAdirItem(item) {
+      var nuevo = item;
+      this.otros.push(nuevo);
+      this.nuevoItem.descripcion = '';
+      this.nuevoItem.cantidad = 1;
+      this.nuevoItem.costo = 0;
+    },
     generarTicket: function generarTicket() {
       var self = this;
-      var pagoTotal = 0; // eslint-disable-next-line no-plusplus
+      var pagoTotal = 0;
+      self.repuestosUsados.forEach(function (repuesto) {
+        pagoTotal += repuesto.precio_unitario_venta * repuesto.cantidad_utilizada; // detalle ticket
 
-      for (var i = 0; i <= self.repuestosUsados.length; i++) {
-        if (self.repuestosUsados !== null && self.repuestosUsados !== undefined) {
-          var precio = self.repuestosUsados[i].precio_unitario_venta;
-          var cantidad = self.self.repuestosUsados[i].cantidad_utilizada;
-          pagoTotal += precio * cantidad; // para detalle en la factura
+        var repuestoDetail = {
+          repuesto: repuesto.repuesto,
+          cantidad: repuesto.cantidad_utilizada,
+          precio_unitario: repuesto.precio_unitario_venta
+        };
+        self.detail.repuestos.push(repuestoDetail);
+      });
+      self.serviciosRequeridos.forEach(function (servicio) {
+        pagoTotal += servicio.valor * servicio.cantidad_requerida; // detalle ticket
 
-          var repuestoDetail = {
-            repuesto: self.repuestosUsados[i].repuesto,
-            cantidad: self.repuestosUsados[i].cantidad_utilizada,
-            precio_unitario: self.repuestosUsados[i].precio_unitario_venta
-          };
-          self.detail.repuestos.push(repuestoDetail);
-        }
-      } // eslint-disable-next-line no-plusplus
+        var servicioDetail = {
+          servicio: servicio.titulo,
+          precio: servicio.valor,
+          cantidad: servicio.cantidad_requerida
+        };
+        self.detail.servicios.push(servicioDetail);
+      });
+      self.otros.forEach(function (item) {
+        pagoTotal += item.costo * item.cantidad; //  detalle ticket
 
-
-      for (var _i = 0; _i <= self.serviciosRequeridos.length; _i++) {
-        if (self.serviciosRequeridos[_i] !== null && self.serviciosRequeridos[_i] !== undefined) {
-          var _precio = self.serviciosRequeridos[_i].valor;
-          var _cantidad = self.serviciosRequeridos[_i].cantidad_requerida;
-          pagoTotal += _precio * _cantidad;
-          var servicioDetail = {
-            servicio: self.serviciosRequeridos[_i].titulo,
-            precio: self.serviciosRequeridos[_i].valor,
-            cantidad: self.serviciosRequeridos[_i].cantidad_requerida
-          };
-          self.detail.servicios.push(servicioDetail);
-        }
-      }
-
+        var otroDetail = {
+          descripcion: item.descripcion,
+          costo: item.costo,
+          cantidad: item.cantidad
+        };
+        self.detail.otros.push(otroDetail);
+      });
       self.setDetails(self.detail);
       var servicios = self.serviciosRequeridos;
       var joinedServicios = servicios.map(function (serv) {
@@ -282,14 +349,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var joinedRepuestos = repuestos.map(function (rep) {
         return rep.repuesto;
       }).join(', ');
+      var otrosR = self.otros;
+      var joinedOtros = otrosR.map(function (item) {
+        return item.descripcion;
+      }).join(', ');
       var message = '';
 
-      if (servicios.length < 1) {
+      if (servicios.length < 1 && otrosR.length < 1) {
         message = "Ingresos por la venta de los siguientes repuestos: ".concat(joinedRepuestos, ".");
-      } else if (repuestos.length < 1) {
+      } else if (repuestos.length < 1 && otrosR.length < 1) {
         message = "Ingresos por servicios t\xE9cnicos: ".concat(joinedServicios, ".");
+      } else if (servicios.length < 1 && repuestos.length < 1) {
+        message = "Ingresos por: ".concat(joinedOtros, ".");
       } else {
-        message = "Ingresos por por la venta de los siguientes repuestos: ".concat(joinedRepuestos, " y por servicios t\xE9cnicos: ").concat(joinedServicios, ".");
+        message = "Ingresos por por la venta de los siguientes repuestos: ".concat(joinedRepuestos, ", por servicios t\xE9cnicos: ").concat(joinedServicios, " y otros: ").concat(joinedOtros, ".");
       }
 
       var formulario = {
@@ -582,7 +655,9 @@ var render = function() {
                                             return _c(
                                               "v-layout",
                                               {
-                                                key: repuesto.id,
+                                                key:
+                                                  repuesto.id +
+                                                  repuesto.repuesto,
                                                 attrs: { row: "", wrap: "" }
                                               },
                                               [
@@ -907,7 +982,202 @@ var render = function() {
                                         ],
                                         2
                                       )
-                                    : _vm._e()
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-sheet", [
+                                        _c("h4", [_vm._v("Otros")])
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c(
+                                        "v-layout",
+                                        { attrs: { row: "", wrap: "" } },
+                                        [
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { md3: "", xs12: "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Descripción",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.nuevoItem.descripcion,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.nuevoItem,
+                                                      "descripcion",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "nuevoItem.descripcion"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { md3: "", xs12: "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Cantidad Requerida",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.nuevoItem.cantidad,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.nuevoItem,
+                                                      "cantidad",
+                                                      _vm._n($$v)
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "nuevoItem.cantidad"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { md3: "", xs12: "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Costo",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.nuevoItem.costo,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.nuevoItem,
+                                                      "costo",
+                                                      _vm._n($$v)
+                                                    )
+                                                  },
+                                                  expression: "nuevoItem.costo"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { md3: "", xs12: "" } },
+                                            [
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  attrs: {
+                                                    color: "primary",
+                                                    small: ""
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      _vm.añadirItem(
+                                                        _vm.nuevoItem
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                      Añadir\n                      "
+                                                  ),
+                                                  _c("v-icon", [
+                                                    _vm._v(
+                                                      "\n                        add\n                      "
+                                                    )
+                                                  ])
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _vm.otros.length > 0
+                                        ? _c(
+                                            "v-layout",
+                                            { attrs: { row: "", wrap: "" } },
+                                            _vm._l(_vm.otros, function(item) {
+                                              return _c(
+                                                "v-flex",
+                                                {
+                                                  key: item.descripcion,
+                                                  attrs: { xs12: "" }
+                                                },
+                                                [
+                                                  _c("v-sheet", [
+                                                    _c("p", [
+                                                      _vm._v(
+                                                        _vm._s(item.descripcion)
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("p", [
+                                                      _c(
+                                                        "span",
+                                                        {
+                                                          staticClass:
+                                                            "text--success"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(item.costo)
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "span",
+                                                        {
+                                                          staticClass:
+                                                            "text--primary"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              item.cantidad
+                                                            )
+                                                          )
+                                                        ]
+                                                      )
+                                                    ])
+                                                  ])
+                                                ],
+                                                1
+                                              )
+                                            }),
+                                            1
+                                          )
+                                        : _vm._e()
+                                    ],
+                                    1
+                                  )
                                 ],
                                 1
                               )

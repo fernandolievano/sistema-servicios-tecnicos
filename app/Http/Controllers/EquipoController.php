@@ -51,11 +51,11 @@ class EquipoController extends Controller
 
     public function estado(Request $request, $id)
     {
-      $equipo = Equipo::find($id);
-      $equipo->estado = $request->get('estado');
-      $equipo->update();
+        $equipo = Equipo::find($id);
+        $equipo->estado = $request->get('estado');
+        $equipo->update();
 
-      return response()->json($equipo);
+        return response()->json($equipo);
     }
 
     public function delete($id)

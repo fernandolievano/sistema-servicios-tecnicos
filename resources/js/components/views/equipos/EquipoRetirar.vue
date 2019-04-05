@@ -14,9 +14,10 @@
           </v-toolbar-items>
         </v-toolbar>
         <div v-if="success" class="text-xs-center">
-          <h1 class="success--text display-2">
-            Creado con éxito
-          </h1>
+          <v-alert type="success">
+            Ticket generado con éxito
+          </v-alert>
+          <v-divider></v-divider>
           <v-btn color="primary" block :to="{ name: 'factura', params: { id: ticket.id } }">
             Ver Ticket
           </v-btn>
@@ -65,7 +66,12 @@
                 </v-flex>
                 <v-flex v-if="repuestosUsados.length > 0" xs12>
                   <h4>Repuestos</h4>
-                  <v-layout v-for="repuesto in repuestosUsados" :key="repuesto.id" row wrap>
+                  <v-layout
+                    v-for="repuesto in repuestosUsados"
+                    :key="repuesto.id + repuesto.repuesto"
+                    row
+                    wrap
+                  >
                     <v-flex xs12>
                       <h5 class="primary--text">{{ repuesto.repuesto }}</h5>
                     </v-flex>
@@ -147,6 +153,86 @@
                     </v-flex>
                   </v-layout>
                 </v-flex>
+                <v-flex xs12>
+                  <v-sheet>
+                    <h4>Otros</h4>
+                  </v-sheet>
+                </v-flex>
+                <v-flex xs12>
+                  <v-container>
+                    <v-layout row wrap>
+                      <v-flex md4 xs12>
+                        <v-text-field
+                          v-model="nuevoItem.descripcion"
+                          label="Descripción"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex md4 xs12>
+                        <v-text-field
+                          v-model.number="nuevoItem.cantidad"
+                          label="Cantidad requerida"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex md4 xs12>
+                        <v-text-field
+                          v-model.number="nuevoItem.costo"
+                          label="Costo"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs12>
+                        <v-btn color="primary" small @click="añadirItem()">
+                          Añadir
+                          <v-icon>
+                            add
+                          </v-icon>
+                        </v-btn>
+                      </v-flex>
+                    </v-layout>
+                    <v-layout v-if="otros.length > 0" class="mt-3" row wrap>
+                      <v-flex xs12>
+                        <h4>Extras</h4>
+                        <v-sheet
+                          v-for="(item, index) in otros"
+                          :key="item.descripcion"
+                          color="pa-2"
+                        >
+                          <h5 class="primary--text">{{ item.descripcion }}</h5>
+                          <v-layout row wrap>
+                            <v-flex md4 xs12>
+                              <v-text-field
+                                v-model="item.descripcion"
+                                label="Descripción"
+                                required
+                              ></v-text-field>
+                            </v-flex>
+                            <v-flex md4 xs12>
+                              <v-text-field
+                                v-model.number="item.cantidad"
+                                label="Cantidad requerida"
+                                required
+                              ></v-text-field>
+                            </v-flex>
+                            <v-flex md4 xs12>
+                              <v-text-field
+                                v-model.number="item.costo"
+                                label="Costo por unidad/servicio"
+                                required
+                              ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12>
+                              <footer class="text-xs-right">
+                                <v-btn flat small @click="quitarItem(index)">Eliminar</v-btn>
+                              </footer>
+                            </v-flex>
+                          </v-layout>
+                        </v-sheet>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-flex>
               </v-layout>
             </v-container>
           </v-list>
@@ -183,9 +269,16 @@ export default {
       success: false,
       serviciosRequeridos: [],
       repuestosUsados: [],
+      otros: [],
+      nuevoItem: {
+        detalle: '',
+        cantidad: 1,
+        costo: 0
+      },
       detail: {
         servicios: [],
-        repuestos: []
+        repuestos: [],
+        otros: []
       },
       ticket: null
     }
@@ -218,44 +311,52 @@ export default {
       createFinal: 'ticket/createFinal',
       setDetails: 'ticket/sendDetails'
     }),
+    async añadirItem() {
+      const nuevo = Object.assign({}, this.nuevoItem)
+      await this.otros.push(nuevo)
+      this.nuevoItem.descripcion = ''
+      this.nuevoItem.cantidad = 1
+      this.nuevoItem.costo = 0
+    },
+    quitarItem(index) {
+      this.otros.splice(index, 1)
+    },
     generarTicket() {
       const self = this
       let pagoTotal = 0
 
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i <= self.repuestosUsados.length; i++) {
-        if (self.repuestosUsados !== null && self.repuestosUsados !== undefined) {
-          const precio = self.repuestosUsados[i].precio_unitario_venta
-          const cantidad = self.self.repuestosUsados[i].cantidad_utilizada
-          pagoTotal += precio * cantidad
-
-          // para detalle en la factura
-          const repuestoDetail = {
-            repuesto: self.repuestosUsados[i].repuesto,
-            cantidad: self.repuestosUsados[i].cantidad_utilizada,
-            precio_unitario: self.repuestosUsados[i].precio_unitario_venta
-          }
-
-          self.detail.repuestos.push(repuestoDetail)
+      self.repuestosUsados.forEach(repuesto => {
+        pagoTotal += repuesto.precio_unitario_venta * repuesto.cantidad_utilizada
+        // detalle ticket
+        const repuestoDetail = {
+          repuesto: repuesto.repuesto,
+          cantidad: repuesto.cantidad_utilizada,
+          precio_unitario: repuesto.precio_unitario_venta
         }
-      }
+        self.detail.repuestos.push(repuestoDetail)
+      })
 
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i <= self.serviciosRequeridos.length; i++) {
-        if (self.serviciosRequeridos[i] !== null && self.serviciosRequeridos[i] !== undefined) {
-          const precio = self.serviciosRequeridos[i].valor
-          const cantidad = self.serviciosRequeridos[i].cantidad_requerida
-          pagoTotal += precio * cantidad
-
-          const servicioDetail = {
-            servicio: self.serviciosRequeridos[i].titulo,
-            precio: self.serviciosRequeridos[i].valor,
-            cantidad: self.serviciosRequeridos[i].cantidad_requerida
-          }
-
-          self.detail.servicios.push(servicioDetail)
+      self.serviciosRequeridos.forEach(servicio => {
+        pagoTotal += servicio.valor * servicio.cantidad_requerida
+        // detalle ticket
+        const servicioDetail = {
+          servicio: servicio.titulo,
+          precio: servicio.valor,
+          cantidad: servicio.cantidad_requerida
         }
-      }
+        self.detail.servicios.push(servicioDetail)
+      })
+
+      self.otros.forEach(item => {
+        pagoTotal += item.costo * item.cantidad
+        //  detalle ticket
+        const otroDetail = {
+          descripcion: item.descripcion,
+          costo: item.costo,
+          cantidad: item.cantidad
+        }
+        self.detail.otros.push(otroDetail)
+      })
 
       self.setDetails(self.detail)
 
@@ -265,14 +366,19 @@ export default {
       const repuestos = self.repuestosUsados
       const joinedRepuestos = repuestos.map(rep => rep.repuesto).join(', ')
 
+      const otrosR = self.otros
+      const joinedOtros = otrosR.map(item => item.descripcion).join(', ')
+
       let message = ''
 
-      if (servicios.length < 1) {
+      if (servicios.length < 1 && otrosR.length < 1) {
         message = `Ingresos por la venta de los siguientes repuestos: ${joinedRepuestos}.`
-      } else if (repuestos.length < 1) {
+      } else if (repuestos.length < 1 && otrosR.length < 1) {
         message = `Ingresos por servicios técnicos: ${joinedServicios}.`
+      } else if (servicios.length < 1 && repuestos.length < 1) {
+        message = `Ingresos por: ${joinedOtros}.`
       } else {
-        message = `Ingresos por por la venta de los siguientes repuestos: ${joinedRepuestos} y por servicios técnicos: ${joinedServicios}.`
+        message = `Ingresos por por la venta de los siguientes repuestos: ${joinedRepuestos}, por servicios técnicos: ${joinedServicios} y otros: ${joinedOtros}.`
       }
 
       const formulario = {

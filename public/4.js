@@ -115,6 +115,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -399,11 +415,45 @@ var render = function() {
                       return _c("tr", { key: servicio.titulo }, [
                         _c("td", [_vm._v(_vm._s(servicio.servicio))]),
                         _vm._v(" "),
-                        _c("td"),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              servicio.cantidad > 1 ? servicio.cantidad : ""
+                            )
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("td", [
                           _vm._v(_vm._s(_vm._f("price")(servicio.precio)))
                         ])
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _vm.details.otros.length > 0
+                      ? _c("tr", [
+                          _c("td", { staticClass: "text-muted" }, [
+                            _c("b", [_vm._v("Otros")])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-muted" }, [
+                            _c("b", [_vm._v("Cantidad")])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-muted" }, [
+                            _c("b", [_vm._v("Costo")])
+                          ])
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.details.otros, function(item) {
+                      return _c("tr", { key: item.descripcion }, [
+                        _c("td", [_vm._v(_vm._s(item.descripcion))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(item.cantidad > 1 ? item.cantidad : ""))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(_vm._f("price")(item.costo)))])
                       ])
                     }),
                     _vm._v(" "),

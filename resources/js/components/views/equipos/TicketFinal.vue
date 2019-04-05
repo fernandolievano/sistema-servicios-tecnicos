@@ -57,8 +57,24 @@
             </tr>
             <tr v-for="servicio in details.servicios" :key="servicio.titulo">
               <td>{{ servicio.servicio }}</td>
-              <td></td>
+              <td>{{ servicio.cantidad > 1 ? servicio.cantidad : '' }}</td>
               <td>{{ servicio.precio | price }}</td>
+            </tr>
+            <tr v-if="details.otros.length > 0">
+              <td class="text-muted">
+                <b>Otros</b>
+              </td>
+              <td class="text-muted">
+                <b>Cantidad</b>
+              </td>
+              <td class="text-muted">
+                <b>Costo</b>
+              </td>
+            </tr>
+            <tr v-for="item in details.otros" :key="item.descripcion">
+              <td>{{ item.descripcion }}</td>
+              <td>{{ item.cantidad > 1 ? item.cantidad : '' }}</td>
+              <td>{{ item.costo | price }}</td>
             </tr>
             <tr class="border-top">
               <td colspan="3" class="text-center h5">

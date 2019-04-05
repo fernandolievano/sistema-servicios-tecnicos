@@ -46,8 +46,8 @@ Route::prefix('/v1')->group(function () {
     });
 
     Route::prefix('/caja')->name('caja.')->group(function () {
-      Route::get('/get', 'IngresosRetirosController@caja')->name('get');
-      Route::get('/ingresos_y_retiros', 'IngresosRetirosController@ingresos_y_retiros')->name('ingresos_retiros');
-      Route::post('/operacion/store', 'IngresosRetirosController@nueva_operacion')->name('nuevo');
+        Route::get('/get', 'IngresosRetirosController@caja')->name('get');
+        Route::get('/ingresos_y_retiros', 'IngresosRetirosController@ingresos_y_retiros')->name('ingresos_retiros');
+        Route::post('/operacion/store', 'IngresosRetirosController@nueva_operacion')->name('nuevo');
     });
 });

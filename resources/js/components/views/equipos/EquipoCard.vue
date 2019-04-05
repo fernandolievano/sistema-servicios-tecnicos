@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 sm6>
+  <v-flex xs12 sm5 row wrap>
     <v-card class="ma-2 pa-2 elevation-24">
       <v-toolbar dense color="transparent" flat>
         <v-toolbar-title>
@@ -113,11 +113,14 @@
 
 <script>
 import { mapActions } from 'vuex'
+import BotonEstado from './Estado.vue'
+import RetirarEquipo from './EquipoRetirar.vue'
+
 
 export default {
   components: {
-    BotonEstado: () => import('./Estado.vue'),
-    RetirarEquipo: () => import('./EquipoRetirar.vue')
+    BotonEstado,
+    RetirarEquipo
   },
   props: {
     item: {

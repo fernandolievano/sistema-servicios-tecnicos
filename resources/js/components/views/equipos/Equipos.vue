@@ -45,10 +45,12 @@
 </template>
 
 <script>
+import IndexEquipos from './EquiposIndex.vue'
+
 export default {
   name: 'Equipos',
   components: {
-    IndexEquipos: () => import('./EquiposIndex.vue')
+    IndexEquipos
   },
   data: () => ({
     active: 0

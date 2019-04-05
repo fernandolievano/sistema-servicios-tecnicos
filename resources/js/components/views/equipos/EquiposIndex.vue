@@ -42,11 +42,12 @@
 <script>
 /* eslint-disable react/no-this-in-sfc */
 import { mapGetters } from 'vuex'
+import EquipoCard from './EquipoCard.vue'
 
 export default {
   name: 'IndexEquipos',
   components: {
-    EquipoCard: () => import('./EquipoCard.vue')
+    EquipoCard
   },
   props: {
     section: {

@@ -18,6 +18,12 @@
           Ciber X-Games
         </h2>
       </v-flex>
+      <v-flex xs12>
+        <h4 class="display-5">
+          Seguinos en <a href="https://www.facebook.com/xgamerlb/" target="_blank">Facebook</a> e
+          <a href="https://www.instagram.com/ciberxgamer/" target="_blank">Instagram</a>
+        </h4>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -26,5 +32,8 @@
 .logo {
   width: 25%;
   margin: auto;
+}
+a {
+  text-decoration: none;
 }
 </style>

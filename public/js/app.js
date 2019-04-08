@@ -2761,6 +2761,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Toolbar'
 });
@@ -2824,10 +2826,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: 'Caja',
   components: {
     IngresosRetiros: function IngresosRetiros() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./IngresosRetiros.vue */ "./resources/js/components/views/caja/IngresosRetiros.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./IngresosRetiros.vue */ "./resources/js/components/views/caja/IngresosRetiros.vue"));
     },
     NuevoIngresoRetiro: function NuevoIngresoRetiro() {
-      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./IngresarRetirar.vue */ "./resources/js/components/views/caja/IngresarRetirar.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./IngresarRetirar.vue */ "./resources/js/components/views/caja/IngresarRetirar.vue"));
     }
   },
   data: function data() {
@@ -2894,10 +2896,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     nuevoCliente: function nuevoCliente() {
-      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./ClienteNuevo.vue */ "./resources/js/components/views/clientes/ClienteNuevo.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./ClienteNuevo.vue */ "./resources/js/components/views/clientes/ClienteNuevo.vue"));
     },
     indexClientes: function indexClientes() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./ClientesIndex.vue */ "./resources/js/components/views/clientes/ClientesIndex.vue"));
+      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./ClientesIndex.vue */ "./resources/js/components/views/clientes/ClientesIndex.vue"));
     }
   },
   data: function data() {
@@ -3813,10 +3815,10 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Repuestos',
   components: {
     IndexRepuestos: function IndexRepuestos() {
-      return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ./RepuestosIndex.vue */ "./resources/js/components/views/repuestos/RepuestosIndex.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./RepuestosIndex.vue */ "./resources/js/components/views/repuestos/RepuestosIndex.vue"));
     },
     NuevoRepuesto: function NuevoRepuesto() {
-      return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ./RepuestoNuevo.vue */ "./resources/js/components/views/repuestos/RepuestoNuevo.vue"));
+      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./RepuestoNuevo.vue */ "./resources/js/components/views/repuestos/RepuestoNuevo.vue"));
     }
   },
   data: function data() {
@@ -3864,10 +3866,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     IndexServicios: function IndexServicios() {
-      return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ./ServiciosIndex.vue */ "./resources/js/components/views/servicios/ServiciosIndex.vue"));
+      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./ServiciosIndex.vue */ "./resources/js/components/views/servicios/ServiciosIndex.vue"));
     },
     NuevoServicio: function NuevoServicio() {
-      return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ./ServicioNuevo.vue */ "./resources/js/components/views/servicios/ServicioNuevo.vue"));
+      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ./ServicioNuevo.vue */ "./resources/js/components/views/servicios/ServicioNuevo.vue"));
     }
   },
   data: function data() {
@@ -14265,7 +14267,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.logo[data-v-341dff54] {\n  width: 25%;\n  margin: auto;\n}\n", ""]);
+exports.push([module.i, "\n.logo[data-v-341dff54] {\n  width: 25%;\n  margin: auto;\n}\na[data-v-341dff54] {\n  text-decoration: none;\n}\n", ""]);
 
 // exports
 
@@ -33971,12 +33973,18 @@ var render = function() {
     "v-toolbar",
     { attrs: { flat: "", dense: "" } },
     [
-      _c("v-toolbar-title", [
-        _c("img", {
-          staticClass: "icon-navbar",
-          attrs: { src: "/images/xg-icon.png", alt: "icon" }
-        })
-      ]),
+      _c(
+        "v-toolbar-title",
+        [
+          _c("router-link", { attrs: { to: "/" } }, [
+            _c("img", {
+              staticClass: "icon-navbar",
+              attrs: { src: "/images/xg-icon.png", alt: "icon" }
+            })
+          ])
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("v-spacer"),
       _vm._v(" "),
@@ -34197,6 +34205,33 @@ var render = function() {
             _vm._v(" "),
             _c("h2", { staticClass: "display-3" }, [
               _vm._v("\n        Ciber X-Games\n      ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("v-flex", { attrs: { xs12: "" } }, [
+            _c("h4", { staticClass: "display-5" }, [
+              _vm._v("\n        Seguinos en "),
+              _c(
+                "a",
+                {
+                  attrs: {
+                    href: "https://www.facebook.com/xgamerlb/",
+                    target: "_blank"
+                  }
+                },
+                [_vm._v("Facebook")]
+              ),
+              _vm._v(" e\n        "),
+              _c(
+                "a",
+                {
+                  attrs: {
+                    href: "https://www.instagram.com/ciberxgamer/",
+                    target: "_blank"
+                  }
+                },
+                [_vm._v("Instagram")]
+              )
             ])
           ])
         ],
@@ -79019,7 +79054,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/descargar/ticket_final/:id',
     name: 'factura',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ./components/views/equipos/TicketFinal.vue */ "./resources/js/components/views/equipos/TicketFinal.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./components/views/equipos/TicketFinal.vue */ "./resources/js/components/views/equipos/TicketFinal.vue"));
     },
     props: true,
     beforeEnter: function beforeEnter(routeTo, routeFrom, next) {
@@ -79034,7 +79069,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/descargar/ticket_inicial/:id',
     name: 'ticket_inicial',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./components/views/clientes/TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./components/views/clientes/TicketInicial.vue */ "./resources/js/components/views/clientes/TicketInicial.vue"));
     },
     props: true,
     beforeEnter: function beforeEnter(routeTo, routeFrom, next) {

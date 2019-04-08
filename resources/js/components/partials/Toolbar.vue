@@ -1,7 +1,9 @@
 <template>
   <v-toolbar flat dense>
     <v-toolbar-title>
-      <img src="/images/xg-icon.png" alt="icon" class="icon-navbar" />
+      <router-link to="/">
+        <img src="/images/xg-icon.png" alt="icon" class="icon-navbar" />
+      </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down mx-5">

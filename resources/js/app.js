@@ -4,10 +4,11 @@ import 'babel-polyfill'
 import 'vuetify/dist/vuetify.min.css'
 import 'nprogress/nprogress.css'
 
-// vue
+// vue and plugins
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueSweetalert2 from 'vue-sweetalert2'
+import Vuelidate from 'vuelidate'
 
 // components
 import App from './components/App.vue'
@@ -22,6 +23,7 @@ import store from './store/store'
 
 Vue.filter('date', DateFilter)
 Vue.filter('price', PriceFilter)
+Vue.use(Vuelidate)
 Vue.use(VueSweetalert2)
 Vue.use(Vuetify)
 

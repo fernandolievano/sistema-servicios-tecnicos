@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -69,17 +69,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'EditarRepuesto',
+  name: 'EditarServicio',
   props: {
     id: {
       type: Number,
@@ -99,7 +91,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     formulario: function formulario() {
-      return this.$store.getters['repuesto/getRepuestoById'](this.id);
+      return this.$store.getters['servicio/getServicioById'](this.id);
     }
   },
   methods: {
@@ -109,21 +101,23 @@ __webpack_require__.r(__webpack_exports__);
     actualizar: function actualizar(id) {
       var _this = this;
 
-      var url = "/api/v1/repuestos/update/".concat(id);
+      var url = "/api/v1/servicios/update/".concat(id);
       var params = Object.assign({}, this.formulario);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(url, params).then(function () {
         _this.success = true;
-      }); // .catch(error => console.log(error))
+      }).catch(function (error) {
+        return console.log(error);
+      });
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=template&id=894f3db6&":
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=template&id=894f3db6& ***!
-  \*********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=template&id=6c67704a&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=template&id=6c67704a& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -180,7 +174,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("v-toolbar-title", [
-                _vm._v("\n        Editar información de repuesto\n      ")
+                _vm._v("\n        Editar información de servicio\n      ")
               ]),
               _vm._v(" "),
               _c("v-spacer"),
@@ -194,6 +188,7 @@ var render = function() {
                       attrs: { dark: "", flat: "" },
                       on: {
                         click: function($event) {
+                          $event.preventDefault()
                           return _vm.actualizar(_vm.id)
                         }
                       }
@@ -210,7 +205,7 @@ var render = function() {
           _c(
             "v-form",
             {
-              ref: "editrepuesto",
+              ref: "editservicio",
               attrs: { "lazy-validation": "" },
               model: {
                 value: _vm.valid,
@@ -261,16 +256,16 @@ var render = function() {
                             [
                               _c("v-text-field", {
                                 attrs: {
-                                  name: "repuesto",
-                                  label: "Repuesto",
+                                  name: "titulo",
+                                  label: "Título del servicio",
                                   rules: _vm.generales
                                 },
                                 model: {
-                                  value: _vm.formulario.repuesto,
+                                  value: _vm.formulario.titulo,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.formulario, "repuesto", $$v)
+                                    _vm.$set(_vm.formulario, "titulo", $$v)
                                   },
-                                  expression: "formulario.repuesto"
+                                  expression: "formulario.titulo"
                                 }
                               })
                             ],
@@ -284,7 +279,7 @@ var render = function() {
                               _c("v-text-field", {
                                 attrs: {
                                   name: "descripcion",
-                                  label: "Descripción del repuesto",
+                                  label: "Descripción del servicio",
                                   rules: _vm.generales
                                 },
                                 model: {
@@ -306,46 +301,19 @@ var render = function() {
                               _c("v-text-field", {
                                 attrs: {
                                   name: "valor",
-                                  label: "Precio unitario de compra",
+                                  label: "Valor o Costo del servicio",
                                   rules: _vm.generales
                                 },
                                 model: {
-                                  value: _vm.formulario.precio_unitario_compra,
+                                  value: _vm.formulario.valor,
                                   callback: function($$v) {
                                     _vm.$set(
                                       _vm.formulario,
-                                      "precio_unitario_compra",
+                                      "valor",
                                       _vm._n($$v)
                                     )
                                   },
-                                  expression:
-                                    "formulario.precio_unitario_compra"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs12: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "valor",
-                                  label: "Precio unitario de venta",
-                                  rules: _vm.generales
-                                },
-                                model: {
-                                  value: _vm.formulario.precio_unitario_venta,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.formulario,
-                                      "precio_unitario_venta",
-                                      _vm._n($$v)
-                                    )
-                                  },
-                                  expression: "formulario.precio_unitario_venta"
+                                  expression: "formulario.valor"
                                 }
                               })
                             ],
@@ -377,17 +345,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/views/repuestos/RepuestoEditar.vue":
-/*!********************************************************************!*\
-  !*** ./resources/js/components/views/repuestos/RepuestoEditar.vue ***!
-  \********************************************************************/
+/***/ "./resources/js/components/views/servicios/ServiciosEditar.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/views/servicios/ServiciosEditar.vue ***!
+  \*********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _RepuestoEditar_vue_vue_type_template_id_894f3db6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RepuestoEditar.vue?vue&type=template&id=894f3db6& */ "./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=template&id=894f3db6&");
-/* harmony import */ var _RepuestoEditar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RepuestoEditar.vue?vue&type=script&lang=js& */ "./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _ServiciosEditar_vue_vue_type_template_id_6c67704a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ServiciosEditar.vue?vue&type=template&id=6c67704a& */ "./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=template&id=6c67704a&");
+/* harmony import */ var _ServiciosEditar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ServiciosEditar.vue?vue&type=script&lang=js& */ "./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -397,9 +365,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _RepuestoEditar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _RepuestoEditar_vue_vue_type_template_id_894f3db6___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _RepuestoEditar_vue_vue_type_template_id_894f3db6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _ServiciosEditar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ServiciosEditar_vue_vue_type_template_id_6c67704a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ServiciosEditar_vue_vue_type_template_id_6c67704a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -409,38 +377,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/views/repuestos/RepuestoEditar.vue"
+component.options.__file = "resources/js/components/views/servicios/ServiciosEditar.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************/
+/***/ "./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoEditar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepuestoEditar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoEditar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiciosEditar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ServiciosEditar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiciosEditar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=template&id=894f3db6&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=template&id=894f3db6& ***!
-  \***************************************************************************************************/
+/***/ "./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=template&id=6c67704a&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=template&id=6c67704a& ***!
+  \****************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoEditar_vue_vue_type_template_id_894f3db6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RepuestoEditar.vue?vue&type=template&id=894f3db6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/repuestos/RepuestoEditar.vue?vue&type=template&id=894f3db6&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoEditar_vue_vue_type_template_id_894f3db6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiciosEditar_vue_vue_type_template_id_6c67704a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ServiciosEditar.vue?vue&type=template&id=6c67704a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/servicios/ServiciosEditar.vue?vue&type=template&id=6c67704a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiciosEditar_vue_vue_type_template_id_6c67704a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RepuestoEditar_vue_vue_type_template_id_894f3db6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiciosEditar_vue_vue_type_template_id_6c67704a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

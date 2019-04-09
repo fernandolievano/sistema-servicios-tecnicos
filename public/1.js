@@ -9,9 +9,21 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -98,10 +110,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+
+/* eslint-disable no-unused-expressions */
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'NuevoEquipoCliente',
+  mixins: [vuelidate__WEBPACK_IMPORTED_MODULE_3__["validationMixin"]],
   props: {
     cliente: {
       type: String,
@@ -115,8 +137,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       dialog: false,
-      success: false,
       valid: false,
+      invalid: false,
       formulario: {
         equipo: '',
         modelo: '',
@@ -125,33 +147,131 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         estado: 'En Reparación',
         cliente_id: ''
       },
-      generales: [function (v) {
-        return !!v || 'Este campo es requerido';
-      }],
       ticketId: null
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
+  computed: {
+    erroresEquipo: function erroresEquipo() {
+      var errors = [];
+      if (!this.$v.formulario.equipo.$dirty) return errors;
+      !this.$v.formulario.equipo.required && errors.push('Este campo es requerido para continuar con el registro');
+      !this.$v.formulario.equipo.minLength && errors.push('Este campo debe contener más de 5 caracteres');
+      return errors;
+    },
+    erroresModelo: function erroresModelo() {
+      var errors = [];
+      if (!this.$v.formulario.modelo.$dirty) return errors;
+      !this.$v.formulario.modelo.required && errors.push('Este campo es requerido para continuar con el registro');
+      !this.$v.formulario.modelo.minLength && errors.push('Este campo debe contener más de 2 caracteres');
+      return errors;
+    },
+    erroresDescripcion: function erroresDescripcion() {
+      var errors = [];
+      if (!this.$v.formulario.descripcion.$dirty) return errors;
+      !this.$v.formulario.descripcion.required && errors.push('Este campo es requerido para continuar con el registro');
+      !this.$v.formulario.descripcion.minLength && errors.push('Este campo debe contener más de 5 caracteres');
+      return errors;
+    },
+    erroresDiagnostico: function erroresDiagnostico() {
+      var errors = [];
+      if (!this.$v.formulario.diagnostico.$dirty) return errors;
+      !this.$v.formulario.diagnostico.required && errors.push('Este campo es requerido para continuar con el registro');
+      !this.$v.formulario.diagnostico.minLength && errors.push('Este campo debe contener más de 10 caracteres');
+      return errors;
+    }
+  },
+  validations: {
+    formulario: {
+      equipo: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["minLength"])(5)
+      },
+      modelo: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["minLength"])(2)
+      },
+      descripcion: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["minLength"])(5)
+      },
+      diagnostico: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["minLength"])(10)
+      }
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])({
     clear: 'ticket/clearInicial'
   }), {
     closeThis: function closeThis() {
       this.dialog = false;
       this.$refs.nuevoequipo.reset();
+      this.$v.$reset();
       this.success = false;
       this.clear();
     },
-    store: function store() {
-      var _this = this;
+    store: function () {
+      var _store = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var url, params, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.$v.$touch();
 
-      var url = '/api/v1/equipos/store';
-      this.formulario.cliente_id = this.idCliente;
-      var params = Object.assign({}, this.formulario);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, params).then(function (response) {
-        _this.success = true;
+                if (!this.$v.$invalid) {
+                  _context.next = 5;
+                  break;
+                }
 
-        _this.$refs.nuevoequipo.reset();
+                this.invalid = true;
+                _context.next = 17;
+                break;
 
-        _this.ticketId = response.data;
+              case 5:
+                url = '/api/v1/equipos/store';
+                this.formulario.cliente_id = this.idCliente;
+                params = Object.assign({}, this.formulario);
+                _context.next = 10;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, params);
+
+              case 10:
+                response = _context.sent;
+                this.ticketId = response.data;
+                this.$refs.nuevoequipo.reset();
+                this.$v.$reset();
+                _context.next = 16;
+                return this.successMessage();
+
+              case 16:
+                this.$router.push({
+                  name: 'ticket_inicial',
+                  params: {
+                    id: this.ticketId
+                  }
+                });
+
+              case 17:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function store() {
+        return _store.apply(this, arguments);
+      }
+
+      return store;
+    }(),
+    successMessage: function successMessage() {
+      this.$swal.fire({
+        title: 'Equipo registrado con éxito',
+        text: 'Ahora continúe con el registro del equipo',
+        type: 'success'
       });
     }
   })
@@ -229,7 +349,7 @@ var render = function() {
                   _c(
                     "v-btn",
                     {
-                      attrs: { dark: "", flat: "", disabled: _vm.success },
+                      attrs: { dark: "", flat: "" },
                       on: {
                         click: function($event) {
                           $event.preventDefault()
@@ -290,43 +410,28 @@ var render = function() {
                                   _c(
                                     "v-alert",
                                     {
-                                      attrs: { type: "success" },
+                                      attrs: {
+                                        type: "error",
+                                        transition: "scale-transition",
+                                        dismissible: ""
+                                      },
                                       model: {
-                                        value: _vm.success,
+                                        value: _vm.invalid,
                                         callback: function($$v) {
-                                          _vm.success = $$v
+                                          _vm.invalid = $$v
                                         },
-                                        expression: "success"
+                                        expression: "invalid"
                                       }
                                     },
-                                    [_vm._v("Equipo registrado con éxito")]
+                                    [
+                                      _vm._v(
+                                        "\n                  Por favor corrija los errores para continuar\n                "
+                                      )
+                                    ]
                                   )
                                 ],
                                 1
-                              ),
-                              _vm._v(" "),
-                              _vm.success
-                                ? _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c(
-                                        "v-btn",
-                                        {
-                                          attrs: {
-                                            to: {
-                                              name: "ticket_inicial",
-                                              params: { id: _vm.ticketId }
-                                            },
-                                            color: "primary"
-                                          }
-                                        },
-                                        [_vm._v("Ver ticket")]
-                                      )
-                                    ],
-                                    1
-                                  )
-                                : _vm._e()
+                              )
                             ],
                             1
                           )
@@ -337,121 +442,143 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _vm.success === false
-                    ? _c(
-                        "v-container",
-                        { attrs: { "grid-list-xs": "" } },
+                  _c(
+                    "v-container",
+                    { attrs: { "grid-list-xs": "" } },
+                    [
+                      _c(
+                        "v-layout",
+                        { attrs: { row: "", wrap: "" } },
                         [
                           _c(
-                            "v-layout",
-                            { attrs: { row: "", wrap: "" } },
+                            "v-flex",
+                            { attrs: { xs12: "" } },
                             [
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      name: "equipo",
-                                      label: "Equipo",
-                                      required: "",
-                                      rules: _vm.generales
-                                    },
-                                    model: {
-                                      value: _vm.formulario.equipo,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.formulario, "equipo", $$v)
-                                      },
-                                      expression: "formulario.equipo"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      name: "modelo",
-                                      label: "Modelo del equipo",
-                                      required: "",
-                                      rules: _vm.generales
-                                    },
-                                    model: {
-                                      value: _vm.formulario.modelo,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.formulario, "modelo", $$v)
-                                      },
-                                      expression: "formulario.modelo"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      name: "descripcion",
-                                      label: "Breve descripción del equipo",
-                                      required: "",
-                                      rules: _vm.generales
-                                    },
-                                    model: {
-                                      value: _vm.formulario.descripcion,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.formulario,
-                                          "descripcion",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "formulario.descripcion"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "" } },
-                                [
-                                  _c("v-textarea", {
-                                    attrs: {
-                                      name: "diagnostico",
-                                      label: "Diagnóstico del equipo",
-                                      required: "",
-                                      rules: _vm.generales
-                                    },
-                                    model: {
-                                      value: _vm.formulario.diagnostico,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.formulario,
-                                          "diagnostico",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "formulario.diagnostico"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
+                              _c("v-text-field", {
+                                attrs: {
+                                  name: "equipo",
+                                  label: "Equipo",
+                                  required: "",
+                                  "error-messages": _vm.erroresEquipo
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.$v.formulario.equipo.$touch()
+                                  },
+                                  blur: function($event) {
+                                    return _vm.$v.formulario.equipo.$touch()
+                                  }
+                                },
+                                model: {
+                                  value: _vm.formulario.equipo,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.formulario, "equipo", $$v)
+                                  },
+                                  expression: "formulario.equipo"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs12: "" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  name: "modelo",
+                                  label: "Modelo del equipo",
+                                  required: "",
+                                  "error-messages": _vm.erroresModelo
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.$v.formulario.modelo.$touch()
+                                  },
+                                  blur: function($event) {
+                                    return _vm.$v.formulario.modelo.$touch()
+                                  }
+                                },
+                                model: {
+                                  value: _vm.formulario.modelo,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.formulario, "modelo", $$v)
+                                  },
+                                  expression: "formulario.modelo"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs12: "" } },
+                            [
+                              _c("v-textarea", {
+                                attrs: {
+                                  name: "descripcion",
+                                  label: "Breve descripción del equipo",
+                                  required: "",
+                                  "error-messages": _vm.erroresDescripcion
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.$v.formulario.descripcion.$touch()
+                                  },
+                                  blur: function($event) {
+                                    return _vm.$v.formulario.descripcion.$touch()
+                                  }
+                                },
+                                model: {
+                                  value: _vm.formulario.descripcion,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.formulario, "descripcion", $$v)
+                                  },
+                                  expression: "formulario.descripcion"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs12: "" } },
+                            [
+                              _c("v-textarea", {
+                                attrs: {
+                                  name: "diagnostico",
+                                  label: "Diagnóstico del equipo",
+                                  required: "",
+                                  "error-messages": _vm.erroresDiagnostico
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.$v.formulario.diagnostico.$touch()
+                                  },
+                                  blur: function($event) {
+                                    return _vm.$v.formulario.diagnostico.$touch()
+                                  }
+                                },
+                                model: {
+                                  value: _vm.formulario.diagnostico,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.formulario, "diagnostico", $$v)
+                                  },
+                                  expression: "formulario.diagnostico"
+                                }
+                              })
                             ],
                             1
                           )
                         ],
                         1
                       )
-                    : _vm._e()
+                    ],
+                    1
+                  )
                 ],
                 1
               )

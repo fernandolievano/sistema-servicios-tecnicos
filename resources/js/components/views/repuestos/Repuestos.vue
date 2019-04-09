@@ -23,11 +23,14 @@
 </template>
 
 <script>
+import IndexRepuestos from './RepuestosIndex.vue'
+import NuevoRepuesto from './RepuestoNuevo.vue'
+
 export default {
   name: 'Repuestos',
   components: {
-    IndexRepuestos: () => import('./RepuestosIndex.vue'),
-    NuevoRepuesto: () => import('./RepuestoNuevo.vue')
+    IndexRepuestos,
+    NuevoRepuesto
   },
   data: () => ({
     active: 0

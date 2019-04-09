@@ -33,11 +33,12 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import RepuestoCard from './RepuestoCard.vue'
 
 export default {
   name: 'IndexRepuestos',
   components: {
-    RepuestoCard: () => import('./RepuestoCard.vue')
+    RepuestoCard
   },
   data() {
     return {

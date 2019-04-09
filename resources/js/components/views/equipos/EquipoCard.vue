@@ -116,7 +116,6 @@ import { mapActions } from 'vuex'
 import BotonEstado from './Estado.vue'
 import RetirarEquipo from './EquipoRetirar.vue'
 
-
 export default {
   components: {
     BotonEstado,

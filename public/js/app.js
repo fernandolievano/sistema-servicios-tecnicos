@@ -36984,9 +36984,9 @@ var render = function() {
                                     [
                                       _c("v-text-field", {
                                         attrs: {
-                                          "error-messages": _vm.erroresRepuesto,
                                           name: "repuesto",
-                                          label: "Repuesto"
+                                          label: "Repuesto",
+                                          "error-messages": _vm.erroresRepuesto
                                         },
                                         on: {
                                           input: function($event) {
@@ -37018,10 +37018,10 @@ var render = function() {
                                     [
                                       _c("v-text-field", {
                                         attrs: {
-                                          "error-messages":
-                                            _vm.erroresDescripcion,
                                           name: "descripcion",
-                                          label: "Descripción"
+                                          label: "Descripción",
+                                          "error-messages":
+                                            _vm.erroresDescripcion
                                         },
                                         on: {
                                           input: function($event) {
@@ -37087,10 +37087,10 @@ var render = function() {
                                     [
                                       _c("v-text-field", {
                                         attrs: {
-                                          "error-messages":
-                                            _vm.erroresPrecioCompra,
                                           name: "precio_unitario",
-                                          label: "Precio unitario de compra"
+                                          label: "Precio unitario de compra",
+                                          "error-messages":
+                                            _vm.erroresPrecioCompra
                                         },
                                         on: {
                                           input: function($event) {
@@ -37125,10 +37125,10 @@ var render = function() {
                                     [
                                       _c("v-text-field", {
                                         attrs: {
-                                          "error-messages":
-                                            _vm.erroresPrecioVenta,
                                           name: "precio_unitario",
-                                          label: "Precio unitario de venta"
+                                          label: "Precio unitario de venta",
+                                          "error-messages":
+                                            _vm.erroresPrecioVenta
                                         },
                                         on: {
                                           input: function($event) {

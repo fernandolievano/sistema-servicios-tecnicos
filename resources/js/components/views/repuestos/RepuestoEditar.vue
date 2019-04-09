@@ -22,6 +22,9 @@
           <v-alert v-model="success" transition="scale-transition" dismissible type="success">
             Datos actualizados exitosamente
           </v-alert>
+          <v-alert v-model="invalid" type="error" transition="scale-transition" dismissible
+            >Por favor corrija los errores para continuar</v-alert
+          >
           <v-container grid-list-xs>
             <v-layout row wrap>
               <v-flex xs12>
@@ -29,7 +32,9 @@
                   v-model="formulario.repuesto"
                   name="repuesto"
                   label="Repuesto"
-                  :rules="generales"
+                  :error-messages="erroresRepuesto"
+                  @input="$v.formulario.repuesto.$touch()"
+                  @blur="$v.formulario.repuesto.$touch()"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -37,7 +42,9 @@
                   v-model="formulario.descripcion"
                   name="descripcion"
                   label="Descripción del repuesto"
-                  :rules="generales"
+                  :error-messages="erroresDescripcion"
+                  @input="$v.formulario.descripcion.$touch()"
+                  @blur="$v.formulario.descripcion.$touch()"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -45,7 +52,9 @@
                   v-model.number="formulario.precio_unitario_compra"
                   name="valor"
                   label="Precio unitario de compra"
-                  :rules="generales"
+                  :error-messages="erroresPrecioCompra"
+                  @input="$v.formulario.precio_unitario_compra.$touch()"
+                  @blur="$v.formulario.precio_unitario_compra.$touch()"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -53,7 +62,9 @@
                   v-model.number="formulario.precio_unitario_venta"
                   name="valor"
                   label="Precio unitario de venta"
-                  :rules="generales"
+                  :error-messages="erroresPrecioVenta"
+                  @input="$v.formulario.precio_unitario_venta.$touch()"
+                  @blur="$v.formulario.precio_unitario_venta.$touch()"
                 ></v-text-field>
               </v-flex>
             </v-layout>
@@ -65,10 +76,15 @@
 </template>
 
 <script>
+/* eslint-disable no-unused-expressions */
+
 import axios from 'axios'
+import { validationMixin } from 'vuelidate'
+import { required, minLength, numeric } from 'vuelidate/lib/validators'
 
 export default {
   name: 'EditarRepuesto',
+  mixins: [validationMixin],
   props: {
     id: {
       type: Number,
@@ -79,25 +95,85 @@ export default {
   data: () => ({
     dialog: false,
     valid: false,
+    invalid: false,
     success: false,
     generales: [v => !!v || 'Este campo es requerido']
   }),
   computed: {
     formulario() {
       return this.$store.getters['repuesto/getRepuestoById'](this.id)
+    },
+    erroresRepuesto() {
+      const errors = []
+      if (!this.$v.formulario.repuesto.$dirty) return errors
+      !this.$v.formulario.repuesto.minLength && errors.push('Debe contener más de 5 caracteres')
+      !this.$v.formulario.repuesto.required &&
+        errors.push('Este campo es requerido para continuar con el registro')
+      return errors
+    },
+    erroresDescripcion() {
+      const errors = []
+      if (!this.$v.formulario.descripcion.$dirty) return errors
+      !this.$v.formulario.descripcion.minLength && errors.push('Debe contener más de 5 caracteres')
+      !this.$v.formulario.descripcion.required &&
+        errors.push('Este campo es requerido para continuar con el registro')
+      return errors
+    },
+    erroresPrecioCompra() {
+      const errors = []
+      if (!this.$v.formulario.precio_unitario_compra.$dirty) return errors
+      !this.$v.formulario.precio_unitario_compra.required &&
+        errors.push('Este campo es requerido para continuar con el registro')
+      !this.$v.formulario.precio_unitario_compra.numeric &&
+        errors.push('Este campo debe tener un valor númerico')
+      return errors
+    },
+    erroresPrecioVenta() {
+      const errors = []
+      if (!this.$v.formulario.precio_unitario_venta.$dirty) return errors
+      !this.$v.formulario.precio_unitario_venta.required &&
+        errors.push('Este campo es requerido para continuar con el registro')
+      !this.$v.formulario.precio_unitario_venta.numeric &&
+        errors.push('Este campo debe tener un valor númerico')
+      return errors
+    }
+  },
+  validations: {
+    formulario: {
+      repuesto: {
+        required,
+        minLength: minLength(5)
+      },
+      descripcion: {
+        required,
+        minLength: minLength(5)
+      },
+      precio_unitario_compra: {
+        required,
+        numeric
+      },
+      precio_unitario_venta: {
+        required,
+        numeric
+      }
     }
   },
   methods: {
     closeThis() {
       this.dialog = false
+      this.$refs.editrepuesto.reset()
+      this.$v.$reset()
     },
-    actualizar(id) {
-      const url = `/api/v1/repuestos/update/${id}`
-      const params = Object.assign({}, this.formulario)
-      axios.put(url, params).then(() => {
+    async actualizar(id) {
+      this.$v.$touch()
+      if (this.$v.$invalid) this.invalid = true
+      else {
+        const url = `/api/v1/repuestos/update/${id}`
+        const params = Object.assign({}, this.formulario)
+
+        await axios.put(url, params)
         this.success = true
-      })
-      // .catch(error => console.log(error))
+      }
     }
   }
 }

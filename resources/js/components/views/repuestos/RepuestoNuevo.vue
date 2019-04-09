@@ -29,9 +29,9 @@
                   <v-flex xs12>
                     <v-text-field
                       v-model="formulario.repuesto"
-                      :error-messages="erroresRepuesto"
                       name="repuesto"
                       label="Repuesto"
+                      :error-messages="erroresRepuesto"
                       @input="$v.formulario.repuesto.$touch()"
                       @blur="$v.formulario.repuesto.$touch()"
                     ></v-text-field>
@@ -39,9 +39,9 @@
                   <v-flex xs12>
                     <v-text-field
                       v-model="formulario.descripcion"
-                      :error-messages="erroresDescripcion"
                       name="descripcion"
                       label="Descripción"
+                      :error-messages="erroresDescripcion"
                       @input="$v.formulario.descripcion.$touch()"
                       @blur="$v.formulario.descripcion.$touch()"
                     ></v-text-field>
@@ -59,9 +59,9 @@
                   <v-flex xs12>
                     <v-text-field
                       v-model.number="formulario.precio_unitario_compra"
-                      :error-messages="erroresPrecioCompra"
                       name="precio_unitario"
                       label="Precio unitario de compra"
+                      :error-messages="erroresPrecioCompra"
                       @input="$v.formulario.precio_unitario_compra.$touch()"
                       @blur="$v.formulario.precio_unitario_compra.$touch()"
                     ></v-text-field>
@@ -69,9 +69,9 @@
                   <v-flex xs12>
                     <v-text-field
                       v-model.number="formulario.precio_unitario_venta"
-                      :error-messages="erroresPrecioVenta"
                       name="precio_unitario"
                       label="Precio unitario de venta"
+                      :error-messages="erroresPrecioVenta"
                       @input="$v.formulario.precio_unitario_venta.$touch()"
                       @blur="$v.formulario.precio_unitario_venta.$touch()"
                     ></v-text-field>

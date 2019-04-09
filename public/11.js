@@ -9,8 +9,28 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -78,8 +98,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+/* eslint-disable no-unused-expressions */
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'EditarRepuesto',
+  mixins: [vuelidate__WEBPACK_IMPORTED_MODULE_2__["validationMixin"]],
   props: {
     id: {
       type: Number,
@@ -91,6 +116,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dialog: false,
       valid: false,
+      invalid: false,
       success: false,
       generales: [function (v) {
         return !!v || 'Este campo es requerido';
@@ -100,21 +126,105 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     formulario: function formulario() {
       return this.$store.getters['repuesto/getRepuestoById'](this.id);
+    },
+    erroresRepuesto: function erroresRepuesto() {
+      var errors = [];
+      if (!this.$v.formulario.repuesto.$dirty) return errors;
+      !this.$v.formulario.repuesto.minLength && errors.push('Debe contener más de 5 caracteres');
+      !this.$v.formulario.repuesto.required && errors.push('Este campo es requerido para continuar con el registro');
+      return errors;
+    },
+    erroresDescripcion: function erroresDescripcion() {
+      var errors = [];
+      if (!this.$v.formulario.descripcion.$dirty) return errors;
+      !this.$v.formulario.descripcion.minLength && errors.push('Debe contener más de 5 caracteres');
+      !this.$v.formulario.descripcion.required && errors.push('Este campo es requerido para continuar con el registro');
+      return errors;
+    },
+    erroresPrecioCompra: function erroresPrecioCompra() {
+      var errors = [];
+      if (!this.$v.formulario.precio_unitario_compra.$dirty) return errors;
+      !this.$v.formulario.precio_unitario_compra.required && errors.push('Este campo es requerido para continuar con el registro');
+      !this.$v.formulario.precio_unitario_compra.numeric && errors.push('Este campo debe tener un valor númerico');
+      return errors;
+    },
+    erroresPrecioVenta: function erroresPrecioVenta() {
+      var errors = [];
+      if (!this.$v.formulario.precio_unitario_venta.$dirty) return errors;
+      !this.$v.formulario.precio_unitario_venta.required && errors.push('Este campo es requerido para continuar con el registro');
+      !this.$v.formulario.precio_unitario_venta.numeric && errors.push('Este campo debe tener un valor númerico');
+      return errors;
+    }
+  },
+  validations: {
+    formulario: {
+      repuesto: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["minLength"])(5)
+      },
+      descripcion: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["minLength"])(5)
+      },
+      precio_unitario_compra: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+        numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["numeric"]
+      },
+      precio_unitario_venta: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+        numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["numeric"]
+      }
     }
   },
   methods: {
     closeThis: function closeThis() {
       this.dialog = false;
+      this.$refs.editrepuesto.reset();
+      this.$v.$reset();
     },
-    actualizar: function actualizar(id) {
-      var _this = this;
+    actualizar: function () {
+      var _actualizar = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
+        var url, params;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.$v.$touch();
 
-      var url = "/api/v1/repuestos/update/".concat(id);
-      var params = Object.assign({}, this.formulario);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(url, params).then(function () {
-        _this.success = true;
-      }); // .catch(error => console.log(error))
-    }
+                if (!this.$v.$invalid) {
+                  _context.next = 5;
+                  break;
+                }
+
+                this.invalid = true;
+                _context.next = 10;
+                break;
+
+              case 5:
+                url = "/api/v1/repuestos/update/".concat(id);
+                params = Object.assign({}, this.formulario);
+                _context.next = 9;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(url, params);
+
+              case 9:
+                this.success = true;
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function actualizar(_x) {
+        return _actualizar.apply(this, arguments);
+      }
+
+      return actualizar;
+    }()
   }
 });
 
@@ -263,7 +373,15 @@ var render = function() {
                                 attrs: {
                                   name: "repuesto",
                                   label: "Repuesto",
-                                  rules: _vm.generales
+                                  "error-messages": _vm.erroresRepuesto
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.$v.formulario.repuesto.$touch()
+                                  },
+                                  blur: function($event) {
+                                    return _vm.$v.formulario.repuesto.$touch()
+                                  }
                                 },
                                 model: {
                                   value: _vm.formulario.repuesto,
@@ -285,7 +403,15 @@ var render = function() {
                                 attrs: {
                                   name: "descripcion",
                                   label: "Descripción del repuesto",
-                                  rules: _vm.generales
+                                  "error-messages": _vm.erroresDescripcion
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.$v.formulario.descripcion.$touch()
+                                  },
+                                  blur: function($event) {
+                                    return _vm.$v.formulario.descripcion.$touch()
+                                  }
                                 },
                                 model: {
                                   value: _vm.formulario.descripcion,
@@ -307,7 +433,15 @@ var render = function() {
                                 attrs: {
                                   name: "valor",
                                   label: "Precio unitario de compra",
-                                  rules: _vm.generales
+                                  "error-messages": _vm.erroresPrecioCompra
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.$v.formulario.precio_unitario_compra.$touch()
+                                  },
+                                  blur: function($event) {
+                                    return _vm.$v.formulario.precio_unitario_compra.$touch()
+                                  }
                                 },
                                 model: {
                                   value: _vm.formulario.precio_unitario_compra,
@@ -334,7 +468,15 @@ var render = function() {
                                 attrs: {
                                   name: "valor",
                                   label: "Precio unitario de venta",
-                                  rules: _vm.generales
+                                  "error-messages": _vm.erroresPrecioVenta
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.$v.formulario.precio_unitario_venta.$touch()
+                                  },
+                                  blur: function($event) {
+                                    return _vm.$v.formulario.precio_unitario_venta.$touch()
+                                  }
                                 },
                                 model: {
                                   value: _vm.formulario.precio_unitario_venta,

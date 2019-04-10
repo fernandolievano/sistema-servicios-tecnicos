@@ -63,7 +63,7 @@
               <v-container grid-list-xs class="text-xs-center">
                 <v-layout row wrap>
                   <v-flex>
-                    <editar-servicio :id="item.id"></editar-servicio>
+                    <!-- <editar-servicio :id="item.id"></editar-servicio> -->
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -84,9 +84,9 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'IndexServicios',
-  components: {
-    EditarServicio: () => import('./ServiciosEditar.vue')
-  },
+  // components: {
+  //   EditarServicio: () => import('./ServiciosEditar.vue')
+  // },
   data() {
     return {
       keyword: '',

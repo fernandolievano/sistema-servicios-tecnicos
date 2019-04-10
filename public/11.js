@@ -97,6 +97,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* eslint-disable no-unused-expressions */
 
@@ -355,6 +358,25 @@ var render = function() {
                         "\n          Datos actualizados exitosamente\n        "
                       )
                     ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-alert",
+                    {
+                      attrs: {
+                        type: "error",
+                        transition: "scale-transition",
+                        dismissible: ""
+                      },
+                      model: {
+                        value: _vm.invalid,
+                        callback: function($$v) {
+                          _vm.invalid = $$v
+                        },
+                        expression: "invalid"
+                      }
+                    },
+                    [_vm._v("Por favor corrija los errores para continuar")]
                   ),
                   _vm._v(" "),
                   _c(

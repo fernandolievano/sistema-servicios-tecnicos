@@ -9,11 +9,20 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -70,8 +79,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+/* eslint-disable no-unused-expressions */
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'EditarServicio',
+  mixins: [vuelidate__WEBPACK_IMPORTED_MODULE_1__["validationMixin"]],
   props: {
     id: {
       type: Number,
@@ -83,32 +97,101 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dialog: false,
       valid: false,
-      success: false,
-      generales: [function (v) {
-        return !!v || 'Este campo es requerido';
-      }]
+      invalid: false,
+      success: false
     };
   },
   computed: {
-    formulario: function formulario() {
+    servicio: function servicio() {
       return this.$store.getters['servicio/getServicioById'](this.id);
+    },
+    erroresTitulo: function erroresTitulo() {
+      var errors = [];
+      if (!this.$v.servicio.titulo.$dirty) return errors;
+      !this.$v.servicio.titulo.minLength && errors.push('El título debe contener más de 5 caracteres');
+      !this.$v.servicio.titulo.required && errors.push('Especifique el título del nuevo servicio');
+      return errors;
+    },
+    erroresDescripcion: function erroresDescripcion() {
+      var errors = [];
+      if (!this.$v.servicio.descripcion.$dirty) return errors;
+      !this.$v.servicio.descripcion.minLength && errors.push('El descripcion debe contener más de 8 caracteres');
+      !this.$v.servicio.descripcion.required && errors.push('Especifique una descripción para identificar el nuevo servicio');
+      return errors;
+    },
+    erroresValor: function erroresValor() {
+      var errors = [];
+      if (!this.$v.servicio.valor.$dirty) return errors;
+      !this.$v.servicio.valor.required && errors.push('Especifique un el valor que tendrá el nuevo servicio');
+      !this.$v.servicio.valor.numeric && errors.push('Este campo debe tener un valor numérico');
+      return errors;
+    }
+  },
+  validations: {
+    servicio: {
+      titulo: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(5)
+      },
+      descripcion: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(8)
+      },
+      valor: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
+        numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["numeric"]
+      }
     }
   },
   methods: {
     closeThis: function closeThis() {
       this.dialog = false;
+      this.invalid = false;
+      this.success = true;
+      this.$v.$reset();
     },
-    actualizar: function actualizar(id) {
-      var _this = this;
+    actualizar: function () {
+      var _actualizar = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
+        var url, params;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!this.$v.$invalid) {
+                  _context.next = 4;
+                  break;
+                }
 
-      var url = "/api/v1/servicios/update/".concat(id);
-      var params = Object.assign({}, this.formulario);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(url, params).then(function () {
-        _this.success = true;
-      }).catch(function (error) {
-        return console.log(error);
-      });
-    }
+                this.invalid = true;
+                _context.next = 10;
+                break;
+
+              case 4:
+                url = "/api/v1/servicios/update/".concat(id);
+                params = Object.assign({}, this.servicio);
+                _context.next = 8;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.put(url, params);
+
+              case 8:
+                this.invalid = false;
+                this.success = true;
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function actualizar(_x) {
+        return _actualizar.apply(this, arguments);
+      }
+
+      return actualizar;
+    }()
   }
 });
 
@@ -257,15 +340,14 @@ var render = function() {
                               _c("v-text-field", {
                                 attrs: {
                                   name: "titulo",
-                                  label: "Título del servicio",
-                                  rules: _vm.generales
+                                  label: "Título del servicio"
                                 },
                                 model: {
-                                  value: _vm.formulario.titulo,
+                                  value: _vm.servicio.titulo,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.formulario, "titulo", $$v)
+                                    _vm.$set(_vm.servicio, "titulo", $$v)
                                   },
-                                  expression: "formulario.titulo"
+                                  expression: "servicio.titulo"
                                 }
                               })
                             ],
@@ -279,15 +361,14 @@ var render = function() {
                               _c("v-text-field", {
                                 attrs: {
                                   name: "descripcion",
-                                  label: "Descripción del servicio",
-                                  rules: _vm.generales
+                                  label: "Descripción del servicio"
                                 },
                                 model: {
-                                  value: _vm.formulario.descripcion,
+                                  value: _vm.servicio.descripcion,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.formulario, "descripcion", $$v)
+                                    _vm.$set(_vm.servicio, "descripcion", $$v)
                                   },
-                                  expression: "formulario.descripcion"
+                                  expression: "servicio.descripcion"
                                 }
                               })
                             ],
@@ -301,19 +382,14 @@ var render = function() {
                               _c("v-text-field", {
                                 attrs: {
                                   name: "valor",
-                                  label: "Valor o Costo del servicio",
-                                  rules: _vm.generales
+                                  label: "Valor o Costo del servicio"
                                 },
                                 model: {
-                                  value: _vm.formulario.valor,
+                                  value: _vm.servicio.valor,
                                   callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.formulario,
-                                      "valor",
-                                      _vm._n($$v)
-                                    )
+                                    _vm.$set(_vm.servicio, "valor", _vm._n($$v))
                                   },
-                                  expression: "formulario.valor"
+                                  expression: "servicio.valor"
                                 }
                               })
                             ],

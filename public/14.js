@@ -98,11 +98,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'IndexServicios',
-  components: {
-    EditarServicio: function EditarServicio() {
-      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./ServiciosEditar.vue */ "./resources/js/components/views/servicios/ServiciosEditar.vue"));
-    }
-  },
+  // components: {
+  //   EditarServicio: () => import('./ServiciosEditar.vue')
+  // },
   data: function data() {
     return {
       keyword: '',
@@ -411,17 +409,7 @@ var render = function() {
                                   _c(
                                     "v-layout",
                                     { attrs: { row: "", wrap: "" } },
-                                    [
-                                      _c(
-                                        "v-flex",
-                                        [
-                                          _c("editar-servicio", {
-                                            attrs: { id: item.id }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
+                                    [_c("v-flex")],
                                     1
                                   )
                                 ],

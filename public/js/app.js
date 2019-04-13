@@ -4461,6 +4461,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* eslint-disable no-unused-expressions */
 
@@ -37873,187 +37881,253 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _c("v-divider"),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs8: "" } },
-                                    [
-                                      _c(
-                                        "v-alert",
-                                        {
-                                          attrs: {
-                                            transition: "scale-transition",
-                                            dismissible: "",
-                                            type: "success"
-                                          },
-                                          model: {
-                                            value: _vm.success,
-                                            callback: function($$v) {
-                                              _vm.success = $$v
-                                            },
-                                            expression: "success"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                    Datos actualizados exitosamente\n                  "
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-alert",
-                                        {
-                                          attrs: {
-                                            type: "error",
-                                            transition: "scale-transition",
-                                            dismissible: ""
-                                          },
-                                          model: {
-                                            value: _vm.invalid,
-                                            callback: function($$v) {
-                                              _vm.invalid = $$v
-                                            },
-                                            expression: "invalid"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                    Por favor corrija los errores para continuar"
-                                          )
-                                        ]
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          name: "titulo",
-                                          label: "Título del servicio",
-                                          "error-messages": _vm.erroresTitulo
-                                        },
-                                        on: {
-                                          input: function($event) {
-                                            return _vm.$v.formulario.titulo.$touch()
-                                          },
-                                          blur: function($event) {
-                                            return _vm.$v.formulario.titulo.$touch()
-                                          }
-                                        },
-                                        model: {
-                                          value: _vm.formulario.titulo,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.formulario,
-                                              "titulo",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "formulario.titulo"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          name: "descripcion",
-                                          label: "Descripción del servicio",
-                                          "error-messages":
-                                            _vm.erroresDescripcion
-                                        },
-                                        on: {
-                                          input: function($event) {
-                                            return _vm.$v.formulario.descripcion.$touch()
-                                          },
-                                          blur: function($event) {
-                                            return _vm.$v.formulario.descripcion.$touch()
-                                          }
-                                        },
-                                        model: {
-                                          value: _vm.formulario.descripcion,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.formulario,
-                                              "descripcion",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "formulario.descripcion"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { attrs: { xs12: "" } },
-                                    [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          name: "valor",
-                                          label: "Valor o Costo del servicio",
-                                          "error-messages": _vm.erroresValor
-                                        },
-                                        on: {
-                                          input: function($event) {
-                                            return _vm.$v.formulario.valor.$touch()
-                                          },
-                                          blur: function($event) {
-                                            return _vm.$v.formulario.valor.$touch()
-                                          }
-                                        },
-                                        model: {
-                                          value: _vm.formulario.valor,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.formulario,
-                                              "valor",
-                                              _vm._n($$v)
-                                            )
-                                          },
-                                          expression: "formulario.valor"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
+                                  _c("v-divider")
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm.formulario.length
+                                ? _c(
+                                    "v-layout",
                                     {
-                                      staticClass: "text-xs-right",
-                                      attrs: { xs12: "", "justify-end": "" }
+                                      attrs: {
+                                        row: "",
+                                        wrap: "",
+                                        "justify-center": ""
+                                      }
                                     },
                                     [
                                       _c(
-                                        "v-btn",
+                                        "v-flex",
                                         {
-                                          attrs: {
-                                            type: "submit",
-                                            color: "success"
-                                          }
+                                          staticClass: "text-xs-center",
+                                          attrs: { xs12: "", md10: "" }
                                         },
-                                        [_vm._v("Actualizar información")]
+                                        [
+                                          _c(
+                                            "h2",
+                                            { staticClass: "error--text" },
+                                            [
+                                              _vm._v(
+                                                "No es posible mostrar la información"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: {
+                                                to: { name: "servicios" }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                " Volver a la página anterior"
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
                                   )
-                                ],
-                                1
-                              )
+                                : _vm.formulario
+                                ? _c(
+                                    "v-layout",
+                                    {
+                                      attrs: {
+                                        row: "",
+                                        wrap: "",
+                                        "justify-center": "",
+                                        "align-center": ""
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs8: "" } },
+                                        [
+                                          _c(
+                                            "v-alert",
+                                            {
+                                              attrs: {
+                                                transition: "scale-transition",
+                                                dismissible: "",
+                                                type: "success"
+                                              },
+                                              model: {
+                                                value: _vm.success,
+                                                callback: function($$v) {
+                                                  _vm.success = $$v
+                                                },
+                                                expression: "success"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    Datos actualizados exitosamente\n                  "
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-alert",
+                                            {
+                                              attrs: {
+                                                type: "error",
+                                                transition: "scale-transition",
+                                                dismissible: ""
+                                              },
+                                              model: {
+                                                value: _vm.invalid,
+                                                callback: function($$v) {
+                                                  _vm.invalid = $$v
+                                                },
+                                                expression: "invalid"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    Por favor corrija los errores para continuar"
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              name: "titulo",
+                                              label: "Título del servicio",
+                                              "error-messages":
+                                                _vm.erroresTitulo
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                return _vm.$v.formulario.titulo.$touch()
+                                              },
+                                              blur: function($event) {
+                                                return _vm.$v.formulario.titulo.$touch()
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.formulario.titulo,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formulario,
+                                                  "titulo",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "formulario.titulo"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              name: "descripcion",
+                                              label: "Descripción del servicio",
+                                              "error-messages":
+                                                _vm.erroresDescripcion
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                return _vm.$v.formulario.descripcion.$touch()
+                                              },
+                                              blur: function($event) {
+                                                return _vm.$v.formulario.descripcion.$touch()
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.formulario.descripcion,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formulario,
+                                                  "descripcion",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "formulario.descripcion"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              name: "valor",
+                                              label:
+                                                "Valor o Costo del servicio",
+                                              "error-messages": _vm.erroresValor
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                return _vm.$v.formulario.valor.$touch()
+                                              },
+                                              blur: function($event) {
+                                                return _vm.$v.formulario.valor.$touch()
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.formulario.valor,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formulario,
+                                                  "valor",
+                                                  _vm._n($$v)
+                                                )
+                                              },
+                                              expression: "formulario.valor"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          staticClass: "text-xs-right",
+                                          attrs: { xs12: "", "justify-end": "" }
+                                        },
+                                        [
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: {
+                                                type: "submit",
+                                                color: "success"
+                                              }
+                                            },
+                                            [_vm._v("Actualizar información")]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e()
                             ],
                             1
                           )
@@ -83066,7 +83140,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
               case 6:
                 _context.prev = 6;
                 _context.t0 = _context["catch"](0);
-                console.error(_context.t0);
+                console.error("Hubo un error: ".concat(_context.t0));
 
               case 9:
               case "end":
@@ -83877,28 +83951,32 @@ var actions = {
     return _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].store(servicio).then(function (response) {
       commit('ADD_SERVICIO', response.data);
       return response.data;
-    }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
+    });
   },
   fetchAll: function fetchAll(_ref2) {
     var commit = _ref2.commit;
     return _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].index().then(function (response) {
       commit('SET_SERVICIOS', response.data);
-    }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
+    });
   },
   fetchOne: function fetchOne(_ref3, id) {
     var commit = _ref3.commit,
         getters = _ref3.getters;
-    var servicio = getters.getServicioById(id);
 
-    if (servicio) {
-      commit('SET_SERVICIO', servicio);
-    } else {
-      _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
-        commit('SET_SERVICIO', response.data);
-      }); // .catch(error => console.log(`Hubo un error: ${error.message}`))
+    try {
+      var servicio = getters.getServicioById(id);
+
+      if (servicio) {
+        commit('SET_SERVICIO', servicio);
+      } else {
+        _services_ServiciosService__WEBPACK_IMPORTED_MODULE_0__["default"].show(id).then(function (response) {
+          commit('SET_SERVICIO', response.data);
+        });
+      }
+    } catch (error) {
+      console.error("Hubo un error: ".concat(error));
+      commit('SET_SERVICIO', null);
     }
-
-    return 'ok';
   },
   clearServicio: function clearServicio(_ref4) {
     var commit = _ref4.commit;

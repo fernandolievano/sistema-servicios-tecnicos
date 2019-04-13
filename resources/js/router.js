@@ -53,7 +53,7 @@ const router = new Router({
           await store.dispatch('servicio/fetchOne', routeTo.params.id)
           next()
         } catch (error) {
-          console.error(error)
+          console.error(`Hubo un error: ${error}`)
         }
       }
     },

@@ -23,6 +23,14 @@
                     <h1 class="display-3 text-xs-center text-md-left">Editar Servicio</h1>
                   </v-flex>
                   <v-divider></v-divider>
+                </v-layout>
+                <v-layout v-if="formulario.length" row wrap justify-center>
+                  <v-flex xs12 md10 class="text-xs-center">
+                    <h2 class="error--text">No es posible mostrar la información</h2>
+                    <v-btn :to="{ name: 'servicios' }"> Volver a la página anterior</v-btn>
+                  </v-flex></v-layout
+                >
+                <v-layout v-else-if="formulario" row wrap justify-center align-center>
                   <v-flex xs8>
                     <v-alert
                       v-model="success"

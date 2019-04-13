@@ -47,26 +47,27 @@ export const actions = {
       commit('ADD_SERVICIO', response.data)
       return response.data
     })
-    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchAll({ commit }) {
     return ServicioService.index().then(response => {
       commit('SET_SERVICIOS', response.data)
     })
-    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchOne({ commit, getters }, id) {
-    const servicio = getters.getServicioById(id)
+    try {
+      const servicio = getters.getServicioById(id)
 
-    if (servicio) {
-      commit('SET_SERVICIO', servicio)
-    } else {
-      ServicioService.show(id).then(response => {
-        commit('SET_SERVICIO', response.data)
-      })
-      // .catch(error => console.log(`Hubo un error: ${error.message}`))
+      if (servicio) {
+        commit('SET_SERVICIO', servicio)
+      } else {
+        ServicioService.show(id).then(response => {
+          commit('SET_SERVICIO', response.data)
+        })
+      }
+    } catch (error) {
+      console.error(`Hubo un error: ${error}`)
+      commit('SET_SERVICIO', null)
     }
-    return 'ok'
   },
   clearServicio({ commit }) {
     commit('CLEAR_SERVICIO')

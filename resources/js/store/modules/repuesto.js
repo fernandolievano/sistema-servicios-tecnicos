@@ -51,28 +51,22 @@ export const actions = {
       commit('ADD_REPUESTO', response.data)
       return response.data
     })
-    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchAll({ commit }) {
     return RepuestoService.index().then(response => {
       commit('SET_REPUESTOS', response.data)
     })
-    // .catch(error => console.log(`Hubo un error: ${error.message}`))
   },
   fetchOne({ commit, getters }, id) {
     const repuesto = getters.getRepuestoById(id)
 
     if (repuesto) {
       commit('SET_REPUESTO', repuesto)
-    } else {
-      return RepuestoService.show(id).then(response => {
-        commit('SET_REPUESTO', response.data)
-      })
-      // .catch(error => {
-      //   console.log(`Hubo un problema: ${error.message}`)
-      // })
+      return repuesto
     }
-    return 'ok'
+    return RepuestoService.show(id).then(response => {
+      commit('SET_REPUESTO', response.data)
+    })
   },
   clearRepuesto({ commit }) {
     commit('CLEAR_REPUESTO')

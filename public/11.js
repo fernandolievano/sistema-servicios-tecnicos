@@ -17,12 +17,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -105,30 +123,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'EditarRepuesto',
   mixins: [vuelidate__WEBPACK_IMPORTED_MODULE_2__["validationMixin"]],
-  props: {
-    id: {
-      type: Number,
-      required: true,
-      default: 0
-    }
-  },
   data: function data() {
     return {
-      dialog: false,
       valid: false,
       invalid: false,
-      success: false,
-      generales: [function (v) {
-        return !!v || 'Este campo es requerido';
-      }]
+      success: false
     };
   },
-  computed: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])(['repuesto']), {
     formulario: function formulario() {
-      return this.$store.getters['repuesto/getRepuestoById'](this.id);
+      return this.repuesto.repuesto;
     },
     erroresRepuesto: function erroresRepuesto() {
       var errors = [];
@@ -158,7 +166,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       !this.$v.formulario.precio_unitario_venta.numeric && errors.push('Este campo debe tener un valor númerico');
       return errors;
     }
-  },
+  }),
   validations: {
     formulario: {
       repuesto: {
@@ -180,15 +188,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    closeThis: function closeThis() {
-      this.dialog = false;
-      this.$refs.editrepuesto.reset();
-      this.$v.$reset();
-    },
     actualizar: function () {
       var _actualizar = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
+        var _this = this;
+
         var url, params;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -212,7 +217,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(url, params);
 
               case 9:
-                this.success = true;
+                this.$router.push('/repuestos', function () {
+                  _this.$swal.fire({
+                    title: 'Información actualizada con éxito',
+                    type: 'success'
+                  });
+                });
 
               case 10:
               case "end":
@@ -249,269 +259,318 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-dialog",
-    {
-      attrs: {
-        fullscreen: "",
-        "hide-overlay": "",
-        transition: "dialog-bottom-transition"
-      },
-      model: {
-        value: _vm.dialog,
-        callback: function($$v) {
-          _vm.dialog = $$v
-        },
-        expression: "dialog"
-      }
-    },
+    "v-container",
     [
       _c(
-        "v-btn",
-        {
-          attrs: { slot: "activator", small: "", flat: "", color: "warning" },
-          slot: "activator"
-        },
-        [
-          _vm._v("\n    Editar información\n    "),
-          _c("v-icon", [_vm._v("edit")])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-card",
+        "v-layout",
+        { attrs: { row: "", wrap: "", "justify-center": "" } },
         [
           _c(
-            "v-toolbar",
-            { attrs: { color: "warning", dense: "", dark: "" } },
+            "v-flex",
+            { attrs: { md10: "", xs12: "" } },
             [
               _c(
-                "v-btn",
-                { attrs: { icon: "", dark: "" }, on: { click: _vm.closeThis } },
-                [_c("v-icon", [_vm._v("close")])],
-                1
-              ),
-              _vm._v(" "),
-              _c("v-toolbar-title", [
-                _vm._v("\n        Editar información de repuesto\n      ")
-              ]),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-toolbar-items",
+                "v-card",
                 [
                   _c(
-                    "v-btn",
+                    "v-form",
                     {
-                      attrs: { dark: "", flat: "" },
-                      on: {
-                        click: function($event) {
-                          return _vm.actualizar(_vm.id)
-                        }
-                      }
-                    },
-                    [_vm._v("Guardar cambios")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-form",
-            {
-              ref: "editrepuesto",
-              attrs: { "lazy-validation": "" },
-              model: {
-                value: _vm.valid,
-                callback: function($$v) {
-                  _vm.valid = $$v
-                },
-                expression: "valid"
-              }
-            },
-            [
-              _c(
-                "v-responsive",
-                [
-                  _c(
-                    "v-alert",
-                    {
-                      attrs: {
-                        transition: "scale-transition",
-                        dismissible: "",
-                        type: "success"
-                      },
+                      ref: "editrepuesto",
+                      attrs: { "lazy-validation": "" },
                       model: {
-                        value: _vm.success,
+                        value: _vm.valid,
                         callback: function($$v) {
-                          _vm.success = $$v
+                          _vm.valid = $$v
                         },
-                        expression: "success"
+                        expression: "valid"
                       }
                     },
-                    [
-                      _vm._v(
-                        "\n          Datos actualizados exitosamente\n        "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-alert",
-                    {
-                      attrs: {
-                        type: "error",
-                        transition: "scale-transition",
-                        dismissible: ""
-                      },
-                      model: {
-                        value: _vm.invalid,
-                        callback: function($$v) {
-                          _vm.invalid = $$v
-                        },
-                        expression: "invalid"
-                      }
-                    },
-                    [_vm._v("Por favor corrija los errores para continuar")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-container",
-                    { attrs: { "grid-list-xs": "" } },
                     [
                       _c(
-                        "v-layout",
-                        { attrs: { row: "", wrap: "" } },
+                        "v-responsive",
                         [
                           _c(
-                            "v-flex",
-                            { attrs: { xs12: "" } },
+                            "v-container",
+                            { attrs: { "grid-list-xs": "" } },
                             [
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "repuesto",
-                                  label: "Repuesto",
-                                  "error-messages": _vm.erroresRepuesto
-                                },
-                                on: {
-                                  input: function($event) {
-                                    return _vm.$v.formulario.repuesto.$touch()
-                                  },
-                                  blur: function($event) {
-                                    return _vm.$v.formulario.repuesto.$touch()
+                              _c(
+                                "v-layout",
+                                {
+                                  attrs: {
+                                    row: "",
+                                    wrap: "",
+                                    "justify-center": "",
+                                    "align-center": ""
                                   }
                                 },
-                                model: {
-                                  value: _vm.formulario.repuesto,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formulario, "repuesto", $$v)
-                                  },
-                                  expression: "formulario.repuesto"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs12: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "descripcion",
-                                  label: "Descripción del repuesto",
-                                  "error-messages": _vm.erroresDescripcion
-                                },
-                                on: {
-                                  input: function($event) {
-                                    return _vm.$v.formulario.descripcion.$touch()
-                                  },
-                                  blur: function($event) {
-                                    return _vm.$v.formulario.descripcion.$touch()
-                                  }
-                                },
-                                model: {
-                                  value: _vm.formulario.descripcion,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formulario, "descripcion", $$v)
-                                  },
-                                  expression: "formulario.descripcion"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs12: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "valor",
-                                  label: "Precio unitario de compra",
-                                  "error-messages": _vm.erroresPrecioCompra
-                                },
-                                on: {
-                                  input: function($event) {
-                                    return _vm.$v.formulario.precio_unitario_compra.$touch()
-                                  },
-                                  blur: function($event) {
-                                    return _vm.$v.formulario.precio_unitario_compra.$touch()
-                                  }
-                                },
-                                model: {
-                                  value: _vm.formulario.precio_unitario_compra,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.formulario,
-                                      "precio_unitario_compra",
-                                      _vm._n($$v)
-                                    )
-                                  },
-                                  expression:
-                                    "formulario.precio_unitario_compra"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs12: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "valor",
-                                  label: "Precio unitario de venta",
-                                  "error-messages": _vm.erroresPrecioVenta
-                                },
-                                on: {
-                                  input: function($event) {
-                                    return _vm.$v.formulario.precio_unitario_venta.$touch()
-                                  },
-                                  blur: function($event) {
-                                    return _vm.$v.formulario.precio_unitario_venta.$touch()
-                                  }
-                                },
-                                model: {
-                                  value: _vm.formulario.precio_unitario_venta,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.formulario,
-                                      "precio_unitario_venta",
-                                      _vm._n($$v)
-                                    )
-                                  },
-                                  expression: "formulario.precio_unitario_venta"
-                                }
-                              })
+                                [
+                                  _c(
+                                    "v-flex",
+                                    {
+                                      attrs: {
+                                        xs12: "",
+                                        md3: "",
+                                        lg4: "",
+                                        xl5: ""
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            to: { name: "repuestos" },
+                                            fab: "",
+                                            flat: "",
+                                            primary: "",
+                                            small: ""
+                                          }
+                                        },
+                                        [
+                                          _c("v-icon", [
+                                            _vm._v(
+                                              "\n                      arrow_back\n                    "
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    {
+                                      attrs: {
+                                        xs12: "",
+                                        md9: "",
+                                        lg8: "",
+                                        xs7: ""
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "h1",
+                                        {
+                                          staticClass:
+                                            "display-3 text-xs-center text-md-left"
+                                        },
+                                        [_vm._v("Editar Repuesto")]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-divider")
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-layout",
+                                { attrs: { row: "", wrap: "" } },
+                                [
+                                  _c("v-flex"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    [
+                                      _c(
+                                        "v-alert",
+                                        {
+                                          attrs: {
+                                            transition: "scale-transition",
+                                            dismissible: "",
+                                            type: "success"
+                                          },
+                                          model: {
+                                            value: _vm.success,
+                                            callback: function($$v) {
+                                              _vm.success = $$v
+                                            },
+                                            expression: "success"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                    Datos actualizados exitosamente\n                  "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-alert",
+                                        {
+                                          attrs: {
+                                            type: "error",
+                                            transition: "scale-transition",
+                                            dismissible: ""
+                                          },
+                                          model: {
+                                            value: _vm.invalid,
+                                            callback: function($$v) {
+                                              _vm.invalid = $$v
+                                            },
+                                            expression: "invalid"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "Por favor corrija los errores para continuar"
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          name: "repuesto",
+                                          label: "Repuesto",
+                                          "error-messages": _vm.erroresRepuesto
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            return _vm.$v.formulario.repuesto.$touch()
+                                          },
+                                          blur: function($event) {
+                                            return _vm.$v.formulario.repuesto.$touch()
+                                          }
+                                        },
+                                        model: {
+                                          value: _vm.formulario.repuesto,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.formulario,
+                                              "repuesto",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "formulario.repuesto"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          name: "descripcion",
+                                          label: "Descripción del repuesto",
+                                          "error-messages":
+                                            _vm.erroresDescripcion
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            return _vm.$v.formulario.descripcion.$touch()
+                                          },
+                                          blur: function($event) {
+                                            return _vm.$v.formulario.descripcion.$touch()
+                                          }
+                                        },
+                                        model: {
+                                          value: _vm.formulario.descripcion,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.formulario,
+                                              "descripcion",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "formulario.descripcion"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          name: "valor",
+                                          label: "Precio unitario de compra",
+                                          "error-messages":
+                                            _vm.erroresPrecioCompra
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            return _vm.$v.formulario.precio_unitario_compra.$touch()
+                                          },
+                                          blur: function($event) {
+                                            return _vm.$v.formulario.precio_unitario_compra.$touch()
+                                          }
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.formulario
+                                              .precio_unitario_compra,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.formulario,
+                                              "precio_unitario_compra",
+                                              _vm._n($$v)
+                                            )
+                                          },
+                                          expression:
+                                            "formulario.precio_unitario_compra"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          name: "valor",
+                                          label: "Precio unitario de venta",
+                                          "error-messages":
+                                            _vm.erroresPrecioVenta
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            return _vm.$v.formulario.precio_unitario_venta.$touch()
+                                          },
+                                          blur: function($event) {
+                                            return _vm.$v.formulario.precio_unitario_venta.$touch()
+                                          }
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.formulario
+                                              .precio_unitario_venta,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.formulario,
+                                              "precio_unitario_venta",
+                                              _vm._n($$v)
+                                            )
+                                          },
+                                          expression:
+                                            "formulario.precio_unitario_venta"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
                             ],
                             1
                           )

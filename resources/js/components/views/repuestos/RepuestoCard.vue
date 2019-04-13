@@ -45,7 +45,14 @@
         <v-container grid-list-xs class="text-xs-center">
           <v-layout row wrap>
             <v-flex xs12>
-              <editar-repuesto :id="item.id" />
+              <v-btn
+                color="warning"
+                flat
+                :to="{ name: 'editar-repuesto', params: { id: item.id } }"
+              >
+                Editar información
+                <v-icon>edit</v-icon>
+              </v-btn>
             </v-flex>
             <v-flex xs12>
               <incrementar-stock :id="item.id" />
@@ -62,7 +69,6 @@ import { mapActions } from 'vuex'
 
 export default {
   components: {
-    EditarRepuesto: () => import('./RepuestoEditar.vue'),
     IncrementarStock: () => import('./AñadirStock.vue')
   },
   props: {

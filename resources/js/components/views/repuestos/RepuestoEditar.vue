@@ -1,78 +1,105 @@
 <template>
-  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <v-btn slot="activator" small flat color="warning">
-      Editar información
-      <v-icon>edit</v-icon>
-    </v-btn>
-    <v-card>
-      <v-toolbar color="warning" dense dark>
-        <v-btn icon dark @click="closeThis">
-          <v-icon>close</v-icon>
-        </v-btn>
-        <v-toolbar-title>
-          Editar información de repuesto
-        </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <v-btn dark flat @click="actualizar(id)">Guardar cambios</v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
-      <v-form ref="editrepuesto" v-model="valid" lazy-validation>
-        <v-responsive>
-          <v-alert v-model="success" transition="scale-transition" dismissible type="success">
-            Datos actualizados exitosamente
-          </v-alert>
-          <v-alert v-model="invalid" type="error" transition="scale-transition" dismissible
-            >Por favor corrija los errores para continuar</v-alert
+  <v-container>
+    <v-layout row wrap justify-center>
+      <v-flex md10 xs12>
+        <v-card>
+          <v-form
+            ref="editrepuesto"
+            v-model="valid"
+            lazy-validation
+            @submit.prevent="actualizar(formulario.id)"
           >
-          <v-container grid-list-xs>
-            <v-layout row wrap>
-              <v-flex xs12>
-                <v-text-field
-                  v-model="formulario.repuesto"
-                  name="repuesto"
-                  label="Repuesto"
-                  :error-messages="erroresRepuesto"
-                  @input="$v.formulario.repuesto.$touch()"
-                  @blur="$v.formulario.repuesto.$touch()"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field
-                  v-model="formulario.descripcion"
-                  name="descripcion"
-                  label="Descripción del repuesto"
-                  :error-messages="erroresDescripcion"
-                  @input="$v.formulario.descripcion.$touch()"
-                  @blur="$v.formulario.descripcion.$touch()"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field
-                  v-model.number="formulario.precio_unitario_compra"
-                  name="valor"
-                  label="Precio unitario de compra"
-                  :error-messages="erroresPrecioCompra"
-                  @input="$v.formulario.precio_unitario_compra.$touch()"
-                  @blur="$v.formulario.precio_unitario_compra.$touch()"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field
-                  v-model.number="formulario.precio_unitario_venta"
-                  name="valor"
-                  label="Precio unitario de venta"
-                  :error-messages="erroresPrecioVenta"
-                  @input="$v.formulario.precio_unitario_venta.$touch()"
-                  @blur="$v.formulario.precio_unitario_venta.$touch()"
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-responsive>
-      </v-form>
-    </v-card>
-  </v-dialog>
+            <v-responsive>
+              <v-container grid-list-xs>
+                <v-layout row wrap justify-center align-center>
+                  <v-flex xs12 md3 lg4 xl5>
+                    <v-btn :to="{ name: 'repuestos' }" fab flat primary small>
+                      <v-icon>
+                        arrow_back
+                      </v-icon>
+                    </v-btn>
+                  </v-flex>
+                  <v-flex xs12 md9 lg8 xs7>
+                    <h1 class="display-3 text-xs-center text-md-left">Editar Repuesto</h1>
+                  </v-flex>
+                  <v-divider></v-divider>
+                </v-layout>
+                <v-layout v-if="formulario.length" row wrap justify-center>
+                  <v-flex xs12 md10 class="text-xs-center">
+                    <h2 class="error--text">No es posible mostrar la información</h2>
+                    <v-btn :to="{ name: 'repuestos' }"> Volver a la página anterior</v-btn>
+                  </v-flex></v-layout
+                >
+                <v-layout v-else-if="formulario" row wrap>
+                  <v-flex> </v-flex>
+                  <v-flex>
+                    <v-alert
+                      v-model="success"
+                      transition="scale-transition"
+                      dismissible
+                      type="success"
+                    >
+                      Datos actualizados exitosamente
+                    </v-alert>
+                    <v-alert
+                      v-model="invalid"
+                      type="error"
+                      transition="scale-transition"
+                      dismissible
+                      >Por favor corrija los errores para continuar</v-alert
+                    >
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-text-field
+                      v-model="formulario.repuesto"
+                      name="repuesto"
+                      label="Repuesto"
+                      :error-messages="erroresRepuesto"
+                      @input="$v.formulario.repuesto.$touch()"
+                      @blur="$v.formulario.repuesto.$touch()"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-text-field
+                      v-model="formulario.descripcion"
+                      name="descripcion"
+                      label="Descripción del repuesto"
+                      :error-messages="erroresDescripcion"
+                      @input="$v.formulario.descripcion.$touch()"
+                      @blur="$v.formulario.descripcion.$touch()"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-text-field
+                      v-model.number="formulario.precio_unitario_compra"
+                      name="valor"
+                      label="Precio unitario de compra"
+                      :error-messages="erroresPrecioCompra"
+                      @input="$v.formulario.precio_unitario_compra.$touch()"
+                      @blur="$v.formulario.precio_unitario_compra.$touch()"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-text-field
+                      v-model.number="formulario.precio_unitario_venta"
+                      name="valor"
+                      label="Precio unitario de venta"
+                      :error-messages="erroresPrecioVenta"
+                      @input="$v.formulario.precio_unitario_venta.$touch()"
+                      @blur="$v.formulario.precio_unitario_venta.$touch()"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 class="text-xs-center">
+                    <v-btn type="submit" color="success">Actualizar información</v-btn>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-responsive>
+          </v-form>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -81,27 +108,20 @@
 import axios from 'axios'
 import { validationMixin } from 'vuelidate'
 import { required, minLength, numeric } from 'vuelidate/lib/validators'
+import { mapState } from 'vuex'
 
 export default {
   name: 'EditarRepuesto',
   mixins: [validationMixin],
-  props: {
-    id: {
-      type: Number,
-      required: true,
-      default: 0
-    }
-  },
   data: () => ({
-    dialog: false,
     valid: false,
     invalid: false,
-    success: false,
-    generales: [v => !!v || 'Este campo es requerido']
+    success: false
   }),
   computed: {
+    ...mapState(['repuesto']),
     formulario() {
-      return this.$store.getters['repuesto/getRepuestoById'](this.id)
+      return this.repuesto.repuesto
     },
     erroresRepuesto() {
       const errors = []
@@ -159,11 +179,6 @@ export default {
     }
   },
   methods: {
-    closeThis() {
-      this.dialog = false
-      this.$refs.editrepuesto.reset()
-      this.$v.$reset()
-    },
     async actualizar(id) {
       this.$v.$touch()
       if (this.$v.$invalid) this.invalid = true
@@ -172,7 +187,12 @@ export default {
         const params = Object.assign({}, this.formulario)
 
         await axios.put(url, params)
-        this.success = true
+        this.$router.push('/repuestos', () => {
+          this.$swal.fire({
+            title: 'Información actualizada con éxito',
+            type: 'success'
+          })
+        })
       }
     }
   }

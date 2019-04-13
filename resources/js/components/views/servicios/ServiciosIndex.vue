@@ -63,7 +63,15 @@
               <v-container grid-list-xs class="text-xs-center">
                 <v-layout row wrap>
                   <v-flex>
-                    <!-- <editar-servicio :id="item.id"></editar-servicio> -->
+                    <v-btn
+                      :to="{ name: 'editar-servicio', params: { id: item.id } }"
+                      small
+                      flat
+                      color="warning"
+                    >
+                      Editar información
+                      <v-icon>edit</v-icon>
+                    </v-btn>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -84,9 +92,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'IndexServicios',
-  // components: {
-  //   EditarServicio: () => import('./ServiciosEditar.vue')
-  // },
   data() {
     return {
       keyword: '',

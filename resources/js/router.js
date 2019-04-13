@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import Vue from 'vue'
@@ -9,6 +10,7 @@ import Caja from './components/views/caja/Caja.vue'
 import Clientes from './components/views/clientes/Clientes.vue'
 import Equipos from './components/views/equipos/Equipos.vue'
 import Servicios from './components/views/servicios/Servicios.vue'
+import ServicioEditar from './components/views/servicios/ServiciosEditar.vue'
 import Repuestos from './components/views/repuestos/Repuestos.vue'
 
 Vue.use(Router)
@@ -40,6 +42,20 @@ const router = new Router({
       path: '/equipos',
       name: 'equipos',
       component: Equipos
+    },
+    {
+      path: '/servicios/:id/editar',
+      name: 'editar-servicio',
+      component: ServicioEditar,
+      props: true,
+      async beforeEnter(routeTo, routeFrom, next) {
+        try {
+          await store.dispatch('servicio/fetchOne', routeTo.params.id)
+          next()
+        } catch (error) {
+          console.error(error)
+        }
+      }
     },
     {
       path: '/descargar/ticket_final/:id',

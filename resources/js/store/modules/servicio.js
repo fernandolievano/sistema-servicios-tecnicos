@@ -20,14 +20,14 @@ export const namespaced = true
 
 export const state = {
   servicios: [],
-  servicio: {}
+  servicio: null
 }
 
 export const mutations = {
   SET_SERVICIOS(state, servicios) {
     state.servicios = servicios
   },
-  SER_SERVICIO(state, servicio) {
+  SET_SERVICIO(state, servicio) {
     state.servicio = servicio
   },
   CLEAR_SERVICIO(state) {
@@ -59,9 +59,9 @@ export const actions = {
     const servicio = getters.getServicioById(id)
 
     if (servicio) {
-      commit('SET_SERVICIO')
+      commit('SET_SERVICIO', servicio)
     } else {
-      return ServicioService.show(id).then(response => {
+      ServicioService.show(id).then(response => {
         commit('SET_SERVICIO', response.data)
       })
       // .catch(error => console.log(`Hubo un error: ${error.message}`))

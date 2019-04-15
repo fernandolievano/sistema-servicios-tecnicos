@@ -31,16 +31,7 @@
                   </v-flex></v-layout
                 >
                 <v-layout v-else-if="formulario" row wrap>
-                  <v-flex> </v-flex>
                   <v-flex>
-                    <v-alert
-                      v-model="success"
-                      transition="scale-transition"
-                      dismissible
-                      type="success"
-                    >
-                      Datos actualizados exitosamente
-                    </v-alert>
                     <v-alert
                       v-model="invalid"
                       type="error"

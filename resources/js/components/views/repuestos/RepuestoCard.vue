@@ -55,7 +55,12 @@
               </v-btn>
             </v-flex>
             <v-flex xs12>
-              <incrementar-stock :id="item.id" />
+              <v-btn :to="{ name: 'stock-repuesto', params: { id: item.id } }" color="primary" flat>
+                Stock de {{ item.repuesto }}
+                <v-icon>
+                  add
+                </v-icon>
+              </v-btn>
             </v-flex>
           </v-layout>
         </v-container>
@@ -68,9 +73,6 @@
 import { mapActions } from 'vuex'
 
 export default {
-  components: {
-    IncrementarStock: () => import('./AñadirStock.vue')
-  },
   props: {
     item: {
       type: Object,

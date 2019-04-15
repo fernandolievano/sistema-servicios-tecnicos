@@ -1,44 +1,51 @@
 <template>
-  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <v-btn slot="activator" color="success">
-      Actualizar Stock
-      <v-icon>add</v-icon>
-    </v-btn>
-    <v-card>
-      <v-toolbar color="success" dense dark>
-        <v-btn icon dark @click="dialog = false">
-          <v-icon>close</v-icon>
-        </v-btn>
-        <v-toolbar-title>Actualizar stock de {{ repuesto.repuesto }}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <v-btn dark flat @click="actualizar">Listo</v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
-      <v-form ref="incstock" v-model="valid" lazy-validation>
-        <v-responsive>
-          <v-container grid-list-xs>
-            <v-layout row wrap>
-              <v-flex xs12>
-                <h1>Stock {{ repuesto.repuesto }}: {{ repuesto.cantidad + nuevaCantidad }}</h1>
+  <v-container grid-list-xs>
+    <v-layout row wrap justify-center>
+      <v-flex xs12 md10>
+        <v-card>
+          <v-form
+            ref="stockrepuesto"
+            v-model="valid"
+            lazy-validation
+            @submit.prevent="actualizar(formulario.id)"
+          >
+            <v-layout row wrap justify-center align-center>
+              <v-flex xs12 md3 lg4 xl5>
+                <v-btn :to="{ name: 'repuestos' }" fab flat primary small>
+                  <v-icon>
+                    arrow_back
+                  </v-icon>
+                </v-btn>
               </v-flex>
+              <v-flex v-if="formulario" xs12 md9 lg8 xs7>
+                <h1 class="display-3 text-xs-center text-md-left">
+                  Actualizar Stock
+                </h1>
+              </v-flex>
+              <v-divider></v-divider>
+            </v-layout>
+            <v-layout v-if="formulario.length" row wrap justify-center>
+              <v-flex xs12 md10 class="text-xs-center">
+                <h2 class="error--text">No es posible mostrar la información</h2>
+                <v-btn :to="{ name: 'repuestos' }"> Volver a la página anterior</v-btn>
+              </v-flex></v-layout
+            >
+            <v-layout v-else-if="formulario" row wrap>
+              <v-flex xs12> </v-flex>
               <v-flex xs12>
                 <v-alert v-model="invalid" type="error" transition="scale-transition" dismissible
                   >Por favor corrija los errores para continuar</v-alert
                 >
-                <v-alert v-model="success" type="success" transition="scale-transition" dismissible>
-                  Los cambios se efectuaron con éxito
-                </v-alert>
               </v-flex>
               <v-flex xs12>
                 <v-text-field
-                  v-model.number="repuesto.precio_unitario_compra"
+                  v-model.number="formulario.precio_unitario_compra"
                   name="precio_unitario_compra"
                   label="Si el precio de compra es el mismo de la ultima vez no es necesario cambiar este campo"
                   placeholder="Precio de compra por unidad"
                   :error-messages="erroresPrecioCompra"
-                  @input="$v.repuesto.precio_unitario_compra.$touch()"
-                  @blur="$v.repuesto.precio_unitario_compra.$touch()"
+                  @input="$v.formulario.precio_unitario_compra.$touch()"
+                  @blur="$v.formulario.precio_unitario_compra.$touch()"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -51,12 +58,15 @@
                   @blur="$v.nuevaCantidad.$touch()"
                 ></v-text-field>
               </v-flex>
+              <v-flex xs12 class="text-xs-center">
+                <v-btn type="submit" color="success">Actualizar stock</v-btn>
+              </v-flex>
             </v-layout>
-          </v-container>
-        </v-responsive>
-      </v-form>
-    </v-card>
-  </v-dialog>
+          </v-form>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -65,22 +75,15 @@
 import axios from 'axios'
 import { validationMixin } from 'vuelidate'
 import { required, numeric } from 'vuelidate/lib/validators'
+import { mapState } from 'vuex'
 
 export default {
   name: 'IncrementarStock',
   mixins: [validationMixin],
-  props: {
-    id: {
-      type: Number,
-      required: true
-    }
-  },
   data() {
     return {
-      dialog: false,
       valid: false,
       invalid: false,
-      success: false,
       nuevaCantidad: 0
     }
   },
@@ -89,7 +92,7 @@ export default {
       required,
       numeric
     },
-    repuesto: {
+    formulario: {
       precio_unitario_compra: {
         required,
         numeric
@@ -97,14 +100,16 @@ export default {
     }
   },
   computed: {
-    repuesto() {
-      return this.$store.getters['repuesto/getRepuestoById'](this.id)
+    ...mapState(['repuesto']),
+    formulario() {
+      return this.repuesto.repuesto
     },
     erroresPrecioCompra() {
       const errors = []
-      if (!this.$v.repuesto.precio_unitario_compra.$dirty) return errors
-      !this.$v.repuesto.precio_unitario_compra.required && errors.push('Debes completar este campo')
-      !this.$v.repuesto.precio_unitario_compra.numeric &&
+      if (!this.$v.formulario.precio_unitario_compra.$dirty) return errors
+      !this.$v.formulario.precio_unitario_compra.required &&
+        errors.push('Debes completar este campo')
+      !this.$v.formulario.precio_unitario_compra.numeric &&
         errors.push('Este campo debe contener un valor numérico')
       return errors
     },
@@ -117,18 +122,23 @@ export default {
     }
   },
   methods: {
-    async actualizar() {
+    async actualizar(id) {
       this.$v.$touch()
 
       if (this.$v.$invalid) this.invalid = true
       else {
-        const url = `/api/v1/repuestos/update/stock/${this.id}`
-        const params = Object.assign({}, this.repuesto)
+        const url = `/api/v1/repuestos/update/stock/${id}`
+        const params = Object.assign({}, this.formulario)
         params.nueva_cantidad = this.nuevaCantidad
 
         await axios.put(url, params)
-        this.invalid = false
-        this.success = true
+
+        this.$router.push('/repuestos', () => {
+          this.$swal.fire({
+            title: 'Stock actualizado con éxito',
+            type: 'success'
+          })
+        })
       }
     }
   }

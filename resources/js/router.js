@@ -13,6 +13,7 @@ import Servicios from './components/views/servicios/Servicios.vue'
 import ServicioEditar from './components/views/servicios/ServiciosEditar.vue'
 import Repuestos from './components/views/repuestos/Repuestos.vue'
 import RepuestoEditar from './components/views/repuestos/RepuestoEditar.vue'
+import RepuestoStock from './components/views/repuestos/AñadirStock.vue'
 
 Vue.use(Router)
 
@@ -62,6 +63,20 @@ const router = new Router({
       path: '/repuestos/:id/editar',
       name: 'editar-repuesto',
       component: RepuestoEditar,
+      props: true,
+      async beforeEnter(routeTo, routeFrom, next) {
+        try {
+          await store.dispatch('repuesto/fetchOne', routeTo.params.id)
+          next()
+        } catch (error) {
+          console.error(`Hubo un error: ${error}`)
+        }
+      }
+    },
+    {
+      path: '/repuestos/:id/stock',
+      name: 'stock-repuesto',
+      component: RepuestoStock,
       props: true,
       async beforeEnter(routeTo, routeFrom, next) {
         try {
